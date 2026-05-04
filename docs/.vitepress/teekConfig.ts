@@ -21,7 +21,7 @@ export const teekConfig = defineTeekConfig({
     features: [],
   },
   post: {
-    postStyle: "card",
+    postStyle: "list",
     coverImgMode: "default",
   },
   author: { name: "likeflames", link: "https://github.com/likeflames" },
