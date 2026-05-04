@@ -15,7 +15,7 @@ export const teekConfig = defineTeekConfig({
     enabled: true,
     name: "likeflames",
     bgStyle: "fullImg",
-    imgSrc: ["/blog/bg1.webp"],
+    imgSrc: ["/bg/bg1.jpg", "/bg/bg2.png"],
     description: ["欢迎来到我的个人网站"],
     descStyle: "types",
     features: [],
