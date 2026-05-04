@@ -67,9 +67,9 @@ export const teekConfig = defineTeekConfig({
     provider: "giscus",
     options: {
       repo: "likeflames/test",
-      repoId: "",
+      repoId: "R_kgDOQ_uyPg",
       category: "Announcements",
-      categoryId: "",
+      categoryId: "DIC_kwDOQ_uyPs4C8UVX",
     },
   },
   vitePlugins: {
