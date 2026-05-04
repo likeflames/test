@@ -3,15 +3,14 @@ import llmstxt from "vitepress-plugin-llms";
 import { teekConfig } from "./teekConfig";
 
 const description = [
-  "欢迎来到 vitepress-theme-teek 使用文档",
-  "Teek 是一个基于 VitePress 构建的主题，是在默认主题的基础上进行拓展，支持 VitePress 的所有功能、配置",
-  "Teek 拥有三种典型的知识管理形态：结构化、碎片化、体系化，可以轻松构建一个结构化知识库，适用个人博客、文档站、知识库等场景",
+  "likeflames 的个人网站",
+  "分享技术、生活与思考",
 ].toString();
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   extends: teekConfig,
-  title: "vitepress-theme-teek",
+  title: "likeflames",
   description: description,
   cleanUrls: false,
   lastUpdated: true,
@@ -24,13 +23,13 @@ export default defineConfig({
     ["link", { rel: "icon", type: "image/png", href: "/teek-logo-mini.png" }],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:locale", content: "zh-CN" }],
-    ["meta", { property: "og:title", content: "Teek | VitePress Theme" }],
-    ["meta", { property: "og:site_name", content: "Teek" }],
-    ["meta", { property: "og:image", content: "" }],
-    ["meta", { property: "og:url", content: "" }],
+    ["meta", { property: "og:title", content: "likeflames" }],
+    ["meta", { property: "og:site_name", content: "likeflames" }],
+    ["meta", { property: "og:image", content: "/avatar.jpg" }],
+    ["meta", { property: "og:url", content: "https://likeflames.online" }],
     ["meta", { property: "og:description", description }],
     ["meta", { name: "description", description }],
-    ["meta", { name: "author", content: "Teek" }],
+    ["meta", { name: "author", content: "likeflames" }],
     // 禁止浏览器缩放
     // [
     //   "meta",
@@ -58,7 +57,7 @@ export default defineConfig({
     },
   },
   sitemap: {
-    hostname: "https://vp.teek.top", // ** 换成你的域名
+    hostname: "https://likeflames.online",
     transformItems: (items) => {
       const permalinkItemBak: typeof items = [];
       // 使用永久链接生成 sitemap
@@ -74,7 +73,7 @@ export default defineConfig({
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: "/teek-logo-mini.svg",
+    logo: "/avatar.jpg",
     darkModeSwitchLabel: "主题",
     sidebarMenuLabel: "菜单",
     returnToTopLabel: "返回顶部",
@@ -89,33 +88,14 @@ export default defineConfig({
     },
     nav: [
       { text: "首页", link: "/" },
-      {
-        text: "指南",
-        link: "/guide/intro",
-        activeMatch: "/01.指南/",
-      },
-      { text: "配置", link: "/reference/config", activeMatch: "/10.配置/" },
-      { text: "开发", link: "/develop/intro", activeMatch: "/15.主题开发/" },
-      {
-        text: "功能页",
-        items: [
-          { text: "归档页", link: "/archives" },
-          { text: "清单页", link: "/articleOverview" },
-          { text: "登录页", link: "/login" },
-          {
-            text: "风险链接提示页",
-            link: "/risk-link?target=https://vp.teek.top",
-          },
-          { text: "分类页", link: "/categories" },
-          { text: "标签页", link: "/tags" },
-        ],
-      },
-      { text: "✨ 赞赏", link: "/personal/" },
+      { text: "归档", link: "/archives" },
+      { text: "分类", link: "/categories" },
+      { text: "标签", link: "/tags" },
     ],
     socialLinks: [
       {
         icon: "github",
-        link: "https://github.com/Kele-Bingtang/vitepress-theme-teek",
+        link: "https://github.com/likeflames",
       },
     ],
     search: {
@@ -124,7 +104,7 @@ export default defineConfig({
     editLink: {
       text: "在 GitHub 上编辑此页",
       pattern:
-        "https://github.com/Kele-Bingtang/vitepress-theme-teek/edit/master/docs/:path",
+        "https://github.com/likeflames/test/edit/main/docs/:path",
     },
   },
   vite: {
