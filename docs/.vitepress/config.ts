@@ -43,6 +43,7 @@ export default defineConfig({
       "style",
       {},
       `@media(max-width:768px){.tk-banner-bg-image.full{background:red!important}}`,
+    ],
   ],
   markdown: {
     // 开启行号
