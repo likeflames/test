@@ -88,6 +88,14 @@ export const teekConfig = defineTeekConfig({
       categoryId: "DIC_kwDOQ_uyPs4C8UVX",
     },
   },
+  siteAnalytics: [
+    {
+      provider: "google",
+      options: {
+        id: "G-WV1ETTWBXW",
+      },
+    },
+  ],
   vitePlugins: {
     sidebarOption: {
       initItems: true,
