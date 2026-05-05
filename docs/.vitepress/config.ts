@@ -40,6 +40,15 @@ export default defineConfig({
     // ],
     ["meta", { name: "keywords", description }],
     [
+      "script",
+      { async: "", src: "https://www.googletagmanager.com/gtag/js?id=G-WV1ETTWBXW" },
+    ],
+    [
+      "script",
+      {},
+      `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-WV1ETTWBXW')`,
+    ],
+    [
       "style",
       {},
       `@media(max-width:768px){.tk-banner-bg-image.full{background:#0e98f1!important;transition:none!important}}`,
