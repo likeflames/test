@@ -40,9 +40,9 @@ export default defineConfig({
     // ],
     ["meta", { name: "keywords", description }],
     [
-      "style",
+      "script",
       {},
-      `@media(max-width:768px){.tk-banner-bg-image.full{background:red!important}}`,
+      `(function(){if(window.innerWidth>=768)return;var t=["/bg-mobile/3c8b13a5e0a7197dde890699e107f6ea04c6c394.jpg.avif","/bg-mobile/93419e16e536b5ee0a34a5f37a97bf3ddc980d0e.jpg.avif","/bg-mobile/992721655dc21c227c4fba2509d499aebe298357.jpg.avif","/bg-mobile/b3fb1249809fe2bc5b403ab157ccfce9add3dfa1.jpg.avif","/bg-mobile/dc1090e76f04cf78f4429bf3f3c7a83dd631e5dc.jpg.avif","/bg-mobile/ddd97a71872b6052a2cf7c52b58fe0ec1481c82a.jpg.avif"],n=0;setInterval(function(){var e=document.querySelector(".tk-banner-bg-image.full");if(!e)return;e.style.setProperty("background","url("+t[n%t.length]+") center center / contain no-repeat fixed","important");n++},5e3)})();`,
     ],
   ],
   markdown: {
