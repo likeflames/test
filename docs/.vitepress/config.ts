@@ -42,7 +42,7 @@ export default defineConfig({
     [
       "style",
       {},
-      `@media(max-width:768px){@keyframes tk-mo{0%{background-image:url(/bg-mobile/3c8b13a5e0a7197dde890699e107f6ea04c6c394.jpg.avif)}16.66%{background-image:url(/bg-mobile/93419e16e536b5ee0a34a5f37a97bf3ddc980d0e.jpg.avif)}33.33%{background-image:url(/bg-mobile/992721655dc21c227c4fba2509d499aebe298357.jpg.avif)}50%{background-image:url(/bg-mobile/b3fb1249809fe2bc5b403ab157ccfce9add3dfa1.jpg.avif)}66.66%{background-image:url(/bg-mobile/dc1090e76f04cf78f4429bf3f3c7a83dd631e5dc.jpg.avif)}83.33%{background-image:url(/bg-mobile/ddd97a71872b6052a2cf7c52b58fe0ec1481c82a.jpg.avif)}100%{background-image:url(/bg-mobile/3c8b13a5e0a7197dde890699e107f6ea04c6c394.jpg.avif)}}.tk-banner-bg-image.full{animation:tk-mo 30s steps(1) infinite;transition:none!important;background-size:contain!important}}`,
+      `@media(max-width:768px){.tk-banner-bg-image.full{background:#e0f0ff!important;transition:none!important}}`,
     ],
   ],
   markdown: {
