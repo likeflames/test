@@ -42,7 +42,7 @@ export default defineConfig({
     [
       "style",
       {},
-      `@media(max-width:768px){.tk-banner-bg-image.full{background:#e0f0ff!important;transition:none!important}}`,
+      `@media(max-width:768px){.tk-banner-bg-image.full{background:red!important;transition:none!important}}`,
     ],
   ],
   markdown: {
