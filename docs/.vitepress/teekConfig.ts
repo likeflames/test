@@ -60,6 +60,7 @@ export const teekConfig = defineTeekConfig({
     readingTime: true,
     statistics: {
       provider: "busuanzi",
+      url: "//cdn.busuanzi.cc/busuanzi?jsonpCallback=BusuanziCallback",
       siteView: true,
       pageView: true,
       tryRequest: true,
