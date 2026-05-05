@@ -57,7 +57,7 @@ export const teekConfig = defineTeekConfig({
     enabled: true,
     createTime: "2026-05-04",
     statistics: {
-      provider: "busuanzi",
+      provider: "",
     },
   },
   homeCardSort: ["blogger", "topArticle", "category", "tag", "docAnalysis"],
