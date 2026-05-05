@@ -56,8 +56,16 @@ export const teekConfig = defineTeekConfig({
   docAnalysis: {
     enabled: true,
     createTime: "2026-05-04",
+    wordCount: true,
+    readingTime: true,
     statistics: {
-      provider: "",
+      provider: "busuanzi",
+      siteView: true,
+      pageView: true,
+      tryRequest: true,
+      tryCount: 5,
+      tryIterationTime: 2000,
+      permalink: true,
     },
   },
   homeCardSort: ["blogger", "topArticle", "category", "tag", "docAnalysis"],
