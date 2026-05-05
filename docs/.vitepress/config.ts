@@ -40,9 +40,9 @@ export default defineConfig({
     // ],
     ["meta", { name: "keywords", description }],
     [
-      "script",
+      "style",
       {},
-      `(function(){if(window.innerWidth>=768)return;var t=["/bg-mobile/3c8b13a5e0a7197dde890699e107f6ea04c6c394.jpg.avif","/bg-mobile/93419e16e536b5ee0a34a5f37a97bf3ddc980d0e.jpg.avif","/bg-mobile/992721655dc21c227c4fba2509d499aebe298357.jpg.avif","/bg-mobile/b3fb1249809fe2bc5b403ab157ccfce9add3dfa1.jpg.avif","/bg-mobile/dc1090e76f04cf78f4429bf3f3c7a83dd631e5dc.jpg.avif","/bg-mobile/ddd97a71872b6052a2cf7c52b58fe0ec1481c82a.jpg.avif"],n=0,i=null;var r=setInterval(function(){i=document.querySelector(".tk-banner-bg-image");if(!i)return;clearInterval(r);var e=new MutationObserver(function(){var r=i.style.getPropertyValue("--tk-banner-img-bg");if(r&&r.includes("bg-mobile"))return;n=(n+1)%t.length;i.style.setProperty("--tk-banner-img-bg","url("+t[n]+") center center / cover no-repeat")});i.style.setProperty("--tk-banner-img-bg","url("+t[0]+") center center / cover no-repeat");n=1;e.observe(i,{attributes:true,attributeFilter:["style"]})},100)})();`,
+      `@media(max-width:768px){@keyframes tk-mobile-bg{0%{background-image:url(/bg-mobile/3c8b13a5e0a7197dde890699e107f6ea04c6c394.jpg.avif)}16.66%{background-image:url(/bg-mobile/93419e16e536b5ee0a34a5f37a97bf3ddc980d0e.jpg.avif)}33.33%{background-image:url(/bg-mobile/992721655dc21c227c4fba2509d499aebe298357.jpg.avif)}50%{background-image:url(/bg-mobile/b3fb1249809fe2bc5b403ab157ccfce9add3dfa1.jpg.avif)}66.66%{background-image:url(/bg-mobile/dc1090e76f04cf78f4429bf3f3c7a83dd631e5dc.jpg.avif)}83.33%{background-image:url(/bg-mobile/ddd97a71872b6052a2cf7c52b58fe0ec1481c82a.jpg.avif)}100%{background-image:url(/bg-mobile/3c8b13a5e0a7197dde890699e107f6ea04c6c394.jpg.avif)}}.tk-banner-bg-image.full{animation:tk-mobile-bg 30s steps(1) infinite;background-size:contain!important}}`,
   ],
   markdown: {
     // 开启行号
