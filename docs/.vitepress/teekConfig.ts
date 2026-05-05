@@ -16,6 +16,12 @@ export const teekConfig = defineTeekConfig({
     name: "likeflames",
     bgStyle: "fullImg",
     imgSrc: [
+      "/bg-mobile/3c8b13a5e0a7197dde890699e107f6ea04c6c394.jpg@1256w_2234h_!web-article-pic.avif",
+      "/bg-mobile/93419e16e536b5ee0a34a5f37a97bf3ddc980d0e.jpg@1256w_2234h_!web-article-pic.avif",
+      "/bg-mobile/992721655dc21c227c4fba2509d499aebe298357.jpg@1256w_2718h_!web-article-pic.avif",
+      "/bg-mobile/b3fb1249809fe2bc5b403ab157ccfce9add3dfa1.jpg@1256w_1886h_!web-article-pic.avif",
+      "/bg-mobile/dc1090e76f04cf78f4429bf3f3c7a83dd631e5dc.jpg@1256w_2722h_!web-article-pic.avif",
+      "/bg-mobile/ddd97a71872b6052a2cf7c52b58fe0ec1481c82a.jpg@1256w_2720h_!web-article-pic.avif",
       "/bg/illust_18561946_20220323_145411.png",
       "/bg/illust_69618131_20220323_145327.jpg",
       "/bg/illust_81974290_20220323_145609.jpg",
