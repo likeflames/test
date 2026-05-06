@@ -1,9 +1,22 @@
 <script setup lang="ts" name="TeekLayoutProvider">
-import Teek from "vitepress-theme-teek";
+import Teek, { localeContextKey, zhCn } from "vitepress-theme-teek";
+import { provide, ref } from "vue";
 import ContributeChart from "./ContributeChart.vue";
 import CalendarCard from "./CalendarCard.vue";
 import NotFound from "./404.vue";
 
+// 自定义头像悬浮文字
+const customLocale = {
+  ...zhCn,
+  tk: {
+    ...zhCn.tk,
+    myCard: {
+      ...zhCn.tk.myCard,
+      avatarTitle: "今天有什么好事发生吗",
+    },
+  },
+};
+provide(localeContextKey, ref(customLocale));
 </script>
 
 <template>
