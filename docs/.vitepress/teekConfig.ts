@@ -84,6 +84,9 @@ export const teekConfig = defineTeekConfig({
   codeBlock: {
     copiedDone: (TkMessage) => TkMessage.success("复制成功！"),
   },
+  articleAnalyze: {
+    dateUTC: false,
+  },
   articleShare: { enabled: true },
   comment: {
     provider: "giscus",
