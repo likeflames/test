@@ -4,6 +4,7 @@ date: "2025-10-11 20:53:02"
 categories: [生活]
 tags: [跑步, 运动, 健康]
 top: true
+titleTag: "推荐"
 author:
   name: likeflames
 description: 面向跑步小白的分享，涵盖心理调整、EMTIR训练体系、力量训练、跑鞋选择等
