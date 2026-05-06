@@ -7,7 +7,6 @@ tags: [爬山, 越野, 标毅线, 杭州]
 author:
   name: likeflames
 description: 记录第一次爬标毅线的经历——从临时起意到摸黑下山，有崩溃也有遇见
-coverImg: /cover/cover2.avif
 ---
 
 记录一下第一次爬山吧，想到哪里写到哪里。

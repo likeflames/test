@@ -7,7 +7,6 @@ tags: [跑步, 运动, 回忆]
 author:
   name: likeflames
 description: 从小学校运会到大学田径队，记录这些年与跑步的故事
-coverImg: /cover/cover1.avif
 ---
 
 最近又坚持了一会儿跑步，今天是休息日，想写点关于跑步的文字。

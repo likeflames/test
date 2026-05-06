@@ -7,7 +7,6 @@ tags: [睡眠, 健康, 随笔]
 author:
   name: likeflames
 description: 关于睡眠时长的标准化流程、最佳上床时间、睡前与起床后的优化，以及一些个人经验分享
-coverImg: /cover/cover2.avif
 ---
 
 ## 今天要说的话
