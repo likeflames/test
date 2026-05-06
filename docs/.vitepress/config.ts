@@ -94,8 +94,7 @@ export default defineConfig({
     nav: [
       { text: "首页", link: "/" },
       { text: "归档", link: "/archives" },
-      { text: "分类", link: "/categories" },
-      { text: "标签", link: "/tags" },
+      { text: "分类与标签", link: "/categories" },
       { text: "文章清单", link: "/articleOverview" },
     ],
     socialLinks: [
