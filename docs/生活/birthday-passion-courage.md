@@ -7,6 +7,7 @@ tags: [随笔, 生日, 感悟]
 author:
   name: likeflames
 description: 新的一岁，希望自己拥有热情与勇气
+coverImg: /cover/cover1.avif
 ---
 
 没想到今年的生日在考驾照中度过 😭，现在在排队，写点送给自己的话。
