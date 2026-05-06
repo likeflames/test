@@ -96,7 +96,6 @@ export default defineConfig({
       { text: "归档", link: "/archives" },
       { text: "分类", link: "/categories" },
       { text: "文章清单", link: "/articleOverview" },
-      { text: "私密测试", link: "/test-private" },
     ],
     socialLinks: [
       {
