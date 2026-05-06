@@ -29,3 +29,7 @@ coverage
 *.sw?
 
 /**/.vitepress/cache/*
+
+# Misc
+brave_result.json
+mcp-open-webresearch-main/
