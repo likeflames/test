@@ -9,7 +9,7 @@ titleTag: "推荐"
 author:
   name: likeflames
 description: 面向跑步小白的分享，涵盖心理调整、EMTIR训练体系、力量训练、跑鞋选择等
-coverImg: /bg/illust_18561946_20220323_145411.png
+coverImg: /cover/bg5.avif
 ---
 
 > 个人水平有限，观点仅供参考，知识有限，在制作这篇推文的过程中我自身也同时在学习，欢迎与我交流
