@@ -8,6 +8,7 @@ const description = [
 ].toString();
 
 // https://vitepress.dev/reference/site-config
+// Test push - verify lastActiveTime update
 export default defineConfig({
   extends: teekConfig,
   title: "likeflames",
