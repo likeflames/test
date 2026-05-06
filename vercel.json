@@ -1,6 +1,6 @@
 {
   "framework": "vitepress",
-  "buildCommand": "rm -rf docs/.vitepress/cache docs/.vitepress/dist && NODE_OPTIONS=\"--max-old-space-size=4096\" pnpm docs:build",
+  "buildCommand": "rm -rf docs/.vitepress/cache docs/.vitepress/dist && TZ=Asia/Shanghai NODE_OPTIONS=\"--max-old-space-size=4096\" pnpm docs:build",
   "outputDirectory": "docs/.vitepress/dist",
   "installCommand": "pnpm install"
 }
