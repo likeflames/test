@@ -58,6 +58,7 @@ export const teekConfig = defineTeekConfig({
   },
   tag: {
     enabled: true,
+    path: "/categories",
   },
   docAnalysis: {
     enabled: true,
