@@ -115,8 +115,10 @@ export const teekConfig = defineTeekConfig({
     },
   ],
   vitePlugins: {
+    sidebar: true,
     sidebarOption: {
       initItems: true,
     },
+    permalink: true,
   },
 });
