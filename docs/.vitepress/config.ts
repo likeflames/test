@@ -113,7 +113,19 @@ export default defineConfig({
     },
   },
   vite: {
-    plugins: [llmstxt() as any],
+    plugins: [
+      llmstxt() as any,
+      {
+        name: "override-locale",
+        enforce: "post",
+        transform(code, id) {
+          if (id.includes("zh-cn.mjs") || id.includes("zh-cn.")) {
+            return code.replace('avatarTitle: "我好看吗"', 'avatarTitle: "今天有什么好事发生吗"');
+          }
+          return code;
+        },
+      },
+    ],
   },
   // transformHtml: (code, id, context) => {
   //   if (context.page !== "404.md") return code;
