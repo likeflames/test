@@ -160,6 +160,19 @@ export default defineConfig({
           return code;
         },
       },
+      {
+        name: "fix-article-banner-sidebar",
+        enforce: "post",
+        transform(code, id) {
+          if (id.includes("ArticleBanner") && id.includes("index.vue2")) {
+            return code.replace(
+              `!unref(hasSidebar) && unref(articleBannerConfig).enabled`,
+              `(unref(articleBannerConfig).enabled)`
+            );
+          }
+          return code;
+        },
+      },
     ],
   },
   // transformHtml: (code, id, context) => {
