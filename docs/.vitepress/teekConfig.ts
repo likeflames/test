@@ -36,6 +36,13 @@ export const teekConfig = defineTeekConfig({
     hideBanner: true,
     hideMask: true,
   },
+  private: {
+    enabled: true,
+    expire: "1d",
+    session: false,
+    siteLogin: false,
+    site: [{ username: "likeflames", password: "123456" }],
+  },
   post: {
     postStyle: "list",
     coverImgMode: "default",
