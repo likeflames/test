@@ -31,6 +31,11 @@ export const teekConfig = defineTeekConfig({
     descStyle: "types",
     features: [],
   },
+  wallpaper: {
+    enabled: true,
+    hideBanner: false,
+    hideMask: false,
+  },
   post: {
     postStyle: "list",
     coverImgMode: "default",
