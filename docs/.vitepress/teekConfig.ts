@@ -33,8 +33,8 @@ export const teekConfig = defineTeekConfig({
   },
   wallpaper: {
     enabled: true,
-    hideBanner: false,
-    hideMask: false,
+    hideBanner: true,
+    hideMask: true,
   },
   post: {
     postStyle: "list",
