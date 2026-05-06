@@ -40,6 +40,7 @@ export const teekConfig = defineTeekConfig({
     postStyle: "list",
     coverImgMode: "default",
   },
+  pageStyle: "card",
   author: { name: "likeflames", link: "https://github.com/likeflames" },
   blogger: {
     name: "likeflames",
@@ -84,6 +85,11 @@ export const teekConfig = defineTeekConfig({
   },
   codeBlock: {
     copiedDone: (TkMessage) => TkMessage.success("复制成功！"),
+  },
+  articleBanner: {
+    enabled: true,
+    showCategory: true,
+    showTag: true,
   },
   articleAnalyze: {
     dateUTC: false,
