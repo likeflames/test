@@ -1,6 +1,7 @@
 ---
 title: 支持这个项目
 date: 2025-08-06 23:53:30
+permalink: /personal
 sidebar: false
 article: false
 outline: false
