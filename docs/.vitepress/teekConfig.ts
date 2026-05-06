@@ -40,7 +40,7 @@ export const teekConfig = defineTeekConfig({
     postStyle: "list",
     coverImgMode: "default",
   },
-  pageStyle: "card",
+  pageStyle: "segment",
   author: { name: "likeflames", link: "https://github.com/likeflames" },
   blogger: {
     name: "likeflames",
