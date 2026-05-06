@@ -126,6 +126,40 @@ export default defineConfig({
           return code;
         },
       },
+      {
+        name: "fix-combined-categories-tags",
+        enforce: "post",
+        transform(code, id) {
+          if (id.includes("HomePostList") && id.includes("index.vue2")) {
+            const from = `if (frontmatterConst.categoriesPage) {
+        const c = searchParams.get("category");
+        post = c ? postConst.groupPosts.categories[c] : post.filter((item) => item.frontmatter.categories);
+      } else if (frontmatterConst.tagsPage) {
+        const t2 = searchParams.get("tag");
+        post = t2 ? postConst.groupPosts.tags[t2] : post.filter((item) => item.frontmatter.tags);
+      }`;
+            if (code.includes(from)) {
+              return code.replace(
+                from,
+                `if (frontmatterConst.categoriesPage && frontmatterConst.tagsPage) {
+        const c = searchParams.get("category");
+        const t = searchParams.get("tag");
+        if (t) post = postConst.groupPosts.tags[t];
+        else if (c) post = postConst.groupPosts.categories[c];
+        else post = post.filter((item) => item.frontmatter.categories);
+      } else if (frontmatterConst.categoriesPage) {
+        const c = searchParams.get("category");
+        post = c ? postConst.groupPosts.categories[c] : post.filter((item) => item.frontmatter.categories);
+      } else if (frontmatterConst.tagsPage) {
+        const t = searchParams.get("tag");
+        post = t ? postConst.groupPosts.tags[t] : post.filter((item) => item.frontmatter.tags);
+      }`
+              );
+            }
+          }
+          return code;
+        },
+      },
     ],
   },
   // transformHtml: (code, id, context) => {
