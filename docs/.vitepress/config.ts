@@ -113,7 +113,7 @@ export default defineConfig({
     },
   },
   vite: {
-    build: { chunkSizeWarningLimit: 1000 },
+    build: { chunkSizeWarningLimit: 2000 },
     plugins: [
       llmstxt() as any,
       {
