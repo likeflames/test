@@ -4,7 +4,6 @@ date: 2026-05-06
 private: true
 username: likeflames
 password: 123456
-permalink: /test-private.html
 ---
 
 # 私密测试文章
