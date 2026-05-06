@@ -118,6 +118,7 @@ export const teekConfig = defineTeekConfig({
     sidebar: true,
     sidebarOption: {
       initItems: true,
+      resolveRule: "rewrites",
     },
     permalink: true,
   },

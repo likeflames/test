@@ -1,6 +1,7 @@
 import { defineConfig } from "vitepress";
 import llmstxt from "vitepress-plugin-llms";
 import { teekConfig } from "./teekConfig";
+import { createRewrites } from "vitepress-theme-teek/config";
 
 const description = [
   "likeflames 的个人网站",
@@ -13,6 +14,7 @@ export default defineConfig({
   title: "likeflames",
   description: description,
   cleanUrls: false,
+  rewrites: createRewrites({ srcDir: "docs" }),
   lastUpdated: true,
   lang: "zh-CN",
   head: [
@@ -165,10 +167,15 @@ export default defineConfig({
         enforce: "post",
         transform(code, id) {
           if (id.includes("ArticleBanner") && id.includes("index.vue2")) {
-            return code.replace(
-              `!unref(hasSidebar) && unref(articleBannerConfig).enabled`,
-              `(unref(articleBannerConfig).enabled)`
-            );
+            console.log("[banner-plugin] matched:", id.slice(-50));
+            const found = code.includes(`!unref(hasSidebar) && unref(articleBannerConfig).enabled`);
+            console.log("[banner-plugin] found target:", found);
+            if (found) {
+              return code.replace(
+                `!unref(hasSidebar) && unref(articleBannerConfig).enabled`,
+                `(unref(articleBannerConfig).enabled)`
+              );
+            }
           }
           return code;
         },
