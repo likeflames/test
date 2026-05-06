@@ -46,6 +46,7 @@ export const teekConfig = defineTeekConfig({
     slogan: "个人网站",
     avatar: "/avatar.jpg",
     shape: "circle-rotate",
+    circleBgImg: "/blog/bg6.avif",
     circleSize: 100,
   },
   topArticle: {
