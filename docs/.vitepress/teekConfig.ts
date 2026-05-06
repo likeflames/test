@@ -87,6 +87,8 @@ export const teekConfig = defineTeekConfig({
   },
   articleAnalyze: {
     dateUTC: false,
+    showCategory: true,
+    showTag: true,
   },
   articleShare: { enabled: true },
   comment: {
