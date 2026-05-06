@@ -1,5 +1,6 @@
 ---
 title: 关于跑步
+permalink: /about-running
 date: "2025-10-11 20:53:02"
 categories: [生活]
 tags: [跑步, 运动, 健康]

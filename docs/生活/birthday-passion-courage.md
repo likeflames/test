@@ -1,5 +1,6 @@
 ---
 title: 生日特辑：热情与勇气
+permalink: /birthday-passion-courage
 date: "2025-08-27"
 categories: [生活]
 tags: [随笔, 生日, 感悟]

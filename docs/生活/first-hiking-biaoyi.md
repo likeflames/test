@@ -1,5 +1,6 @@
 ---
 title: 记录第一次爬山（标毅线）
+permalink: /first-hiking-biaoyi
 date: "2026-04-06"
 categories: [生活]
 tags: [爬山, 越野, 标毅线, 杭州]

@@ -1,5 +1,6 @@
 ---
 title: 关于跑步的回忆与思考
+permalink: /about-running-part2
 date: "2025-08-13"
 categories: [生活]
 tags: [跑步, 运动, 回忆]

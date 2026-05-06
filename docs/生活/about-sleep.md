@@ -1,5 +1,6 @@
 ---
 title: 祝你有个香喷喷的睡眠
+permalink: /about-sleep
 date: "2025-02-22"
 categories: [生活]
 tags: [睡眠, 健康, 随笔]
