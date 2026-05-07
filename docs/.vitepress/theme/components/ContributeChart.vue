@@ -140,6 +140,7 @@ onMounted(() => {
 <style>
 .tk-article-page.tk-archives {
   width: 1220px;
+  max-width: 100%;
 }
 
 .tk-archives .contribute__chart {

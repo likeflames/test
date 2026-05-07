@@ -30,19 +30,19 @@ export default defineConfig({
     ["meta", { property: "og:description", description }],
     ["meta", { name: "description", description }],
     ["meta", { name: "author", content: "likeflames" }],
-    // 禁止浏览器缩放
-    // [
-    //   "meta",
-    //   {
-    //     name: "viewport",
-    //     content: "width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no",
-    //   },
-    // ],
+    // 禁止浏览器缩放，优化移动端显示
+    [
+      "meta",
+      {
+        name: "viewport",
+        content: "width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no",
+      },
+    ],
     ["meta", { name: "keywords", description }],
     [
       "style",
       {},
-      `@media(max-width:768px){.tk-banner-bg-image.full{background:#0e98f1!important;transition:none!important}}`,
+      `@media(max-width:768px){.tk-banner-bg-image.full{background:linear-gradient(135deg,#0e98f1,#667eea,#764ba2)!important;transition:none!important}}`,
     ],
   ],
   markdown: {

@@ -1,0 +1,226 @@
+/* ========================================
+   移动端适配优化
+   断点: 768px (平板), 640px (手机)
+   ======================================== */
+
+/* ---------- 全局调整 ---------- */
+@media (max-width: 768px) {
+  .tk-article-page {
+    padding: 0 6px;
+
+    h1 { font-size: 26px; }
+    h2 { font-size: 22px; }
+    h3 { font-size: 18px; }
+  }
+
+  .tk-article-page .tk-doc {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .tk-article-page .tk-doc {
+    padding: 12px;
+    border-radius: 6px;
+  }
+
+  /* 表格横向滚动 */
+  .vp-doc table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* 代码块边距 */
+  .vp-doc div[class*="language-"] {
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 6px;
+  }
+}
+
+/* ---------- Banner 移动端 ---------- */
+@media (max-width: 768px) {
+  .tk-banner-bg-image.full {
+    background: linear-gradient(135deg, #0e98f1 0%, #667eea 50%, #764ba2 100%) !important;
+    transition: none !important;
+  }
+
+  /* Banner 标题缩小 */
+  .tk-home-banner .tk-home-banner-content .title {
+    font-size: 28px !important;
+  }
+
+  .tk-home-banner .tk-home-banner-content .description {
+    font-size: 14px !important;
+  }
+
+  /* Banner 底部波浪隐藏（移动端节省空间） */
+  .tk-home-banner-waves {
+    display: none;
+  }
+}
+
+/* ---------- 日历卡片移动端 ---------- */
+@media (max-width: 768px) {
+  #card-widget-calendar .item-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #calendar-area-left {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px 12px;
+    padding: 8px 4px 4px;
+    position: relative;
+  }
+
+  #calendar-week {
+    position: static;
+    height: auto;
+  }
+
+  #calendar-date {
+    position: static;
+    height: auto;
+    font-size: 28px;
+  }
+
+  #calendar-solar,
+  #calendar-lunar {
+    position: static;
+    height: auto;
+    font-size: 11px;
+  }
+
+  #calendar-area-right {
+    width: 100%;
+  }
+
+  #calendar-main a {
+    height: 1rem;
+    width: 1rem;
+    font-size: 10px;
+    line-height: 10px;
+  }
+
+  .calendar-r0,
+  .calendar-r1,
+  .calendar-r2,
+  .calendar-r3,
+  .calendar-r4,
+  .calendar-r5,
+  .calendar-r6,
+  .calendar-rh {
+    height: 1rem;
+  }
+}
+
+/* ---------- 贡献图移动端 ---------- */
+@media (max-width: 768px) {
+  .tk-archives .contribute__chart {
+    height: 180px;
+  }
+}
+
+@media (max-width: 640px) {
+  .tk-archives .contribute__chart {
+    height: 140px;
+  }
+
+  .tk-archives .contribute__chart .chart__box {
+    overflow-x: auto;
+  }
+}
+
+/* ---------- 首页卡片间距 ---------- */
+@media (max-width: 768px) {
+  .tk-home-card-list {
+    gap: 8px;
+  }
+
+  .tk-my__avatar.circle-rotate {
+    margin-top: 120px !important;
+  }
+
+  .tk-my__avatar.circle-rotate img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .tk-my__icons a {
+    width: 34px;
+    height: 34px;
+  }
+
+  .tk-my__blogger .name {
+    font-size: 18px;
+  }
+}
+
+/* ---------- 博主头像圆形背景偏移（移动端） ---------- */
+@media (max-width: 640px) {
+  .tk-my.is-circle-bg .tk-my__avatar.circle-rotate {
+    margin-top: 80px !important;
+  }
+}
+
+/* ---------- 文章信息行 ---------- */
+@media (max-width: 640px) {
+  .tk-article-info {
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    font-size: 12px;
+  }
+
+  .tk-post-item__left {
+    padding: 12px 16px;
+  }
+
+  .tk-post-item__left__title {
+    font-size: 16px;
+  }
+}
+
+/* ---------- 归档页 ---------- */
+@media (max-width: 768px) {
+  .tk-article-page.tk-archives {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .tk-archives-page .tk-archives-page__title {
+    font-size: 22px;
+  }
+}
+
+/* ---------- 侧边栏优化 ---------- */
+@media (max-width: 768px) {
+  .VPSidebar .nav .item h2.text {
+    font-size: 15px;
+  }
+
+  .VPSidebar .nav .item p.text {
+    font-size: 13px;
+  }
+}
+
+/* ---------- 增强面板 ---------- */
+@media (max-width: 640px) {
+  .tk-theme-enhance {
+    transform: scale(0.85);
+    transform-origin: bottom right;
+  }
+}
+
+/* ---------- 评论区 ---------- */
+@media (max-width: 640px) {
+  .tk-comment {
+    padding: 0 4px;
+  }
+}
