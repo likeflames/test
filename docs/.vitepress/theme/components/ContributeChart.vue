@@ -18,8 +18,8 @@ const sunday = new Date(monthStart);
 sunday.setDate(monthStart.getDate() - monthStart.getDay());
 const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 1);
 const mobileRange = [
-  formatDate(sunday, "yyyy-MM-dd"),
-  formatDate(monthEnd, "yyyy-MM-dd"),
+  formatDate(sunday, "yyyy-MM-dd", false),
+  formatDate(monthEnd, "yyyy-MM-dd", false),
 ] as [string, string];
 
 // 贡献图数据
