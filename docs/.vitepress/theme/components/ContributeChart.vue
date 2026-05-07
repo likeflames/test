@@ -11,12 +11,12 @@ const posts = usePosts();
 const today = formatDate(new Date(), "yyyy-MM-dd");
 // 获取一年前的时间
 const beforeOnYear = formatDate(new Date(new Date().getTime() - 364 * 24 * 60 * 60 * 1000), "yyyy-MM-dd");
-// 移动端：最近 3 个完整月份（3月、4月、5月）
+// 移动端：最近 3 个完整月份（3月1日 → 5月31日）
 const now = new Date();
 const padN = (n: number) => String(n).padStart(2, "0");
 const mobileRange = [
-  `${now.getFullYear()}-${padN(now.getMonth() + 1 - 2)}`,
-  `${now.getFullYear()}-${padN(now.getMonth() + 2)}`,
+  `${now.getFullYear()}-${padN(now.getMonth() + 1 - 2)}-01`,
+  `${now.getFullYear()}-${padN(now.getMonth() + 1)}-${padN(new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate())}`,
 ] as [string, string];
 
 // 贡献图数据
