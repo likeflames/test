@@ -13,14 +13,16 @@ const today = formatDate(new Date(), "yyyy-MM-dd");
 const beforeOnYear = formatDate(new Date(new Date().getTime() - 364 * 24 * 60 * 60 * 1000), "yyyy-MM-dd");
 // 移动端：最近 3 个月，范围起始自动对齐到周日（firstDay: 7 = Sunday）
 const now = new Date();
-const monthStart = new Date(now.getFullYear(), now.getMonth() - 2, 1);
+const year = now.getFullYear();
+const pad2 = (n: number) => String(n).padStart(2, "0");
+const monthStart = new Date(year, now.getMonth() - 2, 1);
 const sunday = new Date(monthStart);
 sunday.setDate(monthStart.getDate() - monthStart.getDay());
-const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-const mobileRange = [
-  formatDate(sunday, "yyyy-MM-dd", false),
-  formatDate(monthEnd, "yyyy-MM-dd", false),
-] as [string, string];
+const monthEnd = new Date(year, now.getMonth() + 1, 0);
+const mobileRange: [string, string] = [
+  `${year}-${pad2(sunday.getMonth() + 1)}-${pad2(sunday.getDate())}`,
+  `${year}-${pad2(monthEnd.getMonth() + 1)}-${pad2(monthEnd.getDate())}`,
+];
 
 // 贡献图数据
 const contributeList = computed(() => {
