@@ -106,17 +106,13 @@ const renderChart = (data: any) => {
   option.calendar.itemStyle.borderColor = isDark.value ? "#1b1b1f" : "#fff";
   option.calendar.itemStyle.color = isDark.value ? "#787878" : "#ebedf0";
 
-  // 移动端适配：右对齐 + 缩小格子，裁掉左侧旧日期
+  // 移动端适配：右对齐，裁掉左侧旧日期
   if (window.innerWidth < 768) {
     option.calendar.left = "auto";
     option.calendar.right = 0;
-    option.calendar.cellSize = [12, 12];
-    option.calendar.dayLabel.show = false;
   } else {
     option.calendar.left = "center";
     option.calendar.right = "auto";
-    option.calendar.cellSize = [20, 20];
-    option.calendar.dayLabel.show = true;
   }
 
   if (contributeChart.value) echarts.dispose(contributeChart.value);
