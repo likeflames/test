@@ -61,64 +61,6 @@
   }
 }
 
-/* ---------- 日历卡片移动端 ---------- */
-@media (max-width: 768px) {
-  #card-widget-calendar .item-content {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #calendar-area-left {
-    width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4px 12px;
-    padding: 8px 4px 4px;
-    position: relative;
-  }
-
-  #calendar-week {
-    position: static;
-    height: auto;
-  }
-
-  #calendar-date {
-    position: static;
-    height: auto;
-    font-size: 28px;
-  }
-
-  #calendar-solar,
-  #calendar-lunar {
-    position: static;
-    height: auto;
-    font-size: 11px;
-  }
-
-  #calendar-area-right {
-    width: 100%;
-  }
-
-  #calendar-main a {
-    height: 1rem;
-    width: 1rem;
-    font-size: 10px;
-    line-height: 10px;
-  }
-
-  .calendar-r0,
-  .calendar-r1,
-  .calendar-r2,
-  .calendar-r3,
-  .calendar-r4,
-  .calendar-r5,
-  .calendar-r6,
-  .calendar-rh {
-    height: 1rem;
-  }
-}
-
 /* ---------- 贡献图移动端 ---------- */
 @media (max-width: 768px) {
   .tk-archives .contribute__chart {
