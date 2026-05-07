@@ -3,27 +3,26 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch, ref } from "vue";
+import { onMounted, watch } from "vue";
 import { useRoute } from "vitepress";
-import twikoo from "twikoo";
 
 const route = useRoute();
-const loaded = ref(false);
 
-const initTwikoo = () => {
+const initTwikoo = async () => {
+  if (typeof window === "undefined") return;
   try {
+    const twikoo = await import("twikoo");
     twikoo.init({
       envId: "https://twikoo.likeflames.online",
       el: "#twikoo",
     });
-    loaded.value = true;
   } catch (e) {
     console.error("Twikoo init failed:", e);
   }
 };
 
 watch(route, () => {
-  if (loaded.value) initTwikoo();
+  setTimeout(initTwikoo, 500);
 });
 
 onMounted(() => {
