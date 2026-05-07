@@ -74,11 +74,10 @@ const option = {
       borderColor: "#fff",
       shadowBlur: 0,
     },
-    cellSize: 20,
+    cellSize: [20, 20],
     range: [beforeOnYear, today],
     splitLine: true,
     dayLabel: {
-      show: true,
       firstDay: 7,
       nameMap: "ZH",
       color: "#3c3c43",
@@ -141,7 +140,6 @@ onMounted(() => {
 <style>
 .tk-article-page.tk-archives {
   width: 1220px;
-  max-width: 100%;
 }
 
 .tk-archives .contribute__chart {
@@ -153,15 +151,5 @@ onMounted(() => {
   margin: auto;
   width: 100%;
   height: 100%;
-}
-
-@media (max-width: 768px) {
-  .tk-archives .contribute__chart {
-    overflow: hidden;
-  }
-  .tk-archives .contribute__chart .chart__box {
-    width: 1000px;
-    margin: 0 0 0 auto;
-  }
 }
 </style>
