@@ -1,5 +1,8 @@
 import Teek from "vitepress-theme-teek";
-import TeekLayoutProvider from "./components/TeekLayoutProvider.vue";
+import { h } from "vue";
+import ContributeChart from "./components/ContributeChart.vue";
+import CalendarCard from "./components/CalendarCard.vue";
+import NotFound from "./components/404.vue";
 
 // Teek 在线主题包引用（需安装 Teek 在线版本）
 import "vitepress-theme-teek/index.css";
@@ -22,5 +25,10 @@ import "./styles/mobile.scss";
 
 export default {
   extends: Teek,
-  Layout: TeekLayoutProvider,
+  Layout: () =>
+    h(Teek.Layout, null, {
+      "teek-home-card-my-after": () => h(CalendarCard),
+      "teek-archives-top-before": () => h(ContributeChart),
+      "not-found": () => h(NotFound),
+    }),
 };

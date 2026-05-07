@@ -1,3 +1,11 @@
 :root {
   --vp-code-block-bg: var(--tk-fill-color-light);
 }
+
+.tk-my.is-circle-bg {
+  margin-bottom: 20px;
+
+  .tk-my__avatar.circle-rotate {
+    margin-top: 200px;
+  }
+}
