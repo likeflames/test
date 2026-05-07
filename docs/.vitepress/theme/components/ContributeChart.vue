@@ -16,7 +16,7 @@ const now = new Date();
 const monthStart = new Date(now.getFullYear(), now.getMonth() - 2, 1);
 const sunday = new Date(monthStart);
 sunday.setDate(monthStart.getDate() - monthStart.getDay());
-const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 1);
 const mobileRange = [
   formatDate(sunday, "yyyy-MM-dd"),
   formatDate(monthEnd, "yyyy-MM-dd"),
