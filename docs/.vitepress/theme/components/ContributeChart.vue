@@ -11,8 +11,9 @@ const posts = usePosts();
 const today = formatDate(new Date(), "yyyy-MM-dd");
 // 获取一年前的时间
 const beforeOnYear = formatDate(new Date(new Date().getTime() - 364 * 24 * 60 * 60 * 1000), "yyyy-MM-dd");
-// 移动端起始时间（3 个月前）
-const mobileStart = formatDate(new Date(new Date().getTime() - 90 * 24 * 60 * 60 * 1000), "yyyy-MM-dd");
+// 移动端：从当月往前推 3 个月的 1 号开始，对齐月份边界
+const now = new Date();
+const mobileStart = formatDate(new Date(now.getFullYear(), now.getMonth() - 3, 1), "yyyy-MM-dd");
 
 // 根据视口宽度选择范围起始日期
 const rangeStart = computed(() => {
@@ -115,6 +116,12 @@ const renderChart = (data: any) => {
   option.calendar.itemStyle.color = isDark.value ? "#787878" : "#ebedf0";
 
   option.calendar.range = [rangeStart.value, today];
+  // 移动端隐藏年份标签（短范围下显示异常）
+  if (window.innerWidth < 768) {
+    option.calendar.yearLabel.show = false;
+  } else {
+    option.calendar.yearLabel.show = true;
+  }
   if (contributeChart.value) echarts.dispose(contributeChart.value);
   if (chartRef.value) contributeChart.value = echarts.init(chartRef.value);
 
