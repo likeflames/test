@@ -111,14 +111,6 @@ const renderChart = (data: any) => {
 
   option.series.data = data;
   contributeChart.value?.setOption(option);
-
-  // 移动端：渲染后把容器滚到最右，让最新日期可见，左侧溢出被裁掉
-  if (window.innerWidth < 768) {
-    nextTick(() => {
-      const el = chartRef.value?.parentElement;
-      if (el) el.scrollLeft = el.scrollWidth;
-    });
-  }
 };
 
 watch(
@@ -166,10 +158,6 @@ onMounted(() => {
 @media (max-width: 768px) {
   .tk-archives .contribute__chart {
     overflow-x: auto;
-  }
-  .tk-archives .contribute__chart .chart__box {
-    min-width: 800px;
-    margin: 0;
   }
 }
 </style>
