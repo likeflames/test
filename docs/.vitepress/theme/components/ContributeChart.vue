@@ -106,6 +106,17 @@ const renderChart = (data: any) => {
   option.calendar.itemStyle.borderColor = isDark.value ? "#1b1b1f" : "#fff";
   option.calendar.itemStyle.color = isDark.value ? "#787878" : "#ebedf0";
 
+  if (window.innerWidth < 768) {
+    // 移动端：GitHub 贡献图风格，纵向排列，右侧对齐
+    option.calendar.orient = "vertical";
+    option.calendar.left = "auto";
+    option.calendar.right = 0;
+  } else {
+    option.calendar.orient = "horizontal";
+    option.calendar.left = "center";
+    option.calendar.right = "auto";
+  }
+
   if (contributeChart.value) echarts.dispose(contributeChart.value);
   if (chartRef.value) contributeChart.value = echarts.init(chartRef.value);
 
@@ -157,7 +168,7 @@ onMounted(() => {
 
 @media (max-width: 768px) {
   .tk-archives .contribute__chart {
-    overflow-x: auto;
+    overflow: hidden;
   }
 }
 </style>
