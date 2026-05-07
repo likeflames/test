@@ -106,20 +106,19 @@ const renderChart = (data: any) => {
   option.calendar.itemStyle.borderColor = isDark.value ? "#1b1b1f" : "#fff";
   option.calendar.itemStyle.color = isDark.value ? "#787878" : "#ebedf0";
 
-  // 移动端适配：右对齐，裁掉左侧旧日期
-  if (window.innerWidth < 768) {
-    option.calendar.left = "auto";
-    option.calendar.right = 0;
-  } else {
-    option.calendar.left = "center";
-    option.calendar.right = "auto";
-  }
-
   if (contributeChart.value) echarts.dispose(contributeChart.value);
   if (chartRef.value) contributeChart.value = echarts.init(chartRef.value);
 
   option.series.data = data;
   contributeChart.value?.setOption(option);
+
+  // 移动端：渲染后把容器滚到最右，让最新日期可见，左侧溢出被裁掉
+  if (window.innerWidth < 768) {
+    nextTick(() => {
+      const el = chartRef.value?.parentElement;
+      if (el) el.scrollLeft = el.scrollWidth;
+    });
+  }
 };
 
 watch(
@@ -165,9 +164,12 @@ onMounted(() => {
 }
 
 @media (max-width: 768px) {
+  .tk-archives .contribute__chart {
+    overflow-x: auto;
+  }
   .tk-archives .contribute__chart .chart__box {
-    margin: 0 0 0 auto;
-    overflow: hidden;
+    min-width: 800px;
+    margin: 0;
   }
 }
 </style>
