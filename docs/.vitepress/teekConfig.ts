@@ -92,12 +92,9 @@ export const teekConfig = defineTeekConfig({
   },
   articleShare: { enabled: true },
   comment: {
-    provider: "giscus",
+    provider: "twikoo",
     options: {
-      repo: "likeflames/test",
-      repoId: "R_kgDOQ_uyPg",
-      category: "Announcements",
-      categoryId: "DIC_kwDOQ_uyPs4C8UVX",
+      envId: "https://test-git-main-likeflames-projects-a8766b29.vercel.app",
     },
   },
   siteAnalytics: [
