@@ -16,7 +16,7 @@ const now = new Date();
 const padN = (n: number) => String(n).padStart(2, "0");
 const mobileRange = [
   `${now.getFullYear()}-${padN(now.getMonth() + 1 - 2)}`,
-  `${now.getFullYear()}-${padN(now.getMonth() + 1)}`,
+  `${now.getFullYear()}-${padN(now.getMonth() + 2)}`,
 ] as [string, string];
 
 // 贡献图数据
