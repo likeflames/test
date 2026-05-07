@@ -91,6 +91,12 @@ export const teekConfig = defineTeekConfig({
     showTag: true,
   },
   articleShare: { enabled: true },
+  comment: {
+    provider: "twikoo",
+    options: {
+      envId: "https://test-git-main-likeflames-projects-a8766b29.vercel.app",
+    },
+  },
   siteAnalytics: [
     {
       provider: "google",
