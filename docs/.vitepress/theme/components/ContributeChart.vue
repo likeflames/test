@@ -105,6 +105,13 @@ const renderChart = (data: any) => {
   option.calendar.itemStyle.borderColor = isDark.value ? "#1b1b1f" : "#fff";
   option.calendar.itemStyle.color = isDark.value ? "#787878" : "#ebedf0";
 
+  // 移动端改为纵向排列（GitHub 风格），让最新周在右侧
+  if (window.innerWidth < 768) {
+    option.calendar.orient = "vertical";
+  } else {
+    option.calendar.orient = "horizontal";
+  }
+
   if (contributeChart.value) echarts.dispose(contributeChart.value);
   if (chartRef.value) contributeChart.value = echarts.init(chartRef.value);
 
