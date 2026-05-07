@@ -364,4 +364,73 @@ onMounted(() => {
   background: var(--vp-c-brand-1);
   color: #fff;
 }
+
+/* 移动端适配：窄屏下转为纵向布局，修复绝对定位错位 */
+@media (max-width: 640px) {
+  #card-widget-calendar .item-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #calendar-area-left,
+  #calendar-area-right {
+    width: 100%;
+  }
+
+  #calendar-area-left {
+    position: relative;
+    min-height: auto;
+    padding-bottom: 8px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2px 12px;
+    border-bottom: 1px solid var(--vp-c-divider);
+    margin-bottom: 8px;
+  }
+
+  #calendar-week {
+    position: relative;
+    height: auto;
+    justify-content: center;
+  }
+
+  #calendar-date {
+    position: relative;
+    top: auto;
+    height: auto;
+    font-size: 28px;
+    justify-content: center;
+  }
+
+  #calendar-solar,
+  #calendar-lunar {
+    position: relative;
+    bottom: auto;
+    height: auto;
+    justify-content: center;
+  }
+
+  #calendar-area-right {
+    padding: 0;
+  }
+
+  #calendar-main a {
+    height: 1.6rem;
+    width: 1.6rem;
+    font-size: 13px;
+    line-height: 1.6rem;
+  }
+
+  .calendar-r0,
+  .calendar-r1,
+  .calendar-r2,
+  .calendar-r3,
+  .calendar-r4,
+  .calendar-r5,
+  .calendar-r6,
+  .calendar-rh {
+    height: 1.4rem;
+  }
+}
 </style>

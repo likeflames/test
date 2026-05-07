@@ -37,6 +37,25 @@
     margin-right: 0;
     border-radius: 6px;
   }
+
+  /* 图片自适应 */
+  .vp-doc img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+}
+
+/* 极小屏适配 */
+@media (max-width: 375px) {
+  .tk-article-page .tk-doc {
+    padding: 10px;
+    border-radius: 4px;
+  }
+
+  .tk-article-page h1 { font-size: 22px; }
+  .tk-article-page h2 { font-size: 19px; }
+  .tk-article-page h3 { font-size: 16px; }
 }
 
 /* ---------- Banner 移动端 ---------- */
@@ -155,6 +174,85 @@
 /* ---------- 评论区 ---------- */
 @media (max-width: 640px) {
   .tk-comment {
-    padding: 0 4px;
+    padding: 4px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .tk-comment iframe,
+  .tk-comment giscus-widget {
+    max-width: 100%;
+  }
+}
+
+/* ---------- 触摸目标优化 ---------- */
+@media (max-width: 768px) {
+  .tk-my__icons a {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .tk-pagination .tk-page-btn {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tk-home-category-card .category-item a,
+  .tk-home-tag-card .tag-item a {
+    padding: 8px 12px;
+    display: inline-block;
+    min-height: 44px;
+    line-height: 1.4;
+  }
+}
+
+/* ---------- 首页卡片内边距 ---------- */
+@media (max-width: 640px) {
+  .tk-home-card-list .tk-my {
+    padding: 8px;
+  }
+
+  .tk-home-category-card .category-list,
+  .tk-home-tag-card .tag-list {
+    gap: 4px;
+  }
+
+  .tk-doc-analysis-card .tk-doc-analysis-item {
+    font-size: 13px;
+  }
+}
+
+/* ---------- iOS 安全区域 ---------- */
+@media (max-width: 768px) {
+  .tk-article-page {
+    padding-left: max(6px, env(safe-area-inset-left));
+    padding-right: max(6px, env(safe-area-inset-right));
+  }
+
+  .tk-footer-info {
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+}
+
+/* ---------- 减少动画偏好 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .tk-my__avatar.circle-rotate img:hover {
+    transform: none !important;
+  }
+
+  .tk-post-item:hover {
+    transform: none !important;
   }
 }
