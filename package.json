@@ -5,7 +5,10 @@
   "description": "vitepress-theme-teek 文档模板",
   "type": "module",
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild", "@parcel/watcher"]
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "@parcel/watcher"
+    ]
   },
   "scripts": {
     "docs:dev": "vitepress dev docs",
