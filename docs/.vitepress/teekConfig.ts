@@ -94,7 +94,7 @@ export const teekConfig = defineTeekConfig({
   comment: {
     provider: "twikoo",
     options: {
-      envId: "test-git-main-likeflames-projects-a8766b29.vercel.app",
+      envId: "https://test-git-main-likeflames-projects-a8766b29.vercel.app",
     },
   },
   siteAnalytics: [
