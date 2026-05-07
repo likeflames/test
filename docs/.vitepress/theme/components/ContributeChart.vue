@@ -74,7 +74,7 @@ const option = {
       borderColor: "#fff",
       shadowBlur: 0,
     },
-    cellSize: [20, 20],
+    cellSize: 20,
     range: [beforeOnYear, today],
     splitLine: true,
     dayLabel: {
