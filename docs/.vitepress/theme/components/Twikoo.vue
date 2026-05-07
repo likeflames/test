@@ -3,28 +3,30 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch } from 'vue'
-import { useRoute } from 'vitepress'
+import { onMounted, watch, ref } from "vue";
+import { useRoute } from "vitepress";
+import twikoo from "twikoo";
 
-const route = useRoute()
+const route = useRoute();
+const loaded = ref(false);
 
-const initTwikoo = async () => {
-  // 判断是否在浏览器环境中
-  if (typeof window !== 'undefined') {
-    const twikoo = await import('twikoo')
+const initTwikoo = () => {
+  try {
     twikoo.init({
-      envId: 'https://twikoo.likeflames.online',
-      el: '#twikoo'
-    })
+      envId: "https://twikoo.likeflames.online",
+      el: "#twikoo",
+    });
+    loaded.value = true;
+  } catch (e) {
+    console.error("Twikoo init failed:", e);
   }
-}
+};
 
-// 监听路由刷新评论
 watch(route, () => {
-  initTwikoo()
-})
+  if (loaded.value) initTwikoo();
+});
 
 onMounted(() => {
-  initTwikoo()
-})
+  initTwikoo();
+});
 </script>
