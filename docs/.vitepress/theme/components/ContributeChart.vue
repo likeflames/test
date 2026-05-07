@@ -11,6 +11,16 @@ const posts = usePosts();
 const today = formatDate(new Date(), "yyyy-MM-dd");
 // 获取一年前的时间
 const beforeOnYear = formatDate(new Date(new Date().getTime() - 364 * 24 * 60 * 60 * 1000), "yyyy-MM-dd");
+// 移动端起始时间（3 个月前）
+const mobileStart = formatDate(new Date(new Date().getTime() - 90 * 24 * 60 * 60 * 1000), "yyyy-MM-dd");
+
+// 根据视口宽度选择范围起始日期
+const rangeStart = computed(() => {
+  if (typeof window !== "undefined" && window.innerWidth < 768) {
+    return mobileStart;
+  }
+  return beforeOnYear;
+});
 
 // 贡献图数据
 const contributeList = computed(() => {
@@ -75,7 +85,6 @@ const option = {
       shadowBlur: 0,
     },
     cellSize: [20, 20],
-    range: [beforeOnYear, today],
     splitLine: true,
     dayLabel: {
       firstDay: 7,
@@ -105,13 +114,7 @@ const renderChart = (data: any) => {
   option.calendar.itemStyle.borderColor = isDark.value ? "#1b1b1f" : "#fff";
   option.calendar.itemStyle.color = isDark.value ? "#787878" : "#ebedf0";
 
-  // 移动端改为纵向排列（GitHub 风格），让最新周在右侧
-  if (window.innerWidth < 768) {
-    option.calendar.orient = "vertical";
-  } else {
-    option.calendar.orient = "horizontal";
-  }
-
+  option.calendar.range = [rangeStart.value, today];
   if (contributeChart.value) echarts.dispose(contributeChart.value);
   if (chartRef.value) contributeChart.value = echarts.init(chartRef.value);
 
