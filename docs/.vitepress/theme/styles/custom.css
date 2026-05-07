@@ -1,0 +1,25 @@
+/* Twikoo 评论插件样式 */
+.twikoo .tk-comments-count {
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+}
+
+.twikoo .tk-nick,
+.twikoo .tk-replies .tk-nick-link {
+  margin-right: 4px;
+  font-size: 16px;
+  color: var(--vp-c-brand-1);
+}
+
+.twikoo .tk-tag {
+  margin-right: 4px;
+}
+
+.twikoo .tk-content p {
+  line-height: 1.8;
+}
+
+.twikoo .tk-expand {
+  margin-top: 16px;
+  border-radius: 6px;
+}
