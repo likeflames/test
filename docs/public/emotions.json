@@ -23,10 +23,6 @@
         "text": ""
       },
       {
-        "icon": "😘",
-        "text": ""
-      },
-      {
         "icon": "😜",
         "text": ""
       },
@@ -44,10 +40,6 @@
       },
       {
         "icon": "😡",
-        "text": ""
-      },
-      {
-        "icon": "😔",
         "text": ""
       },
       {
@@ -79,24 +71,12 @@
         "text": ""
       },
       {
-        "icon": "🙈",
-        "text": ""
-      },
-      {
         "icon": "🙏",
-        "text": ""
-      },
-      {
-        "icon": "🍦",
-        "text": ""
-      },
-      {
-        "icon": "🍉",
         "text": ""
       }
     ]
   },
-  "🐱2233": {
+  "2233娘": {
     "type": "image",
     "container": [
       {
@@ -159,9 +139,10 @@
         "text": "bilibili2233-15",
         "icon": "<img src='https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibili2233/9.png'>"
       }
-    ]
+    ],
+    "icon": "<img src=\"https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibili2233/1.png\">"
   },
-  "🔥热搜": {
+  "热搜": {
     "type": "image",
     "container": [
       {
@@ -292,9 +273,10 @@
         "text": "bilibiliHotKey-32",
         "icon": "<img src='https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibiliHotKey/9.jpg'>"
       }
-    ]
+    ],
+    "icon": "<img src=\"https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibiliHotKey/1.jpg\">"
   },
-  "📺小电视": {
+  "小电视": {
     "type": "image",
     "container": [
       {
@@ -473,9 +455,10 @@
         "text": "bilibili_tv_gif-44",
         "icon": "<img src='https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibili_tv_gif/鼓掌.gif'>"
       }
-    ]
+    ],
+    "icon": "<img src=\"https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibili_tv_gif/doge.gif\">"
   },
-  "💬贴吧": {
+  "贴吧": {
     "type": "image",
     "container": [
       {
@@ -914,6 +897,7 @@
         "text": "Tieba-New-109",
         "icon": "<img src='https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/Tieba-New/image_emoticon99.png'>"
       }
-    ]
+    ],
+    "icon": "<img src=\"https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/Tieba-New/image_emoticon.png\">"
   }
 }
