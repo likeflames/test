@@ -584,7 +584,13 @@ function go(i) {
   navLinks.forEach((a, j) => a.classList.toggle('cur', j === idx));
 }
 
-document.addEventListener('keydown', e => {
+
+document.addEventListener("mouseup", e => {
+  if (e.button === 0) go(idx + 1);
+  if (e.button === 2) go(idx - 1);
+});
+document.addEventListener("contextmenu", e => e.preventDefault());
+document.addEventListener("keydown", e => {
   if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(idx + 1); }
   if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(idx - 1); }
 });
