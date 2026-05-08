@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>如何制作 HTML PPT</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, sans-serif; background: #fff; color: #1a1a2e; }
+
+/* Scroll-Snap 回退 */
+@supports (scroll-snap-type: x mandatory) {
+  .scroll-x { scroll-snap-type: x mandatory; scroll-behavior: smooth; overflow-x: auto; display: flex; }
+  .scroll-x .page { scroll-snap-align: start; min-width: 100vw; min-height: 100vh; flex-shrink: 0; }
+}
+
+/* :target 锚点兜底 */
+.page:not(:target):not(.active) { display: none; }
+.page:target { display: flex; }
+
+.page {
+  display: none; flex-direction: column; justify-content: center; align-items: center;
+  min-height: 100vh; padding: 60px 40px; text-align: center;
+}
+.page.active { display: flex; }
+
+h1 { font-size: 2.8em; margin-bottom: 20px; line-height: 1.3; }
+h2 { font-size: 2em; margin-bottom: 16px; }
+p, li { font-size: 1.15em; line-height: 1.8; color: #444; max-width: 700px; }
+code { background: #f0f0f5; padding: 2px 8px; border-radius: 4px; font-size: .9em; color: #e74c3c; }
+pre { background: #1a1a2e; color: #f8f8f2; padding: 20px; border-radius: 10px; text-align: left; font-size: .9em; max-width: 700px; width: 100%; overflow-x: auto; margin: 16px 0; }
+.step { display: inline-block; background: #4361ee; color: #fff; width: 36px; height: 36px; line-height: 36px; border-radius: 50%; font-size: 18px; font-weight: bold; margin-bottom: 12px; }
+.nav { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 9999; background: rgba(0,0,0,.5); padding: 8px 16px; border-radius: 20px; }
+.nav a { color: #fff; text-decoration: none; font-size: 13px; padding: 4px 10px; border-radius: 10px; }
+.nav a:hover { background: rgba(255,255,255,.2); }
+.fs-btn { position: fixed; top: 20px; right: 20px; z-index: 99999; background: rgba(0,0,0,.5); color: #fff; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; font-size: 14px; }
+.fs-btn:hover { background: rgba(0,0,0,.7); }
+.fullscreen-css { position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 9999 !important; background: #fff !important; }
+ul { text-align: left; max-width: 700px; }
+li { margin: 8px 0; }
+.highlight { color: #4361ee; font-weight: 600; }
+.badge { display: inline-block; background: #4361ee; color: #fff; padding: 2px 10px; border-radius: 12px; font-size: .8em; }
+</style>
+</head>
+<body>
+
+<button class="fs-btn" onclick="toggleFullscreen()">⛶ 全屏</button>
+
+<!-- ===== 第 1 页 ===== -->
+<section id="s1" class="page active scroll-x">
+<div class="scroll-x">
+<div class="page">
+<h1>📊 如何制作 HTML PPT</h1>
+<p>从创建文件到推送上线，完整流程</p>
+<p style="margin-top:30px;font-size:14px;color:#999">← → 翻页 · ⛶ 全屏</p>
+</div>
+
+<!-- ===== 第 2 页 ===== -->
+<div id="s2" class="page">
+<div class="step">1</div>
+<h2>复制模板</h2>
+<p>在 <code>docs/public/ppt/</code> 目录下复制 <code>template.html</code></p>
+<pre>cp docs/public/ppt/template.html docs/public/ppt/我的演示.html</pre>
+<p>或者直接用 <span class="highlight">VS Code</span> 打开模板另存为新文件</p>
+<p style="margin-top:20px;font-size:14px;color:#999"><a href="#s1" style="color:#4361ee">← 上页</a> · <a href="#s3" style="color:#4361ee">下页 →</a></p>
+</div>
+
+<!-- ===== 第 3 页 ===== -->
+<div id="s3" class="page">
+<div class="step">2</div>
+<h2>修改内容</h2>
+<p>找到 HTML 中 <code>&lt;section&gt;</code> 标签，每个 <code>&lt;section&gt;</code> 就是一页幻灯片：</p>
+<pre>&lt;section id="s1" class="page"&gt;
+  &lt;h1&gt;标题&lt;/h1&gt;
+  &lt;p&gt;内容&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id="s2" class="page"&gt;
+  &lt;h2&gt;第二页&lt;/h2&gt;
+  &lt;p&gt;内容&lt;/p&gt;
+&lt;/section&gt;</pre>
+<p style="margin-top:20px;font-size:14px;color:#999"><a href="#s2" style="color:#4361ee">← 上页</a> · <a href="#s4" style="color:#4361ee">下页 →</a></p>
+</div>
+
+<!-- ===== 第 4 页 ===== -->
+<div id="s4" class="page">
+<div class="step">3</div>
+<h2>添加导航链接</h2>
+<p>每页底部要添加上一页/下一页的链接，使用锚点跳转：</p>
+<pre>&lt;a href="#s1"&gt;← 上页&lt;/a&gt;
+&lt;a href="#s3"&gt;下页 →&lt;/a&gt;</pre>
+<p><span class="badge">注意</span> 每页的 <code>id</code> 要唯一，不能重复</p>
+<p style="margin-top:20px;font-size:14px;color:#999"><a href="#s3" style="color:#4361ee">← 上页</a> · <a href="#s5" style="color:#4361ee">下页 →</a></p>
+</div>
+
+<!-- ===== 第 5 页 ===== -->
+<div id="s5" class="page">
+<div class="step">4</div>
+<h2>本地预览</h2>
+<p>在浏览器中直接双击打开 HTML 文件就能预览效果</p>
+<p>确认所有页面显示正常、链接跳转正确</p>
+<p style="margin-top:20px;font-size:14px;">或者用 VS Code 的 <span class="highlight">Live Server</span> 插件实时预览</p>
+<p style="margin-top:20px;font-size:14px;color:#999"><a href="#s4" style="color:#4361ee">← 上页</a> · <a href="#s6" style="color:#4361ee">下页 →</a></p>
+</div>
+
+<!-- ===== 第 6 页 ===== -->
+<div id="s6" class="page">
+<div class="step">5</div>
+<h2>添加导航入口</h2>
+<p>在 <code>docs/@pages/ppt.md</code> 中添加新 PPT 的卡片：</p>
+<pre>&lt;div class="ppt-card"
+  onclick="location.href='/ppt/我的演示.html'"&gt;
+  &lt;div class="ppt-card-icon"&gt;📄&lt;/div&gt;
+  &lt;div class="ppt-card-body"&gt;
+    &lt;h3&gt;我的演示&lt;/h3&gt;
+    &lt;p&gt;描述文字&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+<p style="margin-top:20px;font-size:14px;color:#999"><a href="#s5" style="color:#4361ee">← 上页</a> · <a href="#s7" style="color:#4361ee">下页 →</a></p>
+</div>
+
+<!-- ===== 第 7 页 ===== -->
+<div id="s7" class="page">
+<div class="step">6</div>
+<h2>推送上线</h2>
+<p>在终端执行以下命令：</p>
+<pre># 添加文件
+git add docs/public/ppt/我的演示.html
+git add docs/@pages/ppt.md
+
+# 提交并推送
+git commit -m "feat: add new ppt"
+git push</pre>
+<p>等待 Vercel 自动部署（约 1-2 分钟）</p>
+<p style="margin-top:20px;font-size:14px;color:#999"><a href="#s6" style="color:#4361ee">← 上页</a> · <a href="#s8" style="color:#4361ee">下页 →</a></p>
+</div>
+
+<!-- ===== 第 8 页 ===== -->
+<div id="s8" class="page">
+<div class="step">7</div>
+<h2>访问展示</h2>
+<p>部署完成后，通过以下方式访问：</p>
+<ul>
+  <li>网站导航栏 → <span class="highlight">PPT</span> → 点击对应卡片</li>
+  <li>或直接输入网址：<br><code>https://likeflames.online/ppt/我的演示.html</code></li>
+</ul>
+<p style="margin-top:20px;">播放时按 <span class="highlight">F11</span> 全屏，<span class="highlight">← →</span> 翻页</p>
+<p style="margin-top:20px;font-size:14px;color:#999"><a href="#s7" style="color:#4361ee">← 上页</a> · <a href="#s9" style="color:#4361ee">下页 →</a></p>
+</div>
+
+<!-- ===== 第 9 页 ===== -->
+<div id="s9" class="page">
+<h1>✅ 完成！</h1>
+<p style="font-size:1.3em;margin-top:16px;">现在你可以自己制作 HTML PPT 了</p>
+<p style="margin-top:30px;font-size:14px;color:#999">有不懂的随时问我</p>
+<p style="margin-top:30px;font-size:14px;color:#999"><a href="#s8" style="color:#4361ee">← 上页</a> · <a href="#s1" style="color:#4361ee">回首页</a></p>
+</div>
+</div>
+</section>
+
+<!-- 底部导航 -->
+<div class="nav">
+  <a href="#s1">1</a><a href="#s2">2</a><a href="#s3">3</a><a href="#s4">4</a>
+  <a href="#s5">5</a><a href="#s6">6</a><a href="#s7">7</a><a href="#s8">8</a><a href="#s9">9</a>
+</div>
+
+<script>
+// 页面切换
+let idx = 0;
+const pages = document.querySelectorAll('.scroll-x > .page');
+function go(i) {
+  pages.forEach(p => p.classList.remove('active'));
+  idx = (i + pages.length) % pages.length;
+  pages[idx].classList.add('active');
+  pages[idx].scrollIntoView({ behavior: 'smooth' });
+}
+// 键盘
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(idx + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(idx - 1); }
+});
+// 滚轮
+let wt; document.addEventListener('wheel', e => { clearTimeout(wt); wt = setTimeout(() => { if (e.deltaY > 0) go(idx + 1); else go(idx - 1); }, 200); }, { passive: true });
+// 触摸
+let tx; document.addEventListener('touchstart', e => { tx = e.changedTouches[0].clientX; });
+document.addEventListener('touchend', e => { const d = tx - e.changedTouches[0].clientX; if (Math.abs(d) > 50) go(idx + (d > 0 ? 1 : -1)); });
+
+go(0);
+
+// 全屏
+function toggleFullscreen() {
+  if (document.fullscreenElement) return document.exitFullscreen();
+  if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+    document.querySelector('.scroll-x').classList.toggle('fullscreen-css');
+  } else {
+    document.documentElement.requestFullscreen().catch(() => {});
+  }
+}
+document.addEventListener('fullscreenchange', () => {
+  document.querySelector('.fs-btn').textContent = document.fullscreenElement ? '✕ 退出' : '⛶ 全屏';
+});
+</script>
+</body>
+</html>
