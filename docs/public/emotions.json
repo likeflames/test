@@ -65,18 +65,10 @@
       {
         "icon": "👍",
         "text": ""
-      },
-      {
-        "icon": "🌚",
-        "text": ""
-      },
-      {
-        "icon": "🙏",
-        "text": ""
       }
     ]
   },
-  "🐱2233": {
+  "<img src=\"https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibili2233/1.png\" style=\"width:30px;position:relative;top:4px\">": {
     "type": "image",
     "container": [
       {
@@ -139,10 +131,9 @@
         "text": "bilibili2233-15",
         "icon": "<img src='https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibili2233/9.png'>"
       }
-    ],
-    "icon": "<img src=\"https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibili2233/1.png\">"
+    ]
   },
-  "🔥热搜": {
+  "<img src=\"https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibiliHotKey/1.jpg\" style=\"width:30px;position:relative;top:4px\">": {
     "type": "image",
     "container": [
       {
@@ -273,10 +264,9 @@
         "text": "bilibiliHotKey-32",
         "icon": "<img src='https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibiliHotKey/9.jpg'>"
       }
-    ],
-    "icon": "<img src=\"https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibiliHotKey/1.jpg\">"
+    ]
   },
-  "📺小电视": {
+  "<img src=\"https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibili_tv_gif/doge.gif\" style=\"width:30px;position:relative;top:4px\">": {
     "type": "image",
     "container": [
       {
@@ -455,10 +445,9 @@
         "text": "bilibili_tv_gif-44",
         "icon": "<img src='https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibili_tv_gif/鼓掌.gif'>"
       }
-    ],
-    "icon": "<img src=\"https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibili_tv_gif/doge.gif\">"
+    ]
   },
-  "💬贴吧": {
+  "<img src=\"https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/Tieba-New/image_emoticon.png\" style=\"width:30px;position:relative;top:4px\">": {
     "type": "image",
     "container": [
       {
@@ -897,7 +886,6 @@
         "text": "Tieba-New-109",
         "icon": "<img src='https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/Tieba-New/image_emoticon99.png'>"
       }
-    ],
-    "icon": "<img src=\"https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/Tieba-New/image_emoticon.png\">"
+    ]
   }
 }
