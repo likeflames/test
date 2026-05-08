@@ -17,6 +17,15 @@ sidebar: false
   </div>
 </div>
 
+<div class="ppt-card" onclick="location.href='/ppt/advanced.html'" style="margin-top:12px">
+  <div class="ppt-card-icon">🚀</div>
+  <div class="ppt-card-body">
+    <h3>HTML PPT 进阶技巧</h3>
+    <p>过渡动画、代码高亮、图表、深色/浅色切换、QR码等高级功能。</p>
+    <span class="ppt-card-link">打开 →</span>
+  </div>
+</div>
+
 <div class="ppt-card" onclick="location.href='/ppt/how-to.html'" style="margin-top:12px">
   <div class="ppt-card-icon">📖</div>
   <div class="ppt-card-body">

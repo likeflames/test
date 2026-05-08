@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML PPT 进阶技巧</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
+<link id="theme-link" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/dracula.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/plugin/highlight/monokai.css">
+<style>
+:root { --r-main-font: system-ui, sans-serif; }
+.reveal h1 { font-size: 2.5em; }
+.reveal h2 { font-size: 1.6em; }
+.reveal .hl { color: #7b9aff; font-weight: 600; }
+.reveal .tag { display: inline-block; background: #4361ee; color: #fff; border-radius: 4px; padding: 2px 10px; font-size: .7em; margin: 4px; }
+.reveal .tag-green { background: #059669; }
+.reveal .tag-orange { background: #d97706; }
+.col-2 { display: flex; gap: 20px; justify-content: center; }
+.col-2 > * { flex: 1; }
+table { font-size: .8em; }
+td, th { padding: 8px 16px; border-bottom: 1px solid #444; }
+kbd { background: #333; border: 1px solid #555; border-radius: 4px; padding: 2px 8px; font-size: .8em; font-family: monospace; }
+
+/* 主题切换按钮 */
+#theme-btn { position: fixed; top: 16px; right: 60px; z-index: 99999; background: rgba(0,0,0,.5); color: #fff; border: 1px solid #444; border-radius: 6px; padding: 6px 14px; cursor: pointer; font-size: 13px; }
+#theme-btn:hover { background: rgba(67,97,238,.4); }
+</style>
+</head>
+<body>
+
+<button id="theme-btn" onclick="toggleTheme()">🌙 深色</button>
+
+<div class="reveal"><div class="slides">
+
+<section>
+  <h1>🚀 HTML PPT 进阶技巧</h1>
+  <p>reveal.js 高级功能演示</p>
+  <p style="font-size:.8em;margin-top:30px;color:#8899cc">
+    ← → 翻页 · ⛶ 全屏 · ? 快捷键 · Esc 概览 · S 演讲者模式
+  </p>
+</section>
+
+<!-- ============ 1. 过渡动画 ============ -->
+<section data-transition="fade">
+  <h2>🎬 幻灯片过渡动画</h2>
+  <p>reveal.js 支持多种过渡效果：</p>
+  <table style="margin-top:20px">
+    <tr><td><code>data-transition="slide"</code></td><td>滑动（默认）</td></tr>
+    <tr><td><code>data-transition="fade"</code></td><td>淡入淡出</td></tr>
+    <tr><td><code>data-transition="zoom"</code></td><td>缩放</td></tr>
+    <tr><td><code>data-transition="convex"</code></td><td>凸出</td></tr>
+    <tr><td><code>data-transition="concave"</code></td><td>凹陷</td></tr>
+  </table>
+  <p style="margin-top:20px;">每页可单独设置：<code>&lt;section data-transition="zoom"&gt;</code></p>
+</section>
+
+<section data-transition="zoom">
+  <h2>📌 缩放过渡</h2>
+  <p>这一页用了 <code>data-transition="zoom"</code></p>
+  <p class="fragment" data-fragment-index="1">👆 感受一下缩放效果</p>
+</section>
+
+<section data-transition="slide-in fade-out">
+  <h2>🔄 分别设置进入/退出</h2>
+  <p><code>data-transition="slide-in fade-out"</code></p>
+  <p class="fragment">进入时滑动，退出时淡出</p>
+</section>
+
+<!-- ============ 2. 片段动画 ============ -->
+<section>
+  <h2>🧩 片段动画 (Fragments)</h2>
+  <p>内容逐条出现：</p>
+  <p class="fragment fade-up" style="margin-top:20px">👆 淡入向上</p>
+  <p class="fragment highlight-red">👆 变红</p>
+  <p class="fragment grow">👆 放大</p>
+  <p class="fragment fade-out">👆 淡出</p>
+  <p class="fragment strike">👆 划掉</p>
+</section>
+
+<!-- ============ 3. 代码高亮 ============ -->
+<section>
+  <h2>💻 代码高亮</h2>
+  <p>自动语法高亮，支持行号：</p>
+  <pre><code data-trim data-line-numbers class="language-javascript">
+function fibonacci(n) {
+  if (n <= 1) return n;          // 第 2 行高亮
+  return fib(n-1) + fib(n-2);    // 第 3 行高亮
+}
+  </code></pre>
+  <p><code>data-line-numbers="3,8-10"</code> 指定高亮行</p>
+</section>
+
+<section>
+  <h2>💻 逐步高亮</h2>
+  <pre><code data-trim data-line-numbers="1|2|3-4" class="language-python">
+def quicksort(arr):              # 第 1 步
+    if len(arr) <= 1:            # 第 2 步
+        return arr
+    pivot = arr[0]               # 第 3 步
+    left = [x for x in arr[1:] if x < pivot]
+    right = [x for x in arr[1:] if x >= pivot]
+    return quicksort(left) + [pivot] + quicksort(right)
+  </code></pre>
+  <p>切换步骤时高亮行同步更新</p>
+</section>
+
+<!-- ============ 4. 快捷键帮助 ============ -->
+<section>
+  <h2>⌨️ 快捷键大全</h2>
+  <p>按 <kbd>?</kbd> 随时查看</p>
+  <table style="margin-top:20px;font-size:.8em">
+    <tr><td><kbd>←</kbd> <kbd>→</kbd></td><td>翻页</td></tr>
+    <tr><td><kbd>Space</kbd></td><td>下一页</td></tr>
+    <tr><td><kbd>F</kbd></td><td>全屏</td></tr>
+    <tr><td><kbd>Esc</kbd> / <kbd>O</kbd></td><td>概览模式</td></tr>
+    <tr><td><kbd>S</kbd></td><td>演讲者视图</td></tr>
+    <tr><td><kbd>B</kbd> / <kbd>.</kbd></td><td>黑屏暂停</td></tr>
+    <tr><td><kbd>?</kbd></td><td>帮助</td></tr>
+    <tr><td><kbd>Alt</kbd>+单击</td><td>局部缩放</td></tr>
+  </table>
+</section>
+
+<!-- ============ 5. 演讲者模式 ============ -->
+<section>
+  <h2>🎤 演讲者模式</h2>
+  <p>按 <kbd>S</kbd> 键打开演讲者视图</p>
+  <aside class="notes">
+    这是只有演讲者能看到的备注！<br>
+    可以这里写提示、时间安排、要点等<br>
+    观众不会看到这些内容
+  </aside>
+  <div style="margin-top:30px;background:rgba(255,255,255,.05);border-radius:10px;padding:16px;text-align:left">
+    <p><strong>演讲者窗口包含：</strong></p>
+    <p>✅ 当前幻灯片 + 下一张预览</p>
+    <p>✅ ⌛ 计时器、当前时间</p>
+    <p>✅ 📝 演讲者备注</p>
+    <p>✅ 📐 幻灯片编号</p>
+  </div>
+</section>
+
+<!-- ============ 6. 概览模式 ============ -->
+<section>
+  <h2>🔍 概览模式</h2>
+  <p>按 <kbd>Esc</kbd> 或 <kbd>O</kbd> 查看所有幻灯片</p>
+  <p>点击任意缩略图直接跳转</p>
+  <p style="margin-top:20px;background:rgba(255,255,255,.05);border-radius:10px;padding:16px">
+    适合在演示时快速定位、跳转到指定页面
+  </p>
+</section>
+
+<!-- ============ 7. Mermaid 图表 ============ -->
+<section>
+  <h2>📊 Mermaid 图表</h2>
+  <p>流程图、时序图、思维导图等</p>
+  <pre class="mermaid" style="background:transparent">
+graph LR
+    A[VitePress] --> B[Teek 主题]
+    B --> C[博客网站]
+    A --> D[Markdown 文章]
+    C --> E[Vercel 部署]
+    E --> F[likeflames.online]
+  </pre>
+</section>
+
+<section>
+  <h2>📈 时序图</h2>
+  <pre class="mermaid" style="background:transparent">
+sequenceDiagram
+    用户->>Twikoo: 发表评论
+    Twikoo->>MongoDB: 存储评论
+    Twikoo-->>用户: 评论成功
+    博主->>Twikoo: 登录管理
+    Twikoo-->>博主: 审核评论
+  </pre>
+</section>
+
+<!-- ============ 8. 深色/浅色切换 ============ -->
+<section>
+  <h2>🌓 深色/浅色切换</h2>
+  <p>点击右上角按钮切换主题</p>
+  <p>reveal.js 内置 12+ 套主题：</p>
+  <div class="col-2" style="font-size:.7em;margin-top:16px">
+    <div>
+      <p><span class="tag">black</span> <span class="tag tag-green">white</span></p>
+      <p><span class="tag">dracula</span> <span class="tag">night</span></p>
+      <p><span class="tag">moon</span> <span class="tag tag-orange">beige</span></p>
+    </div>
+    <div>
+      <p><span class="tag">solarized</span> <span class="tag">sky</span></p>
+      <p><span class="tag">blood</span> <span class="tag">league</span></p>
+      <p><span class="tag">serif</span> <span class="tag">simple</span></p>
+    </div>
+  </div>
+  <p style="margin-top:16px">选择偏好保存在 localStorage</p>
+</section>
+
+<!-- ============ 9. 自动播放 ============ -->
+<section>
+  <h2>▶️ 自动播放模式</h2>
+  <p>适合展厅、信息亭、无人值守展示</p>
+  <pre><code data-trim class="language-javascript">Reveal.initialize({
+  autoSlide: 5000,     // 每 5 秒翻页
+  autoSlideStoppable: false,
+  loop: true           // 循环
+});</code></pre>
+  <p>每页可单独设置时间：</p>
+  <p><code>&lt;section data-autoslide="10000"&gt;</code></p>
+  <p style="margin-top:20px;font-size:.8em;color:#8899cc">按 <kbd>A</kbd> 暂停/继续</p>
+</section>
+
+<section data-autoslide="3000">
+  <h2>⏱️ 3 秒自动翻页</h2>
+  <p>这一页设置了 <code>data-autoslide="3000"</code></p>
+  <p>3 秒后自动进入下一页</p>
+  <p style="margin-top:20px;font-size:.8em;color:#8899cc">按 <kbd>A</kbd> 暂停</p>
+</section>
+
+<!-- ============ 10. 嵌入式媒体 ============ -->
+<section>
+  <h2>🎥 嵌入式视频</h2>
+  <div style="margin-top:20px">
+    <iframe data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"
+            width="560" height="315" allow="autoplay; fullscreen"
+            style="border-radius:8px;max-width:100%"></iframe>
+  </div>
+  <p style="margin-top:16px">使用 <code>data-src</code> 延迟加载，进入页面才加载</p>
+</section>
+
+<!-- ============ 11. 局部缩放 ============ -->
+<section>
+  <h2>🔎 局部缩放</h2>
+  <p>按住 <kbd>Alt</kbd> + 单击某元素放大</p>
+  <p>再 <kbd>Alt</kbd> + 单击缩回</p>
+  <p style="margin-top:30px;font-size:1.2em;background:rgba(255,255,255,.05);border-radius:8px;padding:20px">
+    👆 试试 Alt+单击这段文字
+  </p>
+</section>
+
+<!-- ============ 12. QR 码 ============ -->
+<section>
+  <h2>📱 扫码打开</h2>
+  <div id="qrcode" style="display:flex;justify-content:center;margin:20px 0;"></div>
+  <p style="font-size:.8em;color:#8899cc">用手机扫描打开此演示文稿</p>
+</section>
+
+<!-- ============ 13. 背景图片/视频 ============ -->
+<section data-background="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920"
+         data-background-size="cover">
+  <h2 style="text-shadow: 0 2px 10px rgba(0,0,0,.5);background:rgba(0,0,0,.5);display:inline-block;padding:10px 30px;border-radius:10px">
+    🖼️ 背景图片
+  </h2>
+  <p style="background:rgba(0,0,0,.5);display:inline-block;padding:8px 20px;border-radius:8px;margin-top:10px">
+    <code>data-background="图片URL"</code>
+  </p>
+</section>
+
+<!-- ============ 14. PDF 导出 ============ -->
+<section>
+  <h2>📄 PDF 导出</h2>
+  <p>在 URL 后加 <code>?view=print</code></p>
+  <p>然后按 <kbd>Ctrl+P</kbd> → 另存为 PDF</p>
+  <pre><code data-trim class="language-bash">https://likeflames.online/ppt/xxx.html?view=print</code></pre>
+  <p style="margin-top:20px;font-size:.8em;color:#8899cc">确保勾选「背景图形」以保留颜色</p>
+</section>
+
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/plugin/zoom/zoom.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/plugin/markdown/markdown.js"></script>
+
+<script type="module">
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+window.mermaid = mermaid;
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'slide',
+  transitionSpeed: 'default',
+  plugins: [RevealHighlight, RevealZoom, RevealNotes, RevealMarkdown],
+  autoSlide: 0, // 0 = 禁用
+});
+
+// Mermaid 渲染
+Reveal.on('ready', () => {
+  if (window.mermaid) {
+    mermaid.initialize({ theme: 'default' });
+    mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+  }
+  new QRCode(document.getElementById('qrcode'), {
+    text: window.location.href,
+    width: 180, height: 180,
+    colorDark: '#fff', colorLight: 'transparent',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+});
+
+// 主题切换
+function toggleTheme() {
+  const link = document.getElementById('theme-link');
+  const isDark = link.getAttribute('href').includes('white');
+  link.setAttribute('href',
+    isDark
+      ? 'https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/dracula.css'
+      : 'https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css'
+  );
+  localStorage.setItem('ppt-theme', isDark ? 'dark' : 'light');
+  document.getElementById('theme-btn').textContent = isDark ? '🌙 深色' : '☀️ 浅色';
+}
+// 恢复主题
+if (localStorage.getItem('ppt-theme') === 'light') {
+  document.getElementById('theme-link').setAttribute('href',
+    'https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css');
+  document.getElementById('theme-btn').textContent = '☀️ 浅色';
+}
+</script>
+</body>
+</html>
