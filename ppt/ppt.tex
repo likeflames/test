@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+\title{运放相位补偿（电容/RC滞后补偿）核心笔记}
+\author{}
+\date{}
+\maketitle
+
+\begin{enumerate}
+    \item 开环增益与主极点补偿
+    \[
+    A_v = \frac{10^5}{\left(1+j\frac{f}{10^5\,\text{Hz}}\right)\left(1+j\frac{f}{10^6\,\text{Hz}}\right)\left(1+j\frac{f}{10^7\,\text{Hz}}\right)}
+    \]
+    选$10^5\,\text{Hz}$原因：$10^5$为系统最低的上限截止频率$f_H$，视为系统的主极点$f_H$。
+    相位补偿后，主极点$f_{P1}$变为 $f_{P1}' = 10^2\,\text{Hz}$。
+
+    \item 补偿电容的接入位置原理
+    \[
+    T = RC,\quad f_H = \frac{1}{2\pi T}
+    \]
+    时间常数$T$最大 $\implies$ 对应的上限截止频率$f_H$最小。
+    接入补偿电容$C_{\text{补偿}}$后：
+    \[
+    T' = R(C+C_{\text{补偿}})
+    \]
+    主极点对应的$f_H$会变得更小，即第①点中$10^5\,\text{Hz}$的主极点被拉低至$10^2\,\text{Hz}$。
+
+    \item 幅频特性与稳定性判据
+    补偿后幅频特性下降速度：$\boldsymbol{-20\,\text{dB/十倍频}}$
+    从新主极点$f_{P1}'$开始以$-20\,\text{dB/十倍频}$下降，原因：当遇到次极点$f_{P2}$时，总相移$\varphi_A$会急剧下降。
+    稳定性要求：幅频特性应最好在次极点$f_{P2}$之前下降到$0\,\text{dB}$以下，
+    即保证在总附加相移$|\Delta\varphi_A| < 180^\circ$之前，增益已降至$0\,\text{dB}$以下。
+
+    \item “电容滞后补偿”的“滞后”含义
+    补偿后新主极点$f_{P1}'$相对于原主极点$f_P$向低频移动，使得在相同频率下，总相移$|\varphi_A|$更大，相位相对滞后，因此称为“滞后补偿”。
+
+    \item RC滞后补偿（改进型）
+    传递函数：
+    \[
+    A = A_{vm} \cdot \frac{(1+j\omega RC)}{1+j\omega (R_{\text{eq}}+R)C}
+    \]
+    核心原理：引入一个零点$1+j\omega RC$，用于抵消系统的次极点$1+j\omega f_{P2}$。
+    原电容补偿要求主极点$f_{P1}'$在$f_{P2}$前降至$0\,\text{dB}$以下，带宽损失大；
+    RC补偿通过零点抵消次极点后，有效极点变为$f_{P3}$，显著减小了带宽损失。
+\end{enumerate}
+
+\end{document}
