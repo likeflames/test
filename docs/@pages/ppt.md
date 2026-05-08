@@ -17,6 +17,15 @@ sidebar: false
   </div>
 </div>
 
+<div class="ppt-card" onclick="location.href='/ppt/opamp-compensation.html'" style="margin-top:12px">
+  <div class="ppt-card-icon">⚡</div>
+  <div class="ppt-card-body">
+    <h3>运放相位补偿（电容/RC滞后补偿）</h3>
+    <p>开环增益、主极点补偿、幅频特性、RC 改进型等核心笔记。</p>
+    <span class="ppt-card-link">打开 →</span>
+  </div>
+</div>
+
 <div class="ppt-card" onclick="location.href='/ppt/advanced.html'" style="margin-top:12px">
   <div class="ppt-card-icon">🚀</div>
   <div class="ppt-card-body">
