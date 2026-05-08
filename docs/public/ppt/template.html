@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PPT</title>
+
+/* ========== CSS Scroll-Snap（回退方案 A，零依赖） ========== */
+@supports (scroll-snap-type: x mandatory) {
+  .scroll-container { scroll-snap-type: x mandatory; scroll-behavior: smooth; overflow-x: auto; display: flex; }
+  .scroll-container .s-page { scroll-snap-align: start; min-width: 100vw; min-height: 100vh; flex-shrink: 0; }
+}
+
+/* ========== :target 锚点导航（最后兜底，零依赖） ========== */
+.s-page:not(:target):not(.reveal-active) { display: none; }
+.s-page:target { display: flex; }
+
+/* ========== 通用样式 ========== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; background: #fff; }
+.s-page, .reveal .slides section {
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  min-height: 100vh; padding: 40px; text-align: center;
+}
+
+/* ========== 全屏 CSS 模拟（回退） ========== */
+.fullscreen-css { position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 9999 !important; background: #fff !important; }
+
+/* ========== 全屏按钮 ========== */
+.fs-btn {
+  position: fixed; bottom: 20px; right: 20px; z-index: 99999;
+  background: rgba(0,0,0,.5); color: #fff; border: none; border-radius: 6px;
+  padding: 8px 16px; cursor: pointer; font-size: 14px;
+}
+.fs-btn:hover { background: rgba(0,0,0,.7); }
+
+/* ========== 导航提示 ========== */
+.nav-hint {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 99998;
+  background: rgba(0,0,0,.4); color: #fff; border-radius: 20px;
+  padding: 6px 20px; font-size: 13px; opacity: .7;
+}
+</style>
+</head>
+<body>
+
+<!-- 全屏按钮 -->
+<button class="fs-btn" onclick="toggleFullscreen()">⛶ 全屏</button>
+<div class="nav-hint">← → 翻页 · F11 全屏</div>
+
+<!--
+  ==========================================
+  第 1 层：:target 锚点导航（无 JS 兜底）
+  ========================================== -->
+<div class="scroll-container">
+
+<section id="s1" class="s-page">
+  <h1 style="font-size:3em;margin-bottom:20px">标题</h1>
+  <p style="font-size:1.3em;color:#666">副标题</p>
+  <p style="margin-top:40px;font-size:14px;color:#999"><a href="#s2">下一页 →</a></p>
+</section>
+
+<section id="s2" class="s-page">
+  <h2 style="font-size:2em;margin-bottom:20px">第二页</h2>
+  <p style="font-size:1.1em;max-width:600px">内容</p>
+  <p style="margin-top:40px;font-size:14px;color:#999"><a href="#s1">← 上一页</a> · <a href="#s3">下一页 →</a></p>
+</section>
+
+<section id="s3" class="s-page">
+  <h2 style="font-size:2em;margin-bottom:20px">第三页</h2>
+  <p style="font-size:1.1em;max-width:600px">内容</p>
+  <p style="margin-top:40px;font-size:14px;color:#999"><a href="#s2">← 上一页</a></p>
+</section>
+
+</div>
+
+<!--
+  ==========================================
+  第 3 层：自定义 JS 翻页（回退方案 B）
+  当 reveal.js 加载失败时接管
+  ========================================== -->
+<script>
+let slideIndex = 0;
+const slides = document.querySelectorAll('.s-page');
+function goTo(i) {
+  slides.forEach(s => s.classList.remove('reveal-active'));
+  slideIndex = (i + slides.length) % slides.length;
+  slides[slideIndex].classList.add('reveal-active');
+  slides[slideIndex].scrollIntoView({ behavior: 'smooth' });
+}
+// 15 秒后如果 reveal.js 没加载成功，用自定义 JS
+let revealLoaded = false;
+setTimeout(() => {
+  if (!revealLoaded) {
+    // 键盘
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); goTo(slideIndex + 1); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goTo(slideIndex - 1); }
+    });
+    // 滚轮
+    let wt; document.addEventListener('wheel', e => { clearTimeout(wt); wt = setTimeout(() => { if (e.deltaY > 0) goTo(slideIndex + 1); else goTo(slideIndex - 1); }, 200); }, { passive: true });
+    // 触摸
+    let tx; document.addEventListener('touchstart', e => { tx = e.changedTouches[0].clientX; });
+    document.addEventListener('touchend', e => { const d = tx - e.changedTouches[0].clientX; if (Math.abs(d) > 50) goTo(slideIndex + (d > 0 ? 1 : -1)); });
+    goTo(0);
+  }
+}, 3000);
+
+// ========== 全屏（3 层） ==========
+function toggleFullscreen() {
+  if (document.fullscreenElement) return document.exitFullscreen();
+  // iOS Safari 不支持 Fullscreen API，用 CSS 模拟
+  if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+    document.querySelector('.reveal,.scroll-container,.s-page').classList.toggle('fullscreen-css');
+    document.querySelector('.fs-btn').textContent = document.querySelector('.reveal,.scroll-container,.s-page').classList.contains('fullscreen-css') ? '✕ 退出' : '⛶ 全屏';
+  } else {
+    document.documentElement.requestFullscreen().catch(() => {
+      document.querySelector('.s-page').classList.toggle('fullscreen-css');
+    });
+  }
+}
+document.addEventListener('fullscreenchange', () => {
+  document.querySelector('.fs-btn').textContent = document.fullscreenElement ? '✕ 退出' : '⛶ 全屏';
+});
+</script>
+
+</body>
+</html>
