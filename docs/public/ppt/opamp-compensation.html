@@ -300,11 +300,11 @@
       H: 330,
       mL: 42,
       mR: 16,
-      titleH: 22,
+      titleH: 18,
       magH: 140,
       gap: 8,
       phaseH: 106,
-      bottomH: 20
+      bottomH: 28
     };
     CFG.magY0 = CFG.titleH;
     CFG.phaseY0 = CFG.titleH + CFG.magH + CFG.gap;
@@ -443,7 +443,7 @@
       for (var e = CFG.freqMinExp; e <= CFG.freqMaxExp; e++) {
         if (e % 2 !== 0) continue; // label every other decade
         var x = freqToX(Math.pow(10, e), rect);
-        ctx.fillText('10' + SUPER[e], x, rect.y + rect.h + 3);
+        ctx.fillText('10' + SUPER[e], x, rect.y + 4);
       }
 
       // "频率/Hz" label
@@ -451,7 +451,7 @@
       ctx.font = '10px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'bottom';
-      ctx.fillText('频率 / Hz', rect.x + rect.w / 2, rect.y + rect.h + 17);
+      ctx.fillText('频率 / Hz', rect.x + rect.w / 2, rect.y + rect.h - 4);
 
       ctx.restore();
     }
