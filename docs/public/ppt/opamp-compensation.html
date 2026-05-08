@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --scale: 1; }
     body { background: #fff; }
     .reveal { background: #fff; }
     .reveal .slides section {
@@ -18,14 +19,14 @@
       max-width: 1000px;
     }
     .reveal h1 {
-      font-size: 2.6em;
+      font-size: calc(2.6em * var(--scale));
       font-weight: 700;
       text-align: center;
       margin-bottom: 0.3em;
       color: #1a1a1a;
     }
     .reveal h2 {
-      font-size: 1.5em;
+      font-size: calc(1.5em * var(--scale));
       font-weight: 600;
       margin-bottom: 0.6em;
       color: #1a1a1a;
@@ -34,7 +35,7 @@
       display: inline-block;
     }
     .reveal p, .reveal li {
-      font-size: 1em;
+      font-size: calc(1em * var(--scale));
       line-height: 1.8;
       color: #333;
     }
@@ -42,7 +43,7 @@
     .cover-sub {
       text-align: center;
       color: #666;
-      font-size: 1.1em;
+      font-size: calc(1.1em * var(--scale));
       margin-top: 0.5em;
     }
     .cover-badge {
@@ -52,7 +53,7 @@
       border: 1px solid #3273dc;
       border-radius: 4px;
       color: #3273dc;
-      font-size: 0.75em;
+      font-size: calc(0.75em * var(--scale));
       text-align: center;
     }
     .math-block {
@@ -65,7 +66,7 @@
       overflow-x: auto;
       overflow-y: visible;
     }
-    .katex { font-size: 1em !important; }
+    .katex { font-size: calc(1em * var(--scale)) !important; }
     .katex .frac-line { min-width: 1.2em; }
     .reveal .slide-number {
       font-size: 13px !important;
@@ -73,12 +74,12 @@
       background: #f0f0f0 !important;
       padding: 4px 14px !important;
       border-radius: 4px !important;
-      bottom: 20px !important;
+      bottom: 44px !important;
       right: 20px !important;
     }
     .nav-hint {
       position: fixed;
-      bottom: 20px;
+      bottom: 12px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 999;
@@ -89,11 +90,38 @@
       border-radius: 4px;
       user-select: none;
     }
+    /* 字号控制器 */
+    .size-control {
+      position: fixed;
+      bottom: 12px;
+      right: 20px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f0f0f0;
+      padding: 4px 14px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #999;
+      user-select: none;
+    }
+    .size-control input[type="range"] {
+      width: 80px;
+      height: 4px;
+      accent-color: #3273dc;
+      cursor: pointer;
+    }
+    .size-control .size-label {
+      min-width: 2.2em;
+      text-align: center;
+      font-family: monospace;
+    }
     @media (max-width: 640px) {
       .reveal .slides section { padding: 28px 24px; width: 95%; }
-      .reveal h1 { font-size: 2em; }
-      .reveal h2 { font-size: 1.2em; }
-      .nav-hint { display: none; }
+      .reveal h1 { font-size: calc(2em * var(--scale)); }
+      .reveal h2 { font-size: calc(1.2em * var(--scale)); }
+      .nav-hint, .size-control { display: none; }
     }
   </style>
 </head>
@@ -184,6 +212,12 @@
   </div>
 
   <div class="nav-hint">← → 翻页</div>
+  <div class="size-control">
+    <span>A</span>
+    <input type="range" id="sizeSlider" min="0.7" max="1.6" step="0.05" value="1">
+    <span style="font-size:1.1em">A</span>
+    <span class="size-label" id="sizeLabel">100%</span>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
@@ -205,6 +239,18 @@
         ]
       });
     });
+
+    // 字号滑块
+    const slider = document.getElementById('sizeSlider');
+    const label = document.getElementById('sizeLabel');
+    const saved = localStorage.getItem('ppt-font-scale');
+    if (saved) { slider.value = saved; applySize(saved); }
+    slider.addEventListener('input', () => { applySize(slider.value); });
+    function applySize(v) {
+      document.documentElement.style.setProperty('--scale', v);
+      label.textContent = Math.round(v * 100) + '%';
+      localStorage.setItem('ppt-font-scale', v);
+    }
   </script>
 </body>
 </html>
