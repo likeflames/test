@@ -125,17 +125,18 @@
     }
     .bode-container {
       display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
+      flex-wrap: nowrap;
+      gap: 16px;
       justify-content: center;
-      margin-top: 16px;
+      margin-top: 12px;
     }
     .bode-container canvas {
       background: #fff;
       border: 1px solid #e0e0e0;
       border-radius: 6px;
-      width: 100%;
-      max-width: 460px;
+      flex: 1 1 0;
+      min-width: 0;
+      max-width: 400px;
       height: auto;
       box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
@@ -295,15 +296,15 @@
       phaseMax: 30,
       phaseStep: 90,
       // Canvas layout (logical pixels)
-      W: 560,
-      H: 420,
-      mL: 52,
-      mR: 22,
-      titleH: 30,
-      magH: 180,
-      gap: 12,
-      phaseH: 140,
-      bottomH: 28
+      W: 440,
+      H: 330,
+      mL: 42,
+      mR: 16,
+      titleH: 22,
+      magH: 140,
+      gap: 8,
+      phaseH: 106,
+      bottomH: 20
     };
     CFG.magY0 = CFG.titleH;
     CFG.phaseY0 = CFG.titleH + CFG.magH + CFG.gap;
@@ -361,7 +362,7 @@
     // ---------- Drawing helpers ----------
     function drawGrid(ctx, rect, vMin, vMax, vMajor, vMinor) {
       ctx.save();
-      ctx.strokeStyle = '#e8e8e8';
+      ctx.strokeStyle = '#d8d8d8';
 
       // Vertical decade lines
       for (var e = CFG.freqMinExp; e <= CFG.freqMaxExp; e++) {
@@ -374,7 +375,7 @@
       }
 
       // Horizontal major lines
-      ctx.strokeStyle = '#e0e0e0';
+      ctx.strokeStyle = '#d0d0d0';
       for (var v = vMin; v <= vMax; v += vMajor) {
         var yVal = valueToY(v, rect, vMin, vMax);
         ctx.beginPath();
@@ -404,25 +405,25 @@
     function drawYAxis(ctx, rect, vMin, vMax, vStep, unit) {
       ctx.save();
       ctx.fillStyle = '#666';
-      ctx.font = '11px system-ui, -apple-system, sans-serif';
+      ctx.font = '10px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'right';
       ctx.textBaseline = 'middle';
 
       for (var v = vMin; v <= vMax; v += vStep) {
         var y = valueToY(v, rect, vMin, vMax);
-        ctx.fillText(v + '', rect.x - 6, y);
+        ctx.fillText(v + '', rect.x - 5, y);
       }
 
       // Unit label
       ctx.fillStyle = '#333';
-      ctx.font = '12px system-ui, -apple-system, sans-serif';
+      ctx.font = '10px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
-      ctx.fillText(unit, rect.x - 6, rect.y - 14);
+      ctx.fillText(unit, rect.x - 5, rect.y - 8);
 
       // Axis line
       ctx.strokeStyle = '#999';
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 0.8;
       ctx.beginPath();
       ctx.moveTo(rect.x, rect.y);
       ctx.lineTo(rect.x, rect.y + rect.h);
@@ -434,7 +435,7 @@
     function drawXAxis(ctx, rect) {
       ctx.save();
       ctx.fillStyle = '#666';
-      ctx.font = '11px system-ui, -apple-system, sans-serif';
+      ctx.font = '10px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
 
@@ -442,15 +443,15 @@
       for (var e = CFG.freqMinExp; e <= CFG.freqMaxExp; e++) {
         if (e % 2 !== 0) continue; // label every other decade
         var x = freqToX(Math.pow(10, e), rect);
-        ctx.fillText('10' + SUPER[e], x, rect.y + rect.h + 4);
+        ctx.fillText('10' + SUPER[e], x, rect.y + rect.h + 3);
       }
 
       // "频率/Hz" label
       ctx.fillStyle = '#333';
-      ctx.font = '12px system-ui, -apple-system, sans-serif';
+      ctx.font = '10px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'bottom';
-      ctx.fillText('频率 / Hz', rect.x + rect.w / 2, rect.y + rect.h + 22);
+      ctx.fillText('频率 / Hz', rect.x + rect.w / 2, rect.y + rect.h + 17);
 
       ctx.restore();
     }
@@ -495,9 +496,9 @@
 
     function drawLegend(ctx, rect, vMin, vMax, compColor, compLabel) {
       ctx.save();
-      var bx = rect.x + rect.w - 125;
-      var by = rect.y + 6;
-      var bw = 122, bh = 38;
+      var bx = rect.x + rect.w - 112;
+      var by = rect.y + 5;
+      var bw = 108, bh = 32;
 
       ctx.fillStyle = 'rgba(255,255,255,0.88)';
       ctx.strokeStyle = '#ddd';
@@ -519,30 +520,30 @@
 
       // Original (dashed)
       ctx.strokeStyle = '#999';
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([4, 3]);
+      ctx.lineWidth = 1.25;
+      ctx.setLineDash([3, 3]);
       ctx.beginPath();
-      ctx.moveTo(bx + 6, by + 10);
-      ctx.lineTo(bx + 28, by + 10);
+      ctx.moveTo(bx + 5, by + 8);
+      ctx.lineTo(bx + 24, by + 8);
       ctx.stroke();
 
       ctx.fillStyle = '#666';
-      ctx.font = '11px system-ui, -apple-system, sans-serif';
+      ctx.font = '10px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
       ctx.setLineDash([]);
-      ctx.fillText('补偿前', bx + 33, by + 10);
+      ctx.fillText('补偿前', bx + 28, by + 8);
 
       // Compensated (solid)
       ctx.strokeStyle = compColor;
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.moveTo(bx + 6, by + 26);
-      ctx.lineTo(bx + 28, by + 26);
+      ctx.moveTo(bx + 5, by + 23);
+      ctx.lineTo(bx + 24, by + 23);
       ctx.stroke();
 
       ctx.fillStyle = '#333';
-      ctx.fillText(compLabel || '补偿后', bx + 33, by + 26);
+      ctx.fillText(compLabel || '补偿后', bx + 28, by + 23);
 
       ctx.restore();
     }
@@ -558,10 +559,10 @@
 
       // Title
       ctx.fillStyle = '#1a1a1a';
-      ctx.font = 'bold 14px system-ui, -apple-system, sans-serif';
+      ctx.font = 'bold 12px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
-      ctx.fillText(opts.title, CFG.W / 2, 4);
+      ctx.fillText(opts.title, CFG.W / 2, 2);
 
       // Magnitude subplot rect
       var magRect = { x: CFG.mL, y: CFG.magY0, w: CFG.plotW, h: CFG.magH };
@@ -570,8 +571,8 @@
       drawGrid(ctx, magRect, CFG.magMin, CFG.magMax, CFG.magStep, CFG.magStep / 2);
 
       // Draw magnitude curves
-      drawCurve(ctx, magRect, opts.freqs, opts.origMag, '#bbb', 1.5, [5, 3]);
-      drawCurve(ctx, magRect, opts.freqs, opts.compMag, opts.compColor, 2, []);
+      drawCurve(ctx, magRect, opts.freqs, opts.origMag, '#bbb', 1.25, [4, 3]);
+      drawCurve(ctx, magRect, opts.freqs, opts.compMag, opts.compColor, 1.5, []);
 
       // Draw magnitude Y axis
       drawYAxis(ctx, magRect, CFG.magMin, CFG.magMax, CFG.magStep, 'dB');
@@ -579,7 +580,7 @@
       // Top horizontal axis line
       ctx.save();
       ctx.strokeStyle = '#ccc';
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 0.8;
       ctx.beginPath();
       ctx.moveTo(CFG.mL, CFG.magY0);
       ctx.lineTo(CFG.mL + CFG.plotW, CFG.magY0);
@@ -593,30 +594,30 @@
       drawGrid(ctx, phaseRect, CFG.phaseMin, CFG.phaseMax, CFG.phaseStep, CFG.phaseStep / 2);
 
       // Draw phase curves
-      drawPhaseCurve(ctx, phaseRect, opts.freqs, opts.origPhase, '#bbb', 1.5, [5, 3]);
-      drawPhaseCurve(ctx, phaseRect, opts.freqs, opts.compPhase, opts.compColor, 2, []);
+      drawPhaseCurve(ctx, phaseRect, opts.freqs, opts.origPhase, '#bbb', 1.25, [4, 3]);
+      drawPhaseCurve(ctx, phaseRect, opts.freqs, opts.compPhase, opts.compColor, 1.5, []);
 
       // Draw phase Y axis
       ctx.save();
       ctx.fillStyle = '#666';
-      ctx.font = '11px system-ui, -apple-system, sans-serif';
+      ctx.font = '10px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'right';
       ctx.textBaseline = 'middle';
       for (var v = CFG.phaseMin; v <= CFG.phaseMax; v += CFG.phaseStep) {
         var y = valueToY(v, phaseRect, CFG.phaseMin, CFG.phaseMax);
-        ctx.fillText(v + '', phaseRect.x - 6, y);
+        ctx.fillText(v + '', phaseRect.x - 5, y);
       }
       ctx.fillStyle = '#333';
-      ctx.font = '12px system-ui, -apple-system, sans-serif';
+      ctx.font = '10px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
-      ctx.fillText('°', phaseRect.x - 6, phaseRect.y - 14);
+      ctx.fillText('°', phaseRect.x - 5, phaseRect.y - 8);
       ctx.restore();
 
       // Phase bottom axis line
       ctx.save();
       ctx.strokeStyle = '#ccc';
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 0.8;
       ctx.beginPath();
       ctx.moveTo(CFG.mL, CFG.phaseY0 + CFG.phaseH);
       ctx.lineTo(CFG.mL + CFG.plotW, CFG.phaseY0 + CFG.phaseH);
