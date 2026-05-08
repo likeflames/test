@@ -8,6 +8,15 @@ sidebar: false
 
 # PPT 演示
 
+<div class="ppt-card" onclick="location.href='/ppt/课前展示.html'" style="margin-bottom:12px">
+  <div class="ppt-card-icon">📊</div>
+  <div class="ppt-card-body">
+    <h3>课前展示</h3>
+    <p>基于 Office Online 在线查看，支持全屏。</p>
+    <span class="ppt-card-link">打开 →</span>
+  </div>
+</div>
+
 <div class="ppt-card" onclick="location.href='/ppt/tutorial.html'">
   <div class="ppt-card-icon">🎓</div>
   <div class="ppt-card-body">

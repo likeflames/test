@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>课前展示</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      background: #1a1a2e;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background: #0f0c29;
+      color: #fff;
+    }
+    .top-bar h1 { font-size: 16px; font-weight: 600; }
+    .top-bar a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .top-bar a:hover { color: #fff; }
+    iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+    }
+    .fallback {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+    }
+    .fallback a { color: #5b4be6; }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <h1>📄 课前展示</h1>
+    <a href="/ppt">← 返回 PPT 列表</a>
+  </div>
+  <iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://likeflames.online/ppt/%E8%AF%BE%E5%89%8D%E5%B1%95%E7%A4%BA.pptx" allowfullscreen></iframe>
+  <div class="fallback" id="fallback">
+    无法加载 Office 在线预览。<br>
+    你可以 <a href="/ppt/课前展示.pptx" download>直接下载文件</a> 在 PowerPoint 中打开。
+  </div>
+  <script>
+    document.querySelector('iframe').onerror = function() {
+      document.querySelector('iframe').style.display = 'none';
+      document.getElementById('fallback').style.display = 'block';
+    };
+  </script>
+</body>
+</html>
