@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>运放相位补偿核心笔记</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+  <style>
+    .reveal .slides section { text-align: left; }
+    .reveal h1 { font-size: 2.5em; text-align: center; margin-bottom: 0.5em; }
+    .reveal h2 { font-size: 1.6em; margin-bottom: 0.6em; color: #1a5276; }
+    .reveal h3 { font-size: 1.3em; margin-bottom: 0.5em; }
+    .reveal p, .reveal li { font-size: 0.85em; line-height: 1.6; }
+    .reveal ul, .reveal ol { display: block; }
+    .reveal .math-block { margin: 0.6em 0; text-align: center; }
+    .reveal .cover-sub { text-align: center; color: #666; font-size: 1.1em; margin-top: 1em; }
+    .reveal .img-wrap { text-align: center; margin-top: 0.8em; }
+    .reveal .img-wrap img { max-height: 380px; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.12); }
+    .katex { font-size: 1.05em; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ====== 封面 ====== -->
+      <section>
+        <h1>运放相位补偿</h1>
+        <p class="cover-sub">电容 / RC 滞后补偿 · 核心笔记</p>
+      </section>
+
+      <!-- ====== 1. 开环增益与主极点补偿 ====== -->
+      <section>
+        <h2>1. 开环增益与主极点补偿</h2>
+        <p>传递函数（三极点模型）：</p>
+        <div class="math-block">
+          $$ A_v = \frac{10^5}{\left(1+j\frac{f}{10^5\,\text{Hz}}\right)\left(1+j\frac{f}{10^6\,\text{Hz}}\right)\left(1+j\frac{f}{10^7\,\text{Hz}}\right)} $$
+        </div>
+        <p>选 $10^5\,\text{Hz}$ 原因：$10^5$ 为系统最低的上限截止频率 $f_H$，视为系统的主极点 $f_H$。</p>
+        <p>相位补偿后，主极点 $f_{P1}$ 变为：</p>
+        <div class="math-block">$$ f_{P1}' = 10^2\,\text{Hz} $$</div>
+      </section>
+
+      <!-- ====== 2. 补偿电容的接入位置原理 ====== -->
+      <section>
+        <h2>2. 补偿电容的接入位置原理</h2>
+        <div class="math-block">$$ T = RC,\quad f_H = \frac{1}{2\pi T} $$</div>
+        <p>时间常数 $T$ 最大 $\implies$ 对应的上限截止频率 $f_H$ 最小。</p>
+        <p>接入补偿电容 $C_{\text{补偿}}$ 后：</p>
+        <div class="math-block">$$ T' = R(C+C_{\text{补偿}}) $$</div>
+        <p>主极点对应的 $f_H$ 会变得更小，即第①点中 $10^5\,\text{Hz}$ 的主极点被拉低至 $10^2\,\text{Hz}$。</p>
+        <div class="img-wrap">
+          <img src="电容滞后补偿.png" alt="电容滞后补偿示意图">
+        </div>
+      </section>
+
+      <!-- ====== 3. 幅频特性与稳定性判据 ====== -->
+      <section>
+        <h2>3. 幅频特性与稳定性判据</h2>
+        <p>补偿后幅频特性下降速度：</p>
+        <div class="math-block">$$ \boldsymbol{-20\,\text{dB/十倍频}} $$</div>
+        <p>从新主极点 $f_{P1}'$ 开始以 $-20\,\text{dB/十倍频}$ 下降，原因：当遇到次极点 $f_{P2}$ 时，总相移 $\varphi_A$ 会急剧下降。</p>
+        <p style="margin-top:0.8em">稳定性要求：幅频特性应最好在次极点 $f_{P2}$ 之前下降到 $0\,\text{dB}$ 以下，<br>
+        即保证在总附加相移 $|\Delta\varphi_A| < 180^\circ$ 之前，增益已降至 $0\,\text{dB}$ 以下。</p>
+      </section>
+
+      <!-- ====== 4. "滞后"的含义 ====== -->
+      <section>
+        <h2>4. "电容滞后补偿"的"滞后"含义</h2>
+        <p>补偿后新主极点 $f_{P1}'$ 相对于原主极点 $f_P$ 向低频移动，</p>
+        <p>使得在相同频率下，总相移 $|\varphi_A|$ 更大，相位相对滞后，</p>
+        <p style="margin-top:0.6em">因此称为<strong>"滞后补偿"</strong>。</p>
+      </section>
+
+      <!-- ====== 5. RC滞后补偿（改进型） ====== -->
+      <section>
+        <h2>5. RC 滞后补偿（改进型）</h2>
+        <p>传递函数：</p>
+        <div class="math-block">$$ A = A_{vm} \cdot \frac{(1+j\omega RC)}{1+j\omega (R_{\text{eq}}+R)C} $$</div>
+        <p>核心原理：引入一个零点 $1+j\omega RC$，用于抵消系统的次极点 $1+j\omega f_{P2}$。</p>
+        <p>原电容补偿要求主极点 $f_{P1}'$ 在 $f_{P2}$ 前降至 $0\,\text{dB}$ 以下，带宽损失大；</p>
+        <p>RC 补偿通过零点抵消次极点后，有效极点变为 $f_{P3}$，显著减小了带宽损失。</p>
+        <div class="img-wrap">
+          <img src="RC滞后补偿.png" alt="RC滞后补偿示意图">
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      center: true
+    });
+
+    Reveal.on('ready', () => {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false }
+        ]
+      });
+    });
+  </script>
+</body>
+</html>
