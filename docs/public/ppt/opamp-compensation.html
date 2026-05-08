@@ -25,10 +25,18 @@
   <div class="reveal">
     <div class="slides">
 
-      <!-- ====== 封面 ====== -->
+      <!-- ====== 图片页 1：电容滞后补偿 ====== -->
       <section>
-        <h1>运放相位补偿</h1>
-        <p class="cover-sub">电容 / RC 滞后补偿 · 核心笔记</p>
+        <div class="img-wrap" style="margin:0">
+          <img src="电容滞后补偿.png" alt="电容滞后补偿示意图" style="max-height:90vh;max-width:90vw;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,0.15)">
+        </div>
+      </section>
+
+      <!-- ====== 图片页 2：RC滞后补偿 ====== -->
+      <section>
+        <div class="img-wrap" style="margin:0">
+          <img src="RC滞后补偿.png" alt="RC滞后补偿示意图" style="max-height:90vh;max-width:90vw;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,0.15)">
+        </div>
       </section>
 
       <!-- ====== 1. 开环增益与主极点补偿 ====== -->
@@ -51,9 +59,6 @@
         <p>接入补偿电容 $C_{\text{补偿}}$ 后：</p>
         <div class="math-block">$$ T' = R(C+C_{\text{补偿}}) $$</div>
         <p>主极点对应的 $f_H$ 会变得更小，即第①点中 $10^5\,\text{Hz}$ 的主极点被拉低至 $10^2\,\text{Hz}$。</p>
-        <div class="img-wrap">
-          <img src="电容滞后补偿.png" alt="电容滞后补偿示意图">
-        </div>
       </section>
 
       <!-- ====== 3. 幅频特性与稳定性判据 ====== -->
@@ -82,9 +87,6 @@
         <p>核心原理：引入一个零点 $1+j\omega RC$，用于抵消系统的次极点 $1+j\omega f_{P2}$。</p>
         <p>原电容补偿要求主极点 $f_{P1}'$ 在 $f_{P2}$ 前降至 $0\,\text{dB}$ 以下，带宽损失大；</p>
         <p>RC 补偿通过零点抵消次极点后，有效极点变为 $f_{P3}$，显著减小了带宽损失。</p>
-        <div class="img-wrap">
-          <img src="RC滞后补偿.png" alt="RC滞后补偿示意图">
-        </div>
       </section>
 
     </div>
