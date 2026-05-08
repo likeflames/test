@@ -43,11 +43,26 @@
     \item RC滞后补偿（改进型）
     传递函数：
     \[
-    A = A_{vm} \cdot \frac{(1+j\omega RC)}{1+j\omega (R_{\text{eq}}+R)C}
+    A = A_{vm} \cdot \frac{1+j\omega RC}{1+j\omega (R_{\text{eq}}+R)C}
+    \]
+    推导过程：
+    \[
+    Z = R + \frac{1}{j\omega C}
+    \]
+    分子分母同乘 $j\omega C$ 化简分压比：
+    \[
+    \frac{Z}{R_{\text{eq}}+Z} = \frac{R+\dfrac{1}{j\omega C}}{R_{\text{eq}}+R+\dfrac{1}{j\omega C}} = \frac{j\omega C R_{\text{eq}} + 1}{(R_{\text{eq}}+R)j\omega C + 1}
     \]
     核心原理：引入一个零点$1+j\omega RC$，用于抵消系统的次极点$1+j\omega f_{P2}$。
     原电容补偿要求主极点$f_{P1}'$在$f_{P2}$前降至$0\,\text{dB}$以下，带宽损失大；
     RC补偿通过零点抵消次极点后，有效极点变为$f_{P3}$，显著减小了带宽损失。
+
+    \item RC滞后补偿的额外优势
+    当工作频率 $f \gg f_z$（$f_z$ 为补偿引入的零点频率）时：
+    \[
+    A = \frac{R}{R_{\text{eq}}+R}
+    \]
+    高频增益不会衰减为0，这一点优于纯电容补偿（纯电容补偿高频增益趋近于0）。
 \end{enumerate}
 
 \end{document}
