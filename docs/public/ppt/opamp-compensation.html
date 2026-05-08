@@ -123,6 +123,22 @@
       .reveal h2 { font-size: calc(1.2em * var(--scale)); }
       .nav-hint, .size-control { display: none; }
     }
+    .bode-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .bode-container canvas {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      width: 100%;
+      max-width: 460px;
+      height: auto;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
   </style>
 </head>
 <body>
@@ -171,10 +187,15 @@
         <p style="margin-top:0.5em">稳定性要求：幅频特性应最好在次极点 $f_{P2}$ 之前下降到 $0\,\text{dB}$ 以下，即保证在总附加相移 $|\Delta\varphi_A| &lt; 180^\circ$ 之前，增益已降至 $0\,\text{dB}$ 以下。</p>
       </section>
 
-      <!-- 4. "滞后"的含义 -->
+      <!-- 4. 滞后补偿与超前补偿的Bode图对比 -->
       <section>
-        <h2>4. "电容滞后补偿"的"滞后"含义</h2>
+        <h2>4. 滞后补偿与超前补偿的 Bode 图对比</h2>
         <p>补偿后新主极点 $f_{P1}'$ 相对于原主极点 $f_P$ <strong>向低频移动</strong>，使得在相同频率下，总相移 $|\varphi_A|$ <strong>更大</strong>，相位相对<strong>滞后</strong>，因此称为"滞后补偿"。</p>
+        <p style="margin-top:0.4em">与之对应，<strong>超前补偿</strong>通过引入<strong>零点</strong>（$1+j\omega/\omega_z$）来产生相位超前，改善系统的相位裕度。下图对比了两种补偿方式的频率响应。</p>
+        <div class="bode-container">
+          <canvas id="bode-lag"></canvas>
+          <canvas id="bode-lead"></canvas>
+        </div>
       </section>
 
       <!-- 5. RC滞后补偿（改进型） -->
@@ -251,6 +272,426 @@
       label.textContent = Math.round(v * 100) + '%';
       localStorage.setItem('ppt-font-scale', v);
     }
+  </script>
+  <script>
+  // ==================== Bode Plot Rendering ====================
+  (function() {
+    'use strict';
+
+    // ---------- Configuration ----------
+    var CFG = {
+      freqMinExp: 0,           // 10^0 Hz
+      freqMaxExp: 8,           // 10^8 Hz
+      ppd: 120,                // points per decade
+      dcGain: 1e5,
+      polesOrig: [1e5, 1e6, 1e7],
+      lagPole: 1e2,
+      leadZero: 3e4,
+      leadPole: 3e6,
+      magMin: -80,
+      magMax: 110,
+      magStep: 20,
+      phaseMin: -280,
+      phaseMax: 30,
+      phaseStep: 90,
+      // Canvas layout (logical pixels)
+      W: 560,
+      H: 420,
+      mL: 52,
+      mR: 22,
+      titleH: 30,
+      magH: 180,
+      gap: 12,
+      phaseH: 140,
+      bottomH: 28
+    };
+    CFG.magY0 = CFG.titleH;
+    CFG.phaseY0 = CFG.titleH + CFG.magH + CFG.gap;
+    CFG.plotW = CFG.W - CFG.mL - CFG.mR;
+
+    // ---------- Math helpers ----------
+    function logspace(minExp, maxExp, ppd) {
+      var n = (maxExp - minExp) * ppd;
+      var a = new Float64Array(n);
+      for (var i = 0; i < n; i++) a[i] = Math.pow(10, minExp + i / ppd);
+      return a;
+    }
+
+    function computeGain(f, poles, zeros) {
+      var dB = 20 * Math.log10(CFG.dcGain);
+      for (var i = 0; i < poles.length; i++) dB -= 10 * Math.log10(1 + (f / poles[i]) * (f / poles[i]));
+      for (var j = 0; j < zeros.length; j++) dB += 10 * Math.log10(1 + (f / zeros[j]) * (f / zeros[j]));
+      return dB;
+    }
+
+    function computePhase(f, poles, zeros) {
+      var deg = 0;
+      for (var i = 0; i < poles.length; i++) deg -= Math.atan2(f, poles[i]);
+      for (var j = 0; j < zeros.length; j++) deg += Math.atan2(f, zeros[j]);
+      return deg * (180 / Math.PI);
+    }
+
+    function computeCurve(freqs, poles, zeros, isPhase) {
+      var n = freqs.length, out = new Float64Array(n);
+      for (var i = 0; i < n; i++) out[i] = isPhase ? computePhase(freqs[i], poles, zeros) : computeGain(freqs[i], poles, zeros);
+      return out;
+    }
+
+    // ---------- Canvas setup (HiDPI) ----------
+    function setupCanvas(canvas) {
+      var dpr = window.devicePixelRatio || 1;
+      canvas.width = CFG.W * dpr;
+      canvas.height = CFG.H * dpr;
+      var ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      return ctx;
+    }
+
+    // ---------- Coordinate mapping ----------
+    function freqToX(f, rect) {
+      var lx = Math.log10(f);
+      var lMin = CFG.freqMinExp, lMax = CFG.freqMaxExp;
+      return rect.x + (lx - lMin) / (lMax - lMin) * rect.w;
+    }
+
+    function valueToY(v, rect, vMin, vMax) {
+      return rect.y + (vMax - v) / (vMax - vMin) * rect.h;
+    }
+
+    // ---------- Drawing helpers ----------
+    function drawGrid(ctx, rect, vMin, vMax, vMajor, vMinor) {
+      ctx.save();
+      ctx.strokeStyle = '#e8e8e8';
+
+      // Vertical decade lines
+      for (var e = CFG.freqMinExp; e <= CFG.freqMaxExp; e++) {
+        var x = freqToX(Math.pow(10, e), rect);
+        ctx.beginPath();
+        ctx.lineWidth = 0.5;
+        ctx.moveTo(x, rect.y);
+        ctx.lineTo(x, rect.y + rect.h);
+        ctx.stroke();
+      }
+
+      // Horizontal major lines
+      ctx.strokeStyle = '#e0e0e0';
+      for (var v = vMin; v <= vMax; v += vMajor) {
+        var yVal = valueToY(v, rect, vMin, vMax);
+        ctx.beginPath();
+        ctx.lineWidth = 0.5;
+        ctx.moveTo(rect.x, yVal);
+        ctx.lineTo(rect.x + rect.w, yVal);
+        ctx.stroke();
+      }
+
+      // Horizontal minor lines
+      if (vMinor) {
+        ctx.strokeStyle = '#eeeeee';
+        for (var vm = vMin; vm <= vMax; vm += vMinor) {
+          if (vm % vMajor === 0) continue;
+          var yMinor = valueToY(vm, rect, vMin, vMax);
+          ctx.beginPath();
+          ctx.lineWidth = 0.3;
+          ctx.moveTo(rect.x, yMinor);
+          ctx.lineTo(rect.x + rect.w, yMinor);
+          ctx.stroke();
+        }
+      }
+
+      ctx.restore();
+    }
+
+    function drawYAxis(ctx, rect, vMin, vMax, vStep, unit) {
+      ctx.save();
+      ctx.fillStyle = '#666';
+      ctx.font = '11px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+
+      for (var v = vMin; v <= vMax; v += vStep) {
+        var y = valueToY(v, rect, vMin, vMax);
+        ctx.fillText(v + '', rect.x - 6, y);
+      }
+
+      // Unit label
+      ctx.fillStyle = '#333';
+      ctx.font = '12px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText(unit, rect.x - 6, rect.y - 14);
+
+      // Axis line
+      ctx.strokeStyle = '#999';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(rect.x, rect.y);
+      ctx.lineTo(rect.x, rect.y + rect.h);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    function drawXAxis(ctx, rect) {
+      ctx.save();
+      ctx.fillStyle = '#666';
+      ctx.font = '11px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+
+      var SUPER = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+      for (var e = CFG.freqMinExp; e <= CFG.freqMaxExp; e++) {
+        if (e % 2 !== 0) continue; // label every other decade
+        var x = freqToX(Math.pow(10, e), rect);
+        ctx.fillText('10' + SUPER[e], x, rect.y + rect.h + 4);
+      }
+
+      // "频率/Hz" label
+      ctx.fillStyle = '#333';
+      ctx.font = '12px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      ctx.fillText('频率 / Hz', rect.x + rect.w / 2, rect.y + rect.h + 22);
+
+      ctx.restore();
+    }
+
+    function drawCurve(ctx, rect, freqs, values, color, lineWidth, dash) {
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = lineWidth;
+      ctx.setLineDash(dash || []);
+      ctx.beginPath();
+      var started = false;
+      for (var i = 0; i < freqs.length; i++) {
+        var x = freqToX(freqs[i], rect);
+        var y = valueToY(values[i], rect, CFG.magMin, CFG.magMax);
+        // Clamp to rect bounds
+        if (y < rect.y - 5 || y > rect.y + rect.h + 5) { started = false; continue; }
+        if (!started) { ctx.moveTo(x, y); started = true; }
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawPhaseCurve(ctx, rect, freqs, values) {
+      ctx.save();
+      ctx.strokeStyle = arguments.length > 4 ? arguments[4] : '#bbb';
+      ctx.lineWidth = arguments.length > 5 ? arguments[5] : 1.5;
+      ctx.setLineDash(arguments.length > 6 ? arguments[6] : []);
+      ctx.beginPath();
+      var started = false;
+      var pMin = CFG.phaseMin, pMax = CFG.phaseMax;
+      for (var i = 0; i < freqs.length; i++) {
+        var x = freqToX(freqs[i], rect);
+        var y = valueToY(values[i], rect, pMin, pMax);
+        if (y < rect.y - 5 || y > rect.y + rect.h + 5) { started = false; continue; }
+        if (!started) { ctx.moveTo(x, y); started = true; }
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawLegend(ctx, rect, vMin, vMax, compColor, compLabel) {
+      ctx.save();
+      var bx = rect.x + rect.w - 125;
+      var by = rect.y + 6;
+      var bw = 122, bh = 38;
+
+      ctx.fillStyle = 'rgba(255,255,255,0.88)';
+      ctx.strokeStyle = '#ddd';
+      ctx.lineWidth = 0.5;
+      var r = 3;
+      ctx.beginPath();
+      ctx.moveTo(bx + r, by);
+      ctx.lineTo(bx + bw - r, by);
+      ctx.quadraticCurveTo(bx + bw, by, bx + bw, by + r);
+      ctx.lineTo(bx + bw, by + bh - r);
+      ctx.quadraticCurveTo(bx + bw, by + bh, bx + bw - r, by + bh);
+      ctx.lineTo(bx + r, by + bh);
+      ctx.quadraticCurveTo(bx, by + bh, bx, by + bh - r);
+      ctx.lineTo(bx, by + r);
+      ctx.quadraticCurveTo(bx, by, bx + r, by);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Original (dashed)
+      ctx.strokeStyle = '#999';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath();
+      ctx.moveTo(bx + 6, by + 10);
+      ctx.lineTo(bx + 28, by + 10);
+      ctx.stroke();
+
+      ctx.fillStyle = '#666';
+      ctx.font = '11px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.setLineDash([]);
+      ctx.fillText('补偿前', bx + 33, by + 10);
+
+      // Compensated (solid)
+      ctx.strokeStyle = compColor;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(bx + 6, by + 26);
+      ctx.lineTo(bx + 28, by + 26);
+      ctx.stroke();
+
+      ctx.fillStyle = '#333';
+      ctx.fillText(compLabel || '补偿后', bx + 33, by + 26);
+
+      ctx.restore();
+    }
+
+    // ---------- Main plot renderer ----------
+    function drawSinglePlot(canvas, opts) {
+      if (!canvas || !canvas.getContext) return;
+      var ctx = setupCanvas(canvas);
+
+      // Background
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, CFG.W, CFG.H);
+
+      // Title
+      ctx.fillStyle = '#1a1a1a';
+      ctx.font = 'bold 14px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText(opts.title, CFG.W / 2, 4);
+
+      // Magnitude subplot rect
+      var magRect = { x: CFG.mL, y: CFG.magY0, w: CFG.plotW, h: CFG.magH };
+
+      // Draw magnitude grid
+      drawGrid(ctx, magRect, CFG.magMin, CFG.magMax, CFG.magStep, CFG.magStep / 2);
+
+      // Draw magnitude curves
+      drawCurve(ctx, magRect, opts.freqs, opts.origMag, '#bbb', 1.5, [5, 3]);
+      drawCurve(ctx, magRect, opts.freqs, opts.compMag, opts.compColor, 2, []);
+
+      // Draw magnitude Y axis
+      drawYAxis(ctx, magRect, CFG.magMin, CFG.magMax, CFG.magStep, 'dB');
+
+      // Top horizontal axis line
+      ctx.save();
+      ctx.strokeStyle = '#ccc';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(CFG.mL, CFG.magY0);
+      ctx.lineTo(CFG.mL + CFG.plotW, CFG.magY0);
+      ctx.stroke();
+      ctx.restore();
+
+      // Phase subplot rect
+      var phaseRect = { x: CFG.mL, y: CFG.phaseY0, w: CFG.plotW, h: CFG.phaseH };
+
+      // Draw phase grid
+      drawGrid(ctx, phaseRect, CFG.phaseMin, CFG.phaseMax, CFG.phaseStep, CFG.phaseStep / 2);
+
+      // Draw phase curves
+      drawPhaseCurve(ctx, phaseRect, opts.freqs, opts.origPhase, '#bbb', 1.5, [5, 3]);
+      drawPhaseCurve(ctx, phaseRect, opts.freqs, opts.compPhase, opts.compColor, 2, []);
+
+      // Draw phase Y axis
+      ctx.save();
+      ctx.fillStyle = '#666';
+      ctx.font = '11px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+      for (var v = CFG.phaseMin; v <= CFG.phaseMax; v += CFG.phaseStep) {
+        var y = valueToY(v, phaseRect, CFG.phaseMin, CFG.phaseMax);
+        ctx.fillText(v + '', phaseRect.x - 6, y);
+      }
+      ctx.fillStyle = '#333';
+      ctx.font = '12px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText('°', phaseRect.x - 6, phaseRect.y - 14);
+      ctx.restore();
+
+      // Phase bottom axis line
+      ctx.save();
+      ctx.strokeStyle = '#ccc';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(CFG.mL, CFG.phaseY0 + CFG.phaseH);
+      ctx.lineTo(CFG.mL + CFG.plotW, CFG.phaseY0 + CFG.phaseH);
+      ctx.stroke();
+      ctx.restore();
+
+      // X-axis labels (below phase plot)
+      var xAxisRect = { x: CFG.mL, y: CFG.phaseY0 + CFG.phaseH, w: CFG.plotW, h: CFG.bottomH };
+      drawXAxis(ctx, xAxisRect);
+
+      // Legend (on magnitude plot)
+      drawLegend(ctx, magRect, CFG.magMin, CFG.magMax, opts.compColor, opts.compLabel || '补偿后');
+    }
+
+    // ---------- Entry point ----------
+    window.renderBodePlots = function() {
+      var cL = document.getElementById('bode-lag');
+      var cR = document.getElementById('bode-lead');
+      if (!cL || !cR) return;
+
+      var freqs = logspace(CFG.freqMinExp, CFG.freqMaxExp, CFG.ppd);
+
+      // Original 3-pole data (shared)
+      var origMag = computeCurve(freqs, CFG.polesOrig, [], false);
+      var origPhase = computeCurve(freqs, CFG.polesOrig, [], true);
+
+      // Lag compensation: dominant pole → 100 Hz
+      drawSinglePlot(cL, {
+        title: '滞后补偿 (Lag)',
+        freqs: freqs,
+        origMag: origMag,
+        origPhase: origPhase,
+        compMag: computeCurve(freqs, [CFG.lagPole, 1e6, 1e7], [], false),
+        compPhase: computeCurve(freqs, [CFG.lagPole, 1e6, 1e7], [], true),
+        compColor: '#3273dc',
+        compLabel: '滞后补偿'
+      });
+
+      // Lead compensation: add zero at 30 kHz, extra pole at 3 MHz
+      drawSinglePlot(cR, {
+        title: '超前补偿 (Lead)',
+        freqs: freqs,
+        origMag: origMag,
+        origPhase: origPhase,
+        compMag: computeCurve(freqs, CFG.polesOrig.concat([CFG.leadPole]), [CFG.leadZero], false),
+        compPhase: computeCurve(freqs, CFG.polesOrig.concat([CFG.leadPole]), [CFG.leadZero], true),
+        compColor: '#e67e22',
+        compLabel: '超前补偿'
+      });
+    };
+
+    // ---------- Reveal.js integration ----------
+    function onSlideChanged(event) {
+      if (event.indexh === 4) renderBodePlots();
+    }
+
+    Reveal.on('ready', function() {
+      if (Reveal.getIndices().h === 4) renderBodePlots();
+    });
+    Reveal.on('slidechanged', onSlideChanged);
+
+    // Redraw on resize (only if on slide 4)
+    var resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        if (Reveal.getIndices().h === 4) renderBodePlots();
+      }, 200);
+    });
+
+    // Also handle fullscreen toggle
+    document.addEventListener('fullscreenchange', renderBodePlots);
+    document.addEventListener('webkitfullscreenchange', renderBodePlots);
+
+  })();
   </script>
 </body>
 </html>
