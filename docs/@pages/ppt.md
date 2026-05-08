@@ -8,7 +8,16 @@ sidebar: false
 
 # PPT 演示
 
-<div class="ppt-card" onclick="location.href='/ppt/how-to.html'">
+<div class="ppt-card" onclick="location.href='/ppt/tutorial.html'">
+  <div class="ppt-card-icon">🎓</div>
+  <div class="ppt-card-body">
+    <h3>从零搭建个人网站 - 完整教程</h3>
+    <p>涵盖初始化、配置、部署、评论系统、移动适配等全部内容。</p>
+    <span class="ppt-card-link">打开 →</span>
+  </div>
+</div>
+
+<div class="ppt-card" onclick="location.href='/ppt/how-to.html'" style="margin-top:12px">
   <div class="ppt-card-icon">📖</div>
   <div class="ppt-card-body">
     <h3>如何制作 HTML PPT</h3>
