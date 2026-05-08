@@ -5,12 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>跑鞋中底进化史</title>
 <style>
-/* 微信文章通用样式 - 内联用于复制粘贴 */
 body {
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
-  font-size: 16px;
-  line-height: 1.8;
-  color: #333;
+  font-size: 15px;
+  line-height: 1.9;
+  color: #2c2c2c;
   background: #fff;
   padding: 0;
   margin: 0;
@@ -18,524 +17,923 @@ body {
 .wrapper {
   max-width: 640px;
   margin: 0 auto;
-  padding: 20px 16px 40px;
+  padding: 16px 18px 50px;
 }
-h1 {
-  font-size: 22px;
-  font-weight: 700;
-  color: #1a1a1a;
+
+/* ===== 标题区 ===== */
+.hero {
   text-align: center;
-  line-height: 1.5;
-  margin: 10px 0 8px;
-  letter-spacing: 1px;
-}
-.meta {
-  text-align: center;
-  font-size: 13px;
-  color: #999;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #eee;
-}
-.lead {
-  background: #f7f9fc;
-  border-left: 4px solid #1a73e8;
-  padding: 14px 16px;
-  margin: 16px 0 24px;
-  font-size: 15px;
-  color: #444;
-  line-height: 1.7;
-  border-radius: 0 6px 6px 0;
-}
-.lead strong {
-  color: #1a73e8;
-}
-.section-title {
-  font-size: 19px;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin: 32px 0 14px;
-  padding-left: 12px;
-  border-left: 4px solid #1a73e8;
-  line-height: 1.4;
-}
-.sub-title {
-  font-size: 17px;
-  font-weight: 700;
-  color: #2c3e50;
-  margin: 22px 0 10px;
-  line-height: 1.5;
-}
-.brand-title {
-  font-size: 17px;
-  font-weight: 700;
-  margin: 24px 0 10px;
-  padding: 8px 0;
-  border-bottom: 2px solid #1a73e8;
-  color: #1a73e8;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.brand-title .icon {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  background: #1a73e8;
-  border-radius: 50%;
-  margin-right: 6px;
-}
-.brand-sub {
-  font-size: 15px;
-  font-weight: 600;
-  color: #2c3e50;
-  margin: 14px 0 6px;
-}
-p {
-  font-size: 15px;
-  line-height: 1.8;
-  color: #444;
-  margin: 8px 0 12px;
-  text-align: justify;
-}
-.highlight-box {
-  background: #f0f7ff;
-  padding: 14px 16px;
-  border-radius: 8px;
-  margin: 14px 0;
-}
-.highlight-box p {
-  margin: 4px 0;
-  font-size: 14px;
-}
-.highlight-box .label {
-  font-weight: 700;
-  color: #1a73e8;
-  margin-right: 4px;
-}
-.timeline {
-  margin: 16px 0 20px;
-  padding: 0;
-}
-.timeline-item {
+  padding: 30px 10px 20px;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  border-radius: 16px;
+  margin: 10px 0 20px;
   position: relative;
-  padding: 0 0 18px 24px;
-  border-left: 2px solid #ddd;
-  margin-left: 8px;
+  overflow: hidden;
 }
-.timeline-item:last-child {
-  border-left: 2px solid transparent;
-  padding-bottom: 0;
-}
-.timeline-item::before {
+.hero::before {
   content: '';
   position: absolute;
-  left: -5px;
-  top: 6px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #1a73e8;
-  border: 2px solid #fff;
-  box-shadow: 0 0 0 2px #1a73e8;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
+              radial-gradient(circle at 70% 30%, rgba(100,149,237,0.1) 0%, transparent 40%);
 }
-.timeline-item .year {
-  font-weight: 700;
-  color: #1a73e8;
+.hero h1 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.4;
+  margin: 0 0 6px;
+  letter-spacing: 2px;
+  position: relative;
+}
+.hero .sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 8px;
+  position: relative;
+}
+.hero .badge-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  position: relative;
+}
+.hero .badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  color: #fff;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* ===== 引语 ===== */
+.lead {
+  background: linear-gradient(135deg, #f5f7fa, #eef2f7);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin: 20px 0 22px;
   font-size: 15px;
+  color: #333;
+  line-height: 1.8;
+  text-align: center;
 }
-.timeline-item .desc {
+.lead strong {
+  color: #5b4be6;
+  font-weight: 700;
+}
+.lead .big-num {
+  font-size: 20px;
+  font-weight: 800;
+  color: #5b4be6;
+}
+
+/* ===== 通用标题 ===== */
+.section-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 36px 0 14px;
+  letter-spacing: 0.5px;
+}
+.section-title .deco {
+  display: inline-block;
+  width: 4px;
+  height: 18px;
+  background: linear-gradient(180deg, #5b4be6, #8b7cf7);
+  border-radius: 2px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.section-sub {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 24px 0 10px;
+}
+
+/* ===== 进化时间线 ===== */
+.timeline-wrap {
+  background: #f8f9fe;
+  border-radius: 14px;
+  padding: 18px 16px;
+  margin: 12px 0 20px;
+}
+.tl-item {
+  display: flex;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px dashed #e0e3f0;
+}
+.tl-item:last-child {
+  border-bottom: none;
+}
+.tl-year {
+  flex-shrink: 0;
+  width: 100px;
+  font-weight: 800;
+  font-size: 15px;
+  padding-top: 2px;
+}
+.tl-year.eva { color: #f39c12; }
+.tl-year.tpu { color: #e67e22; }
+.tl-year.peba { color: #5b4be6; }
+.tl-year.multi { color: #e74c3c; }
+.tl-desc {
   font-size: 14px;
   color: #555;
-  margin: 2px 0 0;
-  line-height: 1.6;
+  line-height: 1.7;
+  flex: 1;
 }
-.tag {
-  display: inline-block;
-  background: #e8f0fe;
-  color: #1a73e8;
-  font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 3px;
-  margin-right: 4px;
-  font-weight: 500;
+.tl-desc strong {
+  color: #333;
 }
-.tag-orange {
-  background: #fef3e2;
-  color: #e67e22;
-}
-.tag-green {
-  background: #e8f8e8;
-  color: #27ae60;
-}
-.tag-red {
-  background: #fde8e8;
-  color: #e74c3c;
-}
-.tag-purple {
-  background: #f0e8ff;
-  color: #8e44ad;
-}
-.table-wrap {
-  overflow-x: auto;
+
+/* ===== 材料卡片 ===== */
+.material-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin: 14px 0 18px;
 }
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-  min-width: 300px;
+.mat-card {
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-th {
-  background: #1a73e8;
-  color: #fff;
-  padding: 8px 10px;
-  text-align: left;
-  font-weight: 600;
+.mat-card.eva {
+  background: linear-gradient(135deg, #fff9e6, #fff3cd);
+}
+.mat-card.tpu {
+  background: linear-gradient(135deg, #fef0e6, #fde2c8);
+}
+.mat-card.peba {
+  background: linear-gradient(135deg, #eef0ff, #dde0ff);
+}
+.mat-card.tpee {
+  background: linear-gradient(135deg, #e6f9f0, #c8f0dc);
+}
+.mat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.mat-icon.eva { background: #f39c12; }
+.mat-icon.tpu { background: #e67e22; }
+.mat-icon.peba { background: #5b4be6; }
+.mat-icon.tpee { background: #27ae60; }
+.mat-info {
+  flex: 1;
+}
+.mat-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: #333;
+}
+.mat-name .en {
+  font-weight: 400;
+  font-size: 12px;
+  color: #999;
+  margin-left: 6px;
+}
+.mat-stats {
   font-size: 13px;
+  color: #666;
+  margin-top: 2px;
 }
-td {
-  padding: 8px 10px;
-  border-bottom: 1px solid #eee;
+.mat-stat {
+  display: inline-block;
+  margin-right: 12px;
+}
+.mat-stat .val {
+  font-weight: 700;
+}
+.mat-stat .val.high { color: #27ae60; }
+.mat-stat .val.mid { color: #e67e22; }
+.mat-stat .val.low { color: #e74c3c; }
+.mat-tagline {
+  font-size: 13px;
+  color: #888;
+  margin-top: 1px;
+  font-style: italic;
+}
+
+/* ===== 品牌卡片 ===== */
+.brand-card {
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 14px 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.brand-card .card-head {
+  padding: 12px 16px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand-card .card-head .tag {
+  font-size: 11px;
+  opacity: 0.85;
+  font-weight: 400;
+}
+.brand-card .card-body {
+  padding: 12px 16px 14px;
+  background: #fff;
+}
+.brand-card .card-body p {
+  font-size: 14px;
+  line-height: 1.8;
   color: #444;
+  margin: 6px 0;
 }
-tr:nth-child(even) td {
-  background: #f8f9fa;
+.brand-card .card-body .tech {
+  display: inline-block;
+  font-weight: 700;
+  margin-right: 2px;
 }
+.brand-card .card-body .badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 1px 8px;
+  border-radius: 10px;
+  margin: 0 2px;
+  font-weight: 500;
+}
+.badge-peba { background: #eef0ff; color: #5b4be6; }
+.badge-tpu { background: #fef0e6; color: #e67e22; }
+.badge-tpee { background: #e6f9f0; color: #27ae60; }
+.badge-eva { background: #fff9e6; color: #f39c12; }
+.badge-atpu { background: #fce4ec; color: #e91e63; }
+.badge-trend { background: #fff3e0; color: #ff6d00; }
+
+/* Nike 渐变 */
+.brand-card.nike .card-head { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+/* Adidas */
+.brand-card.adidas .card-head { background: linear-gradient(135deg, #1a1a1a, #444); }
+/* ASICS */
+.brand-card.asics .card-head { background: linear-gradient(135deg, #b71c1c, #e53935); }
+/* Saucony */
+.brand-card.saucony .card-head { background: linear-gradient(135deg, #1b5e20, #43a047); }
+/* Brooks */
+.brand-card.brooks .card-head { background: linear-gradient(135deg, #0d47a1, #1e88e5); }
+/* NB */
+.brand-card.nb .card-head { background: linear-gradient(135deg, #4a148c, #8e24aa); }
+/* HOKA */
+.brand-card.hoka .card-head { background: linear-gradient(135deg, #e65100, #ff6d00); }
+/* On */
+.brand-card.on .card-head { background: linear-gradient(135deg, #004d40, #00897b); }
+/* Mizuno */
+.brand-card.mizuno .card-head { background: linear-gradient(135deg, #0d47a1, #1565c0); }
+/* Puma */
+.brand-card.puma .card-head { background: linear-gradient(135deg, #212121, #616161); }
+
+/* 国产品牌 */
+.brand-card.lining .card-head { background: linear-gradient(135deg, #b71c1c, #ff1744); }
+.brand-card.anta .card-head { background: linear-gradient(135deg, #e65100, #ff9100); }
+.brand-card.xtep .card-head { background: linear-gradient(135deg, #004d40, #00bfa5); }
+.brand-card.peak .card-head { background: linear-gradient(135deg, #1a237e, #536dfe); }
+
+/* ===== 能量回弹条 ===== */
+.energy-section {
+  background: #f8f9fe;
+  border-radius: 14px;
+  padding: 16px 16px 8px;
+  margin: 14px 0;
+}
+.energy-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.energy-label {
+  width: 72px;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+  text-align: right;
+}
+.energy-bar-wrap {
+  flex: 1;
+  height: 18px;
+  background: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.energy-bar {
+  height: 100%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  transition: width 0.3s;
+  min-width: 30px;
+}
+.energy-bar.e90  { background: linear-gradient(90deg, #6a11cb, #fc4a1a); }
+.energy-bar.e88  { background: linear-gradient(90deg, #5b4be6, #8b7cf7); }
+.energy-bar.e87  { background: linear-gradient(90deg, #5b4be6, #a18cd1); }
+.energy-bar.e85  { background: linear-gradient(90deg, #667eea, #764ba2); }
+.energy-bar.e80  { background: linear-gradient(90deg, #4facfe, #00f2fe); }
+.energy-bar.e77  { background: linear-gradient(90deg, #43e97b, #38f9d7); }
+.energy-bar.e65  { background: linear-gradient(90deg, #fa709a, #fee140); }
+
+/* ===== 选鞋指南卡片 ===== */
+.guide-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
+}
+.guide-card {
+  border-radius: 12px;
+  padding: 14px;
+  color: #fff;
+}
+.guide-card .g-icon { font-size: 24px; display: block; margin-bottom: 6px; }
+.guide-card .g-title { font-weight: 700; font-size: 15px; }
+.guide-card .g-desc { font-size: 12px; opacity: 0.85; margin-top: 4px; line-height: 1.5; }
+.guide-card.g1 { background: linear-gradient(135deg, #667eea, #764ba2); }
+.guide-card.g2 { background: linear-gradient(135deg, #f093fb, #f5576c); }
+.guide-card.g3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+.guide-card.g4 { background: linear-gradient(135deg, #43e97b, #38f9d7); color: #1a5a3a; }
+.guide-card.g5 { background: linear-gradient(135deg, #fa709a, #fee140); color: #5a3a1a; }
+.guide-card.g6 { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+
+/* ===== 趋势 ===== */
+.trend-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 10px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-left: 4px solid #5b4be6;
+}
+.trend-item:nth-child(2) { border-left-color: #27ae60; }
+.trend-item:nth-child(3) { border-left-color: #e67e22; }
+.trend-item .t-icon { font-size: 22px; margin-right: 8px; }
+.trend-item .t-title { font-weight: 700; font-size: 15px; color: #1a1a2e; }
+.trend-item .t-desc { font-size: 14px; color: #555; margin-top: 4px; line-height: 1.7; }
+
+/* ===== 总结 ===== */
+.final-box {
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  border-radius: 16px;
+  padding: 24px 20px;
+  margin: 20px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.final-box::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  right: -30%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+}
+.final-box .f-big {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  position: relative;
+}
+.final-box .f-item {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  margin: 8px 0;
+  line-height: 1.6;
+  position: relative;
+}
+.final-box .f-foot {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 12px;
+  position: relative;
+}
+.final-box .f-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  margin: 12px 0;
+}
+
+/* ===== 分隔线 ===== */
 .divider {
   height: 1px;
   background: linear-gradient(to right, transparent, #ddd, transparent);
   margin: 28px 0;
 }
-.quote-block {
-  background: #fafafa;
-  padding: 14px 16px;
-  margin: 14px 0;
-  border-radius: 6px;
+.divider-dot {
+  text-align: center;
+  margin: 24px 0;
+  font-size: 12px;
+  color: #ccc;
+  letter-spacing: 6px;
+}
+
+/* ===== 其他 ===== */
+.quote-box {
+  background: #f8f9fe;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 12px 0;
   font-size: 14px;
-  color: #666;
+  color: #555;
   line-height: 1.7;
-  border-left: 3px solid #ddd;
+  position: relative;
 }
-.quote-block strong {
-  color: #333;
+.quote-box::before {
+  content: '"';
+  position: absolute;
+  top: 4px;
+  left: 10px;
+  font-size: 32px;
+  color: #d0d3f0;
+  font-family: Georgia, serif;
+  line-height: 1;
 }
-.emoji-icon {
-  font-style: normal;
-}
-.brand-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 10px 0 14px;
-}
-.brand-chip {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
-}
-.brand-chip.nike { background: #e8f0fe; color: #1a73e8; }
-.brand-chip.adidas { background: #fef3e2; color: #e67e22; }
-.brand-chip.asics { background: #fde8e8; color: #e74c3c; }
-.brand-chip.saucony { background: #e8f8e8; color: #27ae60; }
-.brand-chip.lining { background: #f0e8ff; color: #8e44ad; }
-.brand-chip.anta { background: #fff3e0; color: #f57c00; }
-.brand-chip.xtep { background: #e0f7fa; color: #00838f; }
-.number {
-  font-weight: 700;
-  color: #1a73e8;
-}
-.conclusion-box {
-  background: linear-gradient(135deg, #1a73e8, #0d47a1);
-  color: #fff;
-  padding: 18px 20px;
-  border-radius: 10px;
-  margin: 20px 0;
-}
-.conclusion-box p {
-  color: rgba(255,255,255,0.9);
-  margin: 6px 0;
+.quote-box strong { color: #333; }
+.quote-box .inner { padding-left: 16px; }
+
+.warn-box {
+  background: #fff8e1;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 10px 0;
   font-size: 14px;
+  color: #795548;
+  line-height: 1.7;
 }
-.conclusion-box .big {
-  font-size: 17px;
-  font-weight: 700;
-  color: #fff;
-}
+.warn-box strong { color: #e65100; }
+
 .footer-note {
   text-align: center;
-  font-size: 13px;
-  color: #aaa;
+  font-size: 12px;
+  color: #bbb;
   margin: 30px 0 10px;
   padding-top: 16px;
   border-top: 1px solid #eee;
 }
 .footer-note a {
-  color: #1a73e8;
+  color: #5b4be6;
   text-decoration: none;
 }
-.bp { background: #e8f8e8; color: #27ae60; padding: 1px 6px; border-radius: 3px; font-size: 13px; font-weight: 600; }
-.bp-red { background: #fde8e8; color: #e74c3c; padding: 1px 6px; border-radius: 3px; font-size: 13px; font-weight: 600; }
-.bp-blue { background: #e8f0fe; color: #1a73e8; padding: 1px 6px; border-radius: 3px; font-size: 13px; font-weight: 600; }
 </style>
 </head>
 <body>
 <div class="wrapper">
 
-<!-- 标题 -->
-<h1>跑鞋中底进化史<br>从 EVA 到超级发泡时代</h1>
-<div class="meta">likeflames · 深度科普 · 阅读约 10 分钟</div>
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <h1>跑鞋中底进化史</h1>
+  <div class="sub">从 EVA 到超级泡沫 · 一篇看懂 15 个品牌的核心科技</div>
+  <div class="badge-row">
+    <span class="badge">🏃 跑步必读</span>
+    <span class="badge">🔬 深度科普</span>
+    <span class="badge">📱 选鞋指南</span>
+  </div>
+</div>
 
-<!-- 引语 -->
+<!-- ===== 引语 ===== -->
 <div class="lead">
-如果你只打算买一双跑鞋，那选择几乎完全取决于<strong>中底</strong>——从缓震、回弹、重量到耐久，中底决定了跑鞋 <strong>80% 以上</strong> 的性能。
+  如果你只打算买一双跑鞋，那选择几乎完全取决于 <strong>中底</strong>。<br>
+  它决定了跑鞋 <span class="big-num">80%</span> 以上的性能——<strong>缓震、回弹、重量、耐久</strong>，全看它。
 </div>
 
 <!-- ===== 什么是中底 ===== -->
-<div class="section-title">什么是中底？</div>
-<p>跑鞋鞋底分为三层：外底负责抓地、鞋垫负责脚感，而中间的<strong>中底</strong>——承担了最核心的三大功能：<strong>缓震、回弹、支撑</strong>。</p>
-<p>跑步时，脚掌落地瞬间要承受约 <strong>2.5~3 倍体重</strong> 的冲击力。中底通过形变吸收冲击，再将能量回馈给跑者，帮助向前推进。这就是为什么各大品牌把 80% 的研发预算都砸在了中底上。</p>
+<div class="section-title"><span class="deco"></span>什么是中底？</div>
+
+<p>跑鞋鞋底分三层：外底抓地、鞋垫贴脚，中间的 <strong>中底</strong> 才是真正的「技术心脏」。</p>
+
+<p>你每跑一步，落地瞬间要承受约 <strong>2.5~3 倍体重</strong> 的冲击——中底负责把这股冲击吃进去，再弹一部分回来推你向前。吸收多少、回馈多少，决定了这双鞋是「踩屎感」还是「弹簧感」。</p>
+
+<p>所以各大品牌把 <strong>最多的研发预算和最激进的新材料</strong>，全都砸在了这一层上。</p>
 
 <div class="divider"></div>
 
 <!-- ===== 进化简史 ===== -->
-<div class="section-title">中底材料进化简史</div>
+<div class="section-title"><span class="deco"></span>一部中底进化史</div>
+<p style="color:#888;font-size:14px;margin-top:-6px;">从「够用就行」到「科技军备竞赛」</p>
 
-<div class="timeline">
-  <div class="timeline-item">
-    <div class="year">1970s – 2012 · EVA 时代</div>
-    <div class="desc">Brooks 首次将 EVA（乙烯-醋酸乙烯酯）引入跑鞋。材质轻、成本低、易加工，回弹约 <strong>40–45%</strong>。此后几十年，行业都在 EVA 框架内"雕花"。</div>
+<div class="timeline-wrap">
+  <div class="tl-item">
+    <div class="tl-year eva">1970s – 2012</div>
+    <div class="tl-desc"><strong>EVA 时代</strong> —— Brooks 把 EVA 引入跑鞋，轻便便宜又好做。回弹 <strong>40–45%</strong>，放今天看不够看，但在当年是革命。此后几十年，行业都在 EVA 框架里「雕花」。</div>
   </div>
-  <div class="timeline-item">
-    <div class="year">2013 · TPU 革命</div>
-    <div class="desc">Adidas + 巴斯夫推出 <strong>Boost</strong>，TPU 珠粒发泡实现约 <strong>75%</strong> 能量回馈，远超 EVA 的 60%。拉开中底军备竞赛的序幕。</div>
+  <div class="tl-item">
+    <div class="tl-year tpu">2013 年</div>
+    <div class="tl-desc"><strong>TPU 革命</strong> —— Adidas 携手巴斯夫推出 <strong>Boost</strong>，能量回馈飙到 <strong>75%</strong>，一脚下去软弹兼备。整个行业被震醒：原来中底还能这么做。</div>
   </div>
-  <div class="timeline-item">
-    <div class="year">2017 · PEBA 超级泡沫诞生</div>
-    <div class="desc">Nike Vaporfly 4% 携 <strong>ZoomX</strong> 横空出世。PEBA 基材能量回馈达 <strong>85%</strong>，比 TPU 轻 20–30%，几乎在所有维度碾压前代。</div>
+  <div class="tl-item">
+    <div class="tl-year peba">2017 年</div>
+    <div class="tl-desc"><strong>PEBA 超级泡沫诞生</strong> —— Nike Vaporfly 4% 携 <strong>ZoomX</strong> 杀穿全场。回弹 <strong>85%</strong>，重量比 TPU 轻 20–30%，几乎全面碾压。马拉松领奖台从此被它垄断。</div>
   </div>
-  <div class="timeline-item">
-    <div class="year">2019 – 至今 · 超临界发泡百花齐放</div>
-    <div class="desc">李宁 <strong>䨻</strong>、安踏 <strong>氮科技</strong> 等国产技术全面跟进。氮气/CO₂ 超临界发泡成为标配，更环保、更高回弹、更轻量。</div>
+  <div class="tl-item">
+    <div class="tl-year multi">2019 – 至今</div>
+    <div class="tl-desc"><strong>超临界发泡百花齐放</strong> —— 李宁 <strong>䨻</strong>、安踏 <strong>氮科技</strong> 杀入战局。氮气/CO₂ 超临界发泡成为标配，更环保、更高回弹、更轻。国产跑鞋第一次站上世界牌桌。</div>
   </div>
 </div>
 
-<div class="divider"></div>
+<div class="divider-dot">· · ·</div>
 
-<!-- ===== 四种材料 ===== -->
-<div class="section-title">一张图看懂四种中底材料</div>
+<!-- ===== 四大材料 ===== -->
+<div class="section-title"><span class="deco"></span>四大材料，一图看懂</div>
+<p style="color:#888;font-size:14px;margin-top:-6px;">搞懂 EVA / TPU / PEBA / TPEE 就够了</p>
 
-<div class="table-wrap">
-<table>
-  <tr><th>材料</th><th>能量回馈</th><th>重量</th><th>耐久</th><th>一句话</th></tr>
-  <tr><td><strong>EVA</strong></td><td>60–65%</td><td>中</td><td>一般，易衰减</td><td>米饭，管饱不惊艳</td></tr>
-  <tr><td><strong>TPU</strong></td><td>70–75%</td><td><span class="bp-red">偏重</span></td><td>很好</td><td>牛排，有嚼劲但偏重</td></tr>
-  <tr><td><strong>PEBA</strong></td><td><span class="bp">80–85%</span></td><td><span class="bp">极轻</span></td><td>中上</td><td>和牛，又轻又弹但贵</td></tr>
-  <tr><td><strong>TPEE</strong></td><td>75–82%</td><td>中</td><td>好</td><td>均衡选手，近年崛起</td></tr>
-</table>
+<div class="material-grid">
+  <div class="mat-card eva">
+    <div class="mat-icon eva">🍚</div>
+    <div class="mat-info">
+      <div class="mat-name">EVA <span class="en">乙烯-醋酸乙烯酯</span></div>
+      <div class="mat-stats">
+        <span class="mat-stat">回弹 <span class="val low">60–65%</span></span>
+        <span class="mat-stat">重量 <span class="val mid">中等</span></span>
+        <span class="mat-stat">耐久 <span class="val low">一般</span></span>
+      </div>
+      <div class="mat-tagline">「米饭」——管饱不惊艳，但最普及</div>
+    </div>
+  </div>
+  <div class="mat-card tpu">
+    <div class="mat-icon tpu">🥩</div>
+    <div class="mat-info">
+      <div class="mat-name">TPU <span class="en">热塑性聚氨酯</span></div>
+      <div class="mat-stats">
+        <span class="mat-stat">回弹 <span class="val mid">70–75%</span></span>
+        <span class="mat-stat">重量 <span class="val low">偏重</span></span>
+        <span class="mat-stat">耐久 <span class="val high">优秀</span></span>
+      </div>
+      <div class="mat-tagline">「牛排」——有嚼劲，但有点沉</div>
+    </div>
+  </div>
+  <div class="mat-card peba">
+    <div class="mat-icon peba">🥇</div>
+    <div class="mat-info">
+      <div class="mat-name">PEBA <span class="en">聚醚嵌段酰胺</span></div>
+      <div class="mat-stats">
+        <span class="mat-stat">回弹 <span class="val high">80–85%</span></span>
+        <span class="mat-stat">重量 <span class="val high">极轻</span></span>
+        <span class="mat-stat">耐久 <span class="val mid">中上</span></span>
+      </div>
+      <div class="mat-tagline">「和牛」——又轻又弹，唯一的缺点是贵</div>
+    </div>
+  </div>
+  <div class="mat-card tpee">
+    <div class="mat-icon tpee">⚖️</div>
+    <div class="mat-info">
+      <div class="mat-name">TPEE <span class="en">热塑性聚酯弹性体</span></div>
+      <div class="mat-stats">
+        <span class="mat-stat">回弹 <span class="val mid">75–82%</span></span>
+        <span class="mat-stat">重量 <span class="val mid">中等</span></span>
+        <span class="mat-stat">耐久 <span class="val high">好</span></span>
+      </div>
+      <div class="mat-tagline">「均衡型选手」——性价比之选，近年大热</div>
+    </div>
+  </div>
 </div>
 
-<div class="quote-block">
-<strong>一句话总结：</strong>PEBA 比 TPU 高 10 个百分点回弹、轻 20–30%，这就是它被称为"超级泡沫"的原因。
+<div class="quote-box">
+  <div class="inner"><strong>一句话：</strong>PEBA 比 TPU 多回弹 10 个百分点，轻 20–30%。这就是它被称为「超级泡沫」的原因。</div>
 </div>
 
 <div class="divider"></div>
 
 <!-- ===== 国际品牌 ===== -->
-<div class="section-title">国际品牌中底技术速览</div>
+<div class="section-title"><span class="deco"></span>国际品牌 · 逐个看</div>
+<p style="color:#888;font-size:14px;margin-top:-6px;">谁的科技最能打？</p>
 
 <!-- Nike -->
-<div class="brand-title"><span class="icon"></span>Nike · 行业颠覆者</div>
-
-<div class="highlight-box">
-<p><span class="label">ZoomX</span><span class="tag">2017</span><span class="tag-green">PEBA</span> · 官方宣称 85% 回弹，极轻极高回弹，与碳板组合使跑步经济性提升约 4%。Vaporfly、Alphafly 系列统治了近年马拉松领奖台。⚠️ 早期版本约 200–300km 后性能衰减，后期配方已优化。</p>
-<p style="margin-top:8px"><span class="label">React/ReactX</span><span class="tag">2017/2023</span> TPE+EVA 共混，定位中端训练，ReactX 碳足迹降低 43%。Pegasus 系列。</p>
+<div class="brand-card nike">
+  <div class="card-head">
+    <span>Nike · 行业颠覆者</span>
+    <span class="tag">🏆 回弹之王</span>
+  </div>
+  <div class="card-body">
+    <p><span class="tech">ZoomX</span> <span class="badge badge-peba">PEBA</span> <span class="badge badge-peba">2017</span></p>
+    <p>Nike 的王牌。官方宣称 <strong>85%</strong> 回弹，极轻、极高回弹。配上全掌碳板，让跑步经济性提升约 <strong>4%</strong>——Vaporfly 和 Alphafly 统治了最近几届大满贯领奖台。</p>
+    <p>⚠️ 早期版本 200–300km 后性能会衰减，后期配方已改善。</p>
+    <p><span class="tech">React/ReactX</span> —— TPE+EVA 共混，中端训练定位，ReactX 碳足迹降低 43%。Pegasus 系列用这个。</p>
+  </div>
 </div>
 
 <!-- Adidas -->
-<div class="brand-title"><span class="icon"></span>Adidas · 从辉煌到重新崛起</div>
-
-<div class="highlight-box">
-<p><span class="label">Boost</span><span class="tag">2013</span><span class="tag-orange">TPU</span> 约 75% 回弹，柔软且耐久极佳（上千公里仍性能良好），但以现代标准偏重。历史意义深远。</p>
-<p style="margin-top:8px"><span class="label">Lightstrike Pro</span><span class="tag">2021</span><span class="tag-purple">TPEE</span> 2024版约 80% 回弹，耐久极佳。Adios Pro 系列已赢得多项世界马拉松大满贯。有趣的是 Adidas 一直未布局纯 PEBA，而是用 TPEE 走了一条差异化路线。</p>
+<div class="brand-card adidas">
+  <div class="card-head">
+    <span>Adidas · 从辉煌到再崛起</span>
+    <span class="tag">🔥 经典的重量</span>
+  </div>
+  <div class="card-body">
+    <p><span class="tech">Boost</span> <span class="badge badge-tpu">TPU</span> <span class="badge badge-tpu">2013</span></p>
+    <p>跑鞋史上最重要的转折点之一。约 75% 回弹，柔软、耐久极佳（超过 1000km 仍能打），但——重。按今天的标准，它是「舒适但过重」了。</p>
+    <p><span class="tech">Lightstrike Pro</span> <span class="badge badge-tpee">TPEE</span> <span class="badge badge-tpee">2021</span></p>
+    <p>Adidas 的翻身之作。2024 版约 <strong>80%</strong> 回弹，耐久极佳，Adios Pro 系列已斩获多项大满贯。</p>
+    <p>有意思的是：Adidas 至今没碰纯 PEBA，坚持用 TPEE 走差异化路线——不是不能，而是不想。</p>
+  </div>
 </div>
 
 <!-- ASICS -->
-<div class="brand-title"><span class="icon"></span>ASICS · EVA 雕花大师的逆袭</div>
-
-<div class="highlight-box">
-<p><span class="label">FF Blast+</span> EVA+OBC，比普通 EVA 轻 55%。Novablast 系列。</p>
-<p style="margin-top:6px"><span class="label">FF Blast MAX</span> 2024年 POE 材料，比 FF Blast+ 提升 8.5% 回弹。</p>
-<p style="margin-top:6px"><span class="label">FF Turbo</span><span class="tag" style="margin-left:4px">2021</span> PEBA 基，比普通 EVA 轻 45% 弹 36%。Metaspeed 系列。</p>
-<p style="margin-top:6px"><span class="label">FF Turbo² / FF Leap</span><span class="tag-red" style="margin-left:4px">趋势</span> <strong>A-TPU</strong>（脂肪族TPU）——2025年最重要的技术趋势。耐久性显著优于 PEBA（PEBA 在 150–200 英里后回弹衰减），能量回馈 80%+。</p>
+<div class="brand-card asics">
+  <div class="card-head">
+    <span>ASICS · 不只会雕 EVA</span>
+    <span class="tag">📈 A-TPU 先锋</span>
+  </div>
+  <div class="card-body">
+    <p><span class="tech">FF Blast+</span> — EVA+OBC，比普通 EVA 轻 55%，Novablast 系列的招牌。</p>
+    <p><span class="tech">FF Blast MAX</span> — POE 新材料，回弹再提 8.5%。</p>
+    <p><span class="tech">FF Turbo</span> <span class="badge badge-peba">PEBA</span> — 比普通 EVA 轻 45% 弹 36%。</p>
+    <p><span class="tech">FF Turbo² / FF Leap</span> <span class="badge badge-atpu">A-TPU</span> <span class="badge badge-trend">🔥 趋势</span></p>
+    <p>ASICS 王牌技术，<strong>A-TPU（脂肪族 TPU）</strong> 是 2025 年最重要的中底革新：比 PEBA 更耐久（PEBA 在 150–200 英里后回弹明显衰减）、成本更低、抗紫外线更好。能量回馈 80%+。</p>
+  </div>
 </div>
 
 <!-- Saucony -->
-<div class="brand-title"><span class="icon"></span>Saucony · 技术矩阵最清晰</div>
-
-<div class="highlight-box">
-<p><span class="label">PWRRUN</span> EVA+TPU，最软 EVA 基泡沫之一。<span class="label">PWRRUN+</span> TPU，低温表现优秀。</p>
-<p style="margin-top:6px"><span class="label">PWRRUN PB</span><span class="tag">2020</span><span class="tag-green">PEBA</span> 珠粒发泡，宣称 88% 回弹，比 EVA 轻 50%。Endorphin Speed 系列。</p>
-<p style="margin-top:6px"><span class="label">incrediRUN</span><span class="tag">2024</span><span class="tag-purple">TPEE</span> Saucony 号称"史上最有弹性"的中底。Endorphin Elite 2。</p>
+<div class="brand-card saucony">
+  <div class="card-head">
+    <span>Saucony · 最清晰的矩阵</span>
+    <span class="tag">📊 一目了然</span>
+  </div>
+  <div class="card-body">
+    <p><span class="tech">PWRRUN</span> — EVA+TPU，最软的 EVA 基泡棉之一。</p>
+    <p><span class="tech">PWRRUN+</span> <span class="badge badge-tpu">TPU</span> — 低温表现优秀，冷柜 20 分钟仅变硬 3.6%（普通 EVA 变硬 27.9%）。</p>
+    <p><span class="tech">PWRRUN PB</span> <span class="badge badge-peba">PEBA</span> — 宣称 88% 回弹，比 EVA 轻 50%。Endorphin Speed 系列的大功臣。</p>
+    <p><span class="tech">incrediRUN</span> <span class="badge badge-tpee">TPEE</span> — Saucony 号称「史上最有弹性的中底」。Endorphin Elite 2 用。</p>
+  </div>
 </div>
 
 <!-- Brooks -->
-<div class="brand-title"><span class="icon"></span>Brooks · 追赶者终入场</div>
-
-<div class="highlight-box">
-<p><span class="label">DNA Loft v3</span> EVA+橡胶+氮气注入，传统但可靠。Ghost、Glycerin 系列。</p>
-<p style="margin-top:6px"><span class="label">DNA Gold</span><span class="tag">2023</span><span class="tag-green">PEBA</span> Hyperion Elite 5 实测 76.9% 回弹——比前代提升 20.7 个百分点，终于进入超级跑鞋竞争。</p>
+<div class="brand-card brooks">
+  <div class="card-head">
+    <span>Brooks · 终于追上来了</span>
+    <span class="tag">⏰ 迟到但到场</span>
+  </div>
+  <div class="card-body">
+    <p><span class="tech">DNA Loft v3</span> — EVA+橡胶+氮气注入，传统但可靠。Ghost、Glycerin 系列的口碑担当。</p>
+    <p><span class="tech">DNA Gold</span> <span class="badge badge-peba">PEBA</span> — Brooks 终于拿出的 PEBA 方案，Hyperion Elite 5 实测 <strong>76.9%</strong> 回弹——比上一代提升了整整 20.7 个百分点。</p>
+  </div>
 </div>
 
 <!-- New Balance -->
-<div class="brand-title"><span class="icon"></span>New Balance · 同名不同料</div>
-
-<div class="highlight-box">
-<p><span class="label">FuelCell</span> 名称下的材料<strong>差异巨大</strong>——Elite 版是 100% PEBA，Rebel 版是 20% PEBA+80% EVA，Trainer 版则是 TPU。消费者选购时需仔细辨别。</p>
-<p style="margin-top:6px"><span class="label">Infinion</span><span class="tag">2026</span> 80% TPEE+20% EVA，在柔软和回弹间取得新平衡。1080 v15。</p>
+<div class="brand-card nb">
+  <div class="card-head">
+    <span>New Balance · 同名不同命</span>
+    <span class="tag">🔍 买前看清楚</span>
+  </div>
+  <div class="card-body">
+    <p><span class="tech">FuelCell</span> —— 同样的名字，不同的鞋款材料差！很！大！</p>
+    <p>Elite v4 是 <strong>100% PEBA</strong>，Rebel v4 是 <strong>20% PEBA + 80% EVA</strong>，Trainer 版更是 TPU 基。买的时候一定看清楚型号。</p>
+    <p><span class="tech">Infinion</span> <span class="badge badge-tpee">TPEE</span> — 80% TPEE + 20% EVA，2026 年新款，在柔软和回弹间找到了新平衡。</p>
+  </div>
 </div>
 
 <!-- HOKA -->
-<div class="brand-title"><span class="icon"></span>HOKA · 厚底先锋发力中</div>
-
-<div class="highlight-box">
-<p><span class="label">scEVA</span> 超临界 EVA，Mach 6 实测约 65% 回弹，相比传统 CMEVA 提升显著。</p>
-<p style="margin-top:6px"><span class="label">Unnamed PEBA</span><span class="tag">2023</span> HOKA 首款 PEBA 中底（未正式命名），用于 Rocket X 2、Cielo X1 等竞速鞋。</p>
+<div class="brand-card hoka">
+  <div class="card-head">
+    <span>HOKA · 厚底王者的进化</span>
+    <span class="tag">📏 厚度即正义</span>
+  </div>
+  <div class="card-body">
+    <p><span class="tech">scEVA</span> — 超临界 EVA，Mach 6 实测约 <strong>65%</strong> 回弹，比传统 HOKA 中底提升很大。</p>
+    <p><span class="tech">Unnamed PEBA</span> <span class="badge badge-peba">PEBA</span> — HOKA 首款 PEBA 中底，至今没给正式名字。Rocket X 2、Cielo X1 等竞速鞋在用。</p>
+  </div>
 </div>
 
 <!-- Puma -->
-<div class="brand-title"><span class="icon"></span>Puma · A-TPU 先行者</div>
-
-<div class="highlight-box">
-<p><span class="label">NITRO Elite</span> 早期 PEBA+EVA 共混性能受限，2023年末改为 <strong>A-TPU</strong> 后大幅提升。Fast-R Nitro Elite 3 实验室达 <strong>89.9%</strong> 回弹，跻身顶级阵营。</p>
+<div class="brand-card puma">
+  <div class="card-head">
+    <span>Puma · A-TPU 的旗手</span>
+    <span class="tag">💥 黑马</span>
+  </div>
+  <div class="card-body">
+    <p><span class="tech">NITRO Elite</span> <span class="badge badge-atpu">A-TPU</span></p>
+    <p>早期 PEBA+EVA 版本性能一般，2023 年底全面换装 <strong>A-TPU</strong> 后直接起飞。Fast-R Nitro Elite 3 实验室跑出 <strong>89.9%</strong> 回弹——堪称 2025 年最大的黑马。</p>
+  </div>
 </div>
 
-<div class="divider"></div>
+<div class="divider-dot">· · ·</div>
 
 <!-- ===== 国产品牌 ===== -->
-<div class="section-title">国产品牌中底技术详解</div>
+<div class="section-title"><span class="deco"></span>国产品牌 · 全面崛起</div>
+<p style="color:#888;font-size:14px;margin-top:-6px;">从追赶到并跑，甚至局部领先</p>
 
-<div class="brand-title"><span class="icon"></span>李宁 · 国产中底的领路人</div>
-
-<p><strong>䨻（bèng）</strong> 2019年发布，中国品牌首次在核心中底材料上与国际一线平起平坐。</p>
-
-<div class="table-wrap">
-<table>
-  <tr><th>版本</th><th>材料</th><th>回弹率</th><th>现状</th></tr>
-  <tr><td><strong>高配䨻</strong></td><td>PEBA（Pebax®）</td><td>~85%</td><td>逐步减少</td></tr>
-  <tr><td><strong>中配䨻</strong></td><td>脂肪族 TPU</td><td>~80%</td><td>目前主力</td></tr>
-  <tr><td><strong>低配䨻</strong></td><td>TPEE</td><td>~70%+</td><td>平价产品</td></tr>
-</table>
+<!-- 李宁 -->
+<div class="brand-card lining">
+  <div class="card-head">
+    <span>李宁 · 国产中底第一枪</span>
+    <span class="tag">🚩 先行者</span>
+  </div>
+  <div class="card-body">
+    <p><span class="tech">䨻（bèng）</span> 2019 年发布，中国品牌第一次在核心中底材料上与国际一线正面硬刚。</p>
+    <p>但要注意：<strong>「䨻」其实有三种</strong>，性能和材料都不一样：</p>
+    <p style="background:#f5f5f5;border-radius:8px;padding:10px 12px;margin:8px 0;">
+      🔵 <strong>高配</strong> → PEBA（Pebax®）回弹 ~85% · 现已逐步减少<br>
+      🟡 <strong>中配</strong> → 脂肪族 TPU 回弹 ~80% · 目前主力<br>
+      🟢 <strong>低配</strong> → TPEE 回弹 ~70%+ · 平价产品线
+    </p>
+    <div class="warn-box">
+      <strong>⚠️ 争议：</strong>发布时以 Pebax 为核心宣传点，后续悄悄换成 TPEE/TPU 且未说明，引发「降级门」。不过话说回来，䨻在 <strong>-40°C</strong> 极寒条件下仍保持高回弹性——技术底子确实硬。
+    </div>
+  </div>
 </div>
 
-<div class="quote-block">
-<strong>⚠️ 争议：</strong>䨻发布时以 Pebax 为宣传核心，后续逐渐以 TPEE 和脂肪族 TPU 替代且未说明，引发"降级门"公关危机。但技术上，䨻在 <strong>-40°C</strong> 极寒条件下仍保持高回弹性，实力过硬。
+<!-- 安踏 -->
+<div class="brand-card anta">
+  <div class="card-head">
+    <span>安踏 · 聪明的「三层氮」</span>
+    <span class="tag">🧠 吸取教训</span>
+  </div>
+  <div class="card-body">
+    <p><span class="tech">氮科技</span> 2021 年发布。</p>
+    <p>安踏从李宁的「降级门」中学了一课：发布时<strong>不绑定具体材料</strong>，只强调「氮气超临界发泡」这个工艺——这样以后换材料也不会有公关风险。</p>
+    <p style="background:#f5f5f5;border-radius:8px;padding:10px 12px;margin:8px 0;">
+      🔵 <strong>入门</strong> → EVA+PEBA 共混 · 回弹 ~80% · 中端跑鞋<br>
+      🟡 <strong>进阶</strong> → 脂肪族 TPU · 回弹 ~83% · 中高端篮球鞋<br>
+      🔴 <strong>旗舰</strong> → 板材 PEBA · 回弹 <strong>~87%</strong> · C202 GT 竞速跑鞋
+    </p>
+  </div>
 </div>
 
-<div class="brand-title"><span class="icon"></span>安踏 · 三个层级的氮科技</div>
-
-<p><strong>氮科技（2021）</strong> 安踏从李宁的教训中学到——发布时不绑定具体材料，避免公关危机。</p>
-
-<div class="table-wrap">
-<table>
-  <tr><th>等级</th><th>材料</th><th>回弹率</th><th>应用</th></tr>
-  <tr><td>入门</td><td>EVA+PEBA 共混</td><td>~80%</td><td>中端跑鞋</td></tr>
-  <tr><td>进阶</td><td>脂肪族 TPU</td><td>~83%</td><td>中高端篮球鞋</td></tr>
-  <tr><td><strong>旗舰</strong></td><td>板材 PEBA</td><td><strong>~87%</strong></td><td>C202 GT 竞速跑鞋</td></tr>
-</table>
+<!-- 特步 -->
+<div class="brand-card xtep">
+  <div class="card-head">
+    <span>特步 · 中国马拉松之王</span>
+    <span class="tag">🏅 赛场出镜率最高</span>
+  </div>
+  <div class="card-body">
+    <p><span class="tech">XTEP ACE</span> <span class="badge badge-peba">PEBA</span> 2022 年推出。</p>
+    <p>密度仅 <strong>0.08g/cm³</strong>（发布时是国产最轻），回弹 <strong>85%+</strong>。160X 系列在中国马拉松赛场上随处可见，被称为「国人之光」。2024 年升级版重量再减 20%。</p>
+  </div>
 </div>
 
-<div class="brand-title"><span class="icon"></span>特步 · 中国马拉松赛场的王者</div>
+<!-- 匹克 -->
+<div class="brand-card peak">
+  <div class="card-head">
+    <span>匹克 · 不走寻常路</span>
+    <span class="tag">🧪 智能材料</span>
+  </div>
+  <div class="card-body">
+    <p><span class="tech">态极</span> 2018 年发布。</p>
+    <p>TPE + <strong>P4U 剪切增稠流体</strong>——这是一种智能材料：走得慢时分子链松弛，柔软如棉；跑得快时分子链瞬间锁紧，提供高回弹支撑。一根中底同时实现了「软」和「弹」。</p>
+    <p>不过坦白说，态极更适合日常通勤和休闲跑，严肃跑步的话，重量和回弹速度跟顶级 PEBA 还有差距。</p>
+  </div>
+</div>
 
-<p><strong>XTEP ACE（2022）</strong> PEBA 射胚发泡，密度仅 <strong>0.08g/cm³</strong>（当时国产最轻中底之一），回弹率 <strong>85%+</strong>。160X 系列在中国马拉松赛场出镜率极高，2024年升级版重量再减 20%。</p>
-
-<div class="brand-title"><span class="icon"></span>匹克 · 自适应的另类路线</div>
-
-<p><strong>态极（2018）</strong> TPE + P4U 剪切增稠流体。慢走时柔软如棉，快跑时分子链接锁紧提供高回弹。一根中底同时实现"软"和"弹"。适合日常通勤，但严肃跑步仍与顶级 PEBA 有差距。</p>
-
-<div class="brand-title"><span class="icon"></span>其他国产品牌速览</div>
-
-<p>
-<span class="brand-chip xtep">361° QU!KFLAME</span> PEBA 珠粒发泡，国际线由前 ASICS 团队运营。
-</p>
-<p>
-<span class="brand-chip anta">中乔 巭Pro</span> TPS 改性 EVA+超临界发泡，以极高性价比占据低价碳板鞋市场。注意：这里的"PB"并非 PEBA，而是 EVA 基材料。
+<!-- 其他国产品牌 -->
+<p style="background:#f8f9fe;border-radius:12px;padding:12px 16px;font-size:14px;color:#555;margin:14px 0;">
+  🏷️ <strong>361°</strong> QU!KFLAME（PEBA 珠粒发泡），国际线由前 ASICS 团队运营，调校偏日系。<br><br>
+  🏷️ <strong>中乔丹</strong> 巭Pro（TPS 改性 EVA+超临界发泡），性价比极高。注意这里的「PB」不是 PEBA，是 EVA 基材料——别跟行业惯例搞混了。
 </p>
 
 <div class="divider"></div>
 
-<!-- ===== 核心对比 ===== -->
-<div class="section-title">关键数据：能量回馈率横向对比</div>
+<!-- ===== 回弹率对比 ===== -->
+<div class="section-title"><span class="deco"></span>能量回弹率 · 谁最能弹？</div>
+<p style="color:#888;font-size:14px;margin-top:-6px;">品牌宣称值 vs 实测 —— 肉眼可见的差距</p>
 
-<div class="table-wrap">
-<table>
-  <tr><th>品牌</th><th>科技</th><th>基材</th><th>宣称回弹</th></tr>
-  <tr><td>Nike</td><td>ZoomX</td><td>PEBA</td><td><strong>85%</strong></td></tr>
-  <tr><td>Saucony</td><td>PWRRUN PB</td><td>PEBA</td><td><strong>88%</strong></td></tr>
-  <tr><td>Puma</td><td>NITRO Elite</td><td>A-TPU</td><td><strong>~90%</strong></td></tr>
-  <tr><td>Adidas</td><td>Lightstrike Pro</td><td>TPEE</td><td>~80%</td></tr>
-  <tr><td>ASICS</td><td>FF Leap</td><td>A-TPU</td><td>80%+</td></tr>
-  <tr><td>安踏</td><td>氮科技(PEBA)</td><td>PEBA</td><td><strong>~87%</strong></td></tr>
-  <tr><td>特步</td><td>XTEP ACE</td><td>PEBA</td><td><strong>85%+</strong></td></tr>
-  <tr><td>李宁</td><td>䨻(高配)</td><td>PEBA</td><td>~85%</td></tr>
-  <tr><td>Brooks</td><td>DNA Gold</td><td>PEBA</td><td>~77%</td></tr>
-  <tr><td>HOKA</td><td>scEVA</td><td>EVA</td><td>~65%</td></tr>
-</table>
+<div class="energy-section">
+  <div class="energy-row">
+    <div class="energy-label">Puma</div>
+    <div class="energy-bar-wrap"><div class="energy-bar e90" style="width:92%">~90%</div></div>
+  </div>
+  <div class="energy-row">
+    <div class="energy-label">Saucony</div>
+    <div class="energy-bar-wrap"><div class="energy-bar e88" style="width:88%">88%</div></div>
+  </div>
+  <div class="energy-row">
+    <div class="energy-label">安踏</div>
+    <div class="energy-bar-wrap"><div class="energy-bar e87" style="width:87%">~87%</div></div>
+  </div>
+  <div class="energy-row">
+    <div class="energy-label">Nike</div>
+    <div class="energy-bar-wrap"><div class="energy-bar e85" style="width:85%">85%</div></div>
+  </div>
+  <div class="energy-row">
+    <div class="energy-label">特步</div>
+    <div class="energy-bar-wrap"><div class="energy-bar e85" style="width:85%">85%+</div></div>
+  </div>
+  <div class="energy-row">
+    <div class="energy-label">李宁</div>
+    <div class="energy-bar-wrap"><div class="energy-bar e85" style="width:85%">~85%</div></div>
+  </div>
+  <div class="energy-row">
+    <div class="energy-label">ASICS</div>
+    <div class="energy-bar-wrap"><div class="energy-bar e80" style="width:82%">80%+</div></div>
+  </div>
+  <div class="energy-row">
+    <div class="energy-label">Adidas</div>
+    <div class="energy-bar-wrap"><div class="energy-bar e80" style="width:80%">~80%</div></div>
+  </div>
+  <div class="energy-row">
+    <div class="energy-label">Brooks</div>
+    <div class="energy-bar-wrap"><div class="energy-bar e77" style="width:77%">~77%</div></div>
+  </div>
+  <div class="energy-row">
+    <div class="energy-label">HOKA</div>
+    <div class="energy-bar-wrap"><div class="energy-bar e65" style="width:65%">~65%</div></div>
+  </div>
 </div>
 
-<div class="quote-block">
-注：品牌宣称值通常高于独立实验室实测值，这是行业普遍现象。建议横向对比时以实测数据为准。
+<div class="quote-box">
+  <div class="inner">⚠️ 注：品牌官方宣称值通常高于独立实验室实测值，这是行业惯例。横向对比时以同一来源的实测数据为准更靠谱。</div>
 </div>
 
 <div class="divider"></div>
 
 <!-- ===== 选鞋指南 ===== -->
-<div class="section-title">实战指南：怎么根据中底选鞋？</div>
+<div class="section-title"><span class="deco"></span>实战指南</div>
+<p style="color:#888;font-size:14px;margin-top:-6px;">你对号入座，我推荐方案</p>
 
-<div class="highlight-box">
-<p style="margin:2px 0"><strong>🏃 日常慢跑</strong> → 超临界 EVA 或 TPU 共混</p>
-<p style="margin:2px 0 6px 0;color:#888;font-size:13px">Nike Pegasus · ASICS Novablast · Saucony Ride</p>
-<p style="margin:2px 0"><strong>🚀 速度训练</strong> → PEBA 或 TPEE</p>
-<p style="margin:2px 0 6px 0;color:#888;font-size:13px">Saucony Endorphin Speed · Adidas Takumi Sen</p>
-<p style="margin:2px 0"><strong>🏆 比赛日</strong> → PEBA/A-TPU + 全掌碳板</p>
-<p style="margin:2px 0 6px 0;color:#888;font-size:13px">Nike Alphafly · Adidas Adios Pro · 特步 160X 6.0 Pro</p>
-<p style="margin:2px 0"><strong>⚖️ 大体重</strong> → 高密度 EVA 或 TPEE（更稳定）</p>
-<p style="margin:2px 0 6px 0;color:#888;font-size:13px">ASICS GEL-NIMBUS · Brooks Glycerin</p>
-<p style="margin:2px 0"><strong>❄️ 寒冷地区</strong> → PEBA 或 TPU（EVA 低温明显变硬）</p>
+<div class="guide-grid">
+  <div class="guide-card g1">
+    <span class="g-icon">🏃</span>
+    <div class="g-title">日常慢跑</div>
+    <div class="g-desc">超临界 EVA 或 TPU 共混<br>→ Pegasus / Novablast / Ride</div>
+  </div>
+  <div class="guide-card g2">
+    <span class="g-icon">🚀</span>
+    <div class="g-title">速度训练</div>
+    <div class="g-desc">PEBA 或 TPEE<br>→ Endorphin Speed / Takumi Sen</div>
+  </div>
+  <div class="guide-card g3">
+    <span class="g-icon">🏆</span>
+    <div class="g-title">比赛日</div>
+    <div class="g-desc">PEBA/A-TPU + 全掌碳板<br>→ Alphafly / Adios Pro / 160X</div>
+  </div>
+  <div class="guide-card g4">
+    <span class="g-icon">⚖️</span>
+    <div class="g-title">大体重跑者</div>
+    <div class="g-desc">高密度 EVA 或 TPEE<br>→ GEL-NIMBUS / Glycerin</div>
+  </div>
+  <div class="guide-card g5">
+    <span class="g-icon">❄️</span>
+    <div class="g-title">寒冷地区</div>
+    <div class="g-desc">PEBA 或 TPU<br>（EVA 低温变硬明显）</div>
+  </div>
+  <div class="guide-card g6">
+    <span class="g-icon">💰</span>
+    <div class="g-title">高性价比</div>
+    <div class="g-desc">国产 PEBA 跑鞋<br>→ 特步 160X / 安踏 C202</div>
+  </div>
 </div>
 
 <div class="divider"></div>
 
 <!-- ===== 趋势 ===== -->
-<div class="section-title">未来已来：三个趋势</div>
+<div class="section-title"><span class="deco"></span>未来正在发生</div>
 
-<p><strong>🥇 A-TPU 正在取代 PEBA？</strong></p>
-<p>PEBA 在 150–200 英里后回弹明显衰减，而 A-TPU（脂肪族 TPU）更耐久、抗紫外线更好、成本更低。ASICS FF Turbo²、Puma NITRO Elite 均已转向 A-TPU。但短期 PEBA 在轻量化和极限回弹上仍占优势。</p>
-
-<p><strong>🌱 可持续材料成为必选项</strong></p>
-<p>生物基 PEBA、回收再生材料正在全面渗透：Adidas 生物基 Dreamstrike+、ASICS FF Blast+ Eco（20% 生物基）、Nike ReactX（碳足迹降 43%）。</p>
-
-<p><strong>📈 TPEE 成为"人人都用得起的好中底"</strong></p>
-<p>TPEE 在成本与性能间的平衡优于 PEBA，正在大量进入中高端训练鞋。Adidas Lightstrike Pro、Saucony incrediRUN、New Balance Infinion 都是 TPEE 路线。</p>
+<div class="trend-item" style="border-left-color:#e91e63;">
+  <div class="t-title"><span class="t-icon">🥇</span>A-TPU 要取代 PEBA？</div>
+  <div class="t-desc">PEBA 在 150–200 英里后回弹会明显衰减；A-TPU（脂肪族 TPU）更耐久、抗紫外线更好、成本更低。ASICS FF Turbo²、Puma NITRO Elite 已全面转向 A-TPU。但短期来看，PEBA 在轻量化和极限回弹上仍占上风。</div>
+</div>
+<div class="trend-item" style="border-left-color:#27ae60;">
+  <div class="t-title"><span class="t-icon">🌱</span>环保材料不是选择题，是必答题</div>
+  <div class="t-desc">Adidas 生物基 Dreamstrike+（20% 来自植物）、ASICS FF Blast+ Eco（20% 生物基）、Nike ReactX（碳足迹降 43%）——大品牌都在押注可持续。</div>
+</div>
+<div class="trend-item" style="border-left-color:#e67e22;">
+  <div class="t-title"><span class="t-icon">📈</span>TPEE：人人都用得起的「好中底」</div>
+  <div class="t-desc">TPEE 在成本和性能之间找到了甜蜜点。Adidas Lightstrike Pro、Saucony incrediRUN、New Balance Infinion 都在走这条路线——它不像 PEBA 那么极致，但对大多数人来说已经足够好。</div>
+</div>
 
 <div class="divider"></div>
 
-<!-- ===== 总结 ===== -->
-<div class="section-title">总结</div>
+<!-- ===== 结尾 ===== -->
+<div class="section-title"><span class="deco"></span>最后说两句</div>
 
-<div class="conclusion-box">
-<p class="big">没有最好的中底，只有最适合你的中底。</p>
-<p>🏆 <strong>极致性能</strong>（比赛日）→ PEBA 或 A-TPU 碳板竞速鞋</p>
-<p>🏃 <strong>日常舒适</strong>（慢跑）→ 超临界 EVA 或 TPU 共混已足够</p>
-<p>💰 <strong>性价比</strong> → 国产 PEBA（特步 XTEP ACE、安踏氮科技）已达世界级</p>
-<p style="margin-top:10px;font-size:13px">如果条件允许，去实体店试穿永远是最好的决策方式。</p>
+<div class="final-box">
+  <div class="f-big">没有最好的中底，<br>只有最适合你的中底。</div>
+  <div class="f-divider"></div>
+  <div class="f-item">🏆 <strong>追求极致</strong> → PEBA / A-TPU 碳板竞速鞋</div>
+  <div class="f-item">🏃 <strong>日常舒爽</strong> → 超临界 EVA 或 TPU 共混已足够</div>
+  <div class="f-item">💰 <strong>性价比为王</strong> → 国产 PEBA 已达世界级水准</div>
+  <div class="f-divider"></div>
+  <div class="f-foot">如果条件允许，去实体店上脚一试——脚不会骗你。</div>
 </div>
 
 <div class="footer-note">
-完整版（含详细数据表格和 24 篇参考文献）已在个人网站发布<br>
-<a href="https://likeflames.online">likeflames.online</a>
+  完整版（含详细数据表格 + 24 篇参考文献）已在个人网站发布<br>
+  <a href="https://likeflames.online">👉 likeflames.online</a>
 </div>
 
 </div>
