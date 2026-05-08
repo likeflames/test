@@ -76,7 +76,7 @@
       }
     ]
   },
-  "2233娘": {
+  "🐱2233": {
     "type": "image",
     "container": [
       {
@@ -142,7 +142,7 @@
     ],
     "icon": "<img src=\"https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibili2233/1.png\">"
   },
-  "热搜": {
+  "🔥热搜": {
     "type": "image",
     "container": [
       {
@@ -276,7 +276,7 @@
     ],
     "icon": "<img src=\"https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibiliHotKey/1.jpg\">"
   },
-  "小电视": {
+  "📺小电视": {
     "type": "image",
     "container": [
       {
@@ -458,7 +458,7 @@
     ],
     "icon": "<img src=\"https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/bilibili_tv_gif/doge.gif\">"
   },
-  "贴吧": {
+  "💬贴吧": {
     "type": "image",
     "container": [
       {
