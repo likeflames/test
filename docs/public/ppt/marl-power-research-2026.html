@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MARL × 电力系统 双方向可行性深研与协作方案 2026</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231a365d'/%3E%3Cpath d='M9 22 L16 8 L23 22' stroke='%23d69e2e' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='18' r='2' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;600;700;900&display=swap">
+<script src="echarts.min.js"></script>
+<script>if(!window.echarts){document.write('<script src="https://cdn.staticfile.org/echarts/5.5.0/echarts.min.js"><\/script>');}</script>
+<script>if(!window.echarts){document.write('<script src="https://registry.npmmirror.com/echarts/5.5.0/files/dist/echarts.min.js"><\/script>');}</script>
+<script>if(!window.echarts){document.write('<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"><\/script>');}</script>
+<style>
+:root{
+  --navy:#1a365d; --navy-2:#234a7d; --navy-3:#2c5282;
+  --amber:#d69e2e; --amber-soft:#f6e3b4;
+  --blue:#2b6cb0; --blue-soft:#e3edf8;
+  --green:#2f855a; --green-soft:#e2f0e8;
+  --ink:#1f2733; --muted:#5b6b7f; --line:#d8e0ea; --bg:#f7f9fc; --card:#ffffff;
+  --serif:"Noto Serif SC", Georgia, "Songti SC", serif;
+  --sans:"Noto Sans SC", -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--serif);color:var(--navy);line-height:1.3}
+a{color:var(--navy-3);text-decoration:none;border-bottom:1px dotted var(--navy-3)}
+a:hover{color:var(--amber)}
+code{font-family:Consolas,"Courier New",monospace;background:#eef2f7;padding:1px 5px;border-radius:3px;font-size:.88em;color:#b03060}
+/* ===== 顶部导航 ===== */
+nav.topbar{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--navy);color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.topbar-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:6px;padding:0 20px;height:54px;overflow-x:auto;white-space:nowrap}
+.brand{font-family:var(--serif);font-weight:700;font-size:15px;color:#fff;margin-right:14px;flex:none;border:none}
+.brand .dot{color:var(--amber)}
+.topbar a.navlink{color:#cdd9ea;font-size:12.5px;padding:5px 9px;border:none;border-radius:4px;flex:none}
+.topbar a.navlink:hover{background:rgba(255,255,255,.12);color:#fff}
+/* ===== 布局 ===== */
+.wrap{max-width:1280px;margin:0 auto;padding:0 24px}
+section.chapter{padding:56px 0 24px;border-top:1px solid var(--line)}
+section.chapter:first-of-type{border-top:none}
+.sec-tag{display:inline-block;font-size:12px;letter-spacing:2px;color:var(--amber);font-weight:700;text-transform:uppercase;margin-bottom:6px}
+h2.sec-title{font-size:30px;font-weight:900;margin-bottom:6px}
+.sec-sub{color:var(--muted);font-size:14px;margin-bottom:26px}
+h3.block{font-size:20px;margin:34px 0 14px;padding-left:12px;border-left:4px solid var(--amber)}
+h4.sub{font-size:16px;margin:20px 0 10px;color:var(--navy-2)}
+p{margin-bottom:12px}
+ul,ol{margin:0 0 14px 22px}
+li{margin-bottom:5px}
+/* ===== 封面 ===== */
+header.cover{background:linear-gradient(135deg,#152a4a 0%,#1a365d 55%,#234a7d 100%);color:#fff;padding:96px 0 64px;margin-top:54px}
+.cover .kicker{color:var(--amber);letter-spacing:3px;font-size:13px;font-weight:700;margin-bottom:18px}
+.cover h1{color:#fff;font-size:42px;font-weight:900;line-height:1.25;max-width:900px}
+.cover .sub{margin-top:18px;font-size:18px;color:#cdd9ea;font-weight:300}
+.cover .meta{margin-top:26px;display:flex;gap:22px;flex-wrap:wrap;font-size:13px;color:#9fb4d0}
+.cover .meta b{color:var(--amber-soft)}
+/* ===== 卡片/提示框 ===== */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px 20px}
+.card h4{margin-top:0}
+.callout{border-left:4px solid var(--amber);background:#fdf8ec;padding:14px 18px;border-radius:0 6px 6px 0;margin:16px 0}
+.callout.warn{border-left-color:#c53030;background:#fdf0ef}
+.callout.info{border-left-color:var(--blue);background:var(--blue-soft)}
+.callout.ok{border-left-color:var(--green);background:var(--green-soft)}
+.callout p:last-child{margin-bottom:0}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:.5px}
+.pill.b1{background:var(--blue-soft);color:var(--blue)}
+.pill.b2{background:var(--green-soft);color:var(--green)}
+.pill.amber{background:var(--amber-soft);color:#8a6410}
+.pill.gray{background:#eef2f7;color:var(--muted)}
+.tag-ok{color:var(--green);font-weight:700}
+.tag-paper{color:#b07020;font-weight:700}
+/* ===== 表格 ===== */
+.tblwrap{overflow-x:auto;margin:14px 0 20px;border:1px solid var(--line);border-radius:6px}
+table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:13.5px;background:#fff}
+table th{background:var(--navy);color:#fff;font-weight:500;text-align:left;padding:9px 11px;font-size:13px}
+table td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top;word-break:break-word}
+table tr:nth-child(even) td{background:#f6f9fc}
+table tr:last-child td{border-bottom:none}
+.caption{font-size:12.5px;color:var(--muted);margin:10px 0 18px}
+/* ===== 图表 ===== */
+.chart{width:100%;height:420px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px;box-sizing:border-box}
+.chart.tall{height:480px}
+.chart.gantt{height:370px}
+.chart-err{display:flex;align-items:center;justify-content:center;height:100%;min-height:120px;text-align:center;color:#8a98a5;font-size:13.5px;padding:24px;line-height:1.8}
+/* ===== 术语标签页 ===== */
+.gloss-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 14px}
+.gloss-tab{padding:7px 15px;border:1px solid var(--line);background:#fff;border-radius:18px;cursor:pointer;font-size:13.5px;font-family:var(--sans);color:var(--muted)}
+.gloss-tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.gloss-panel{display:none}
+.gloss-panel.active{display:block}
+.gloss-search{width:100%;padding:9px 13px;border:1px solid var(--line);border-radius:6px;font-size:14px;margin-bottom:14px;font-family:var(--sans)}
+details.gloss{border:1px solid var(--line);border-radius:6px;margin-bottom:8px;background:#fff}
+details.gloss summary{cursor:pointer;padding:10px 14px;font-weight:700;color:var(--navy);list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.gloss summary::-webkit-details-marker{display:none}
+details.gloss summary::after{content:"展开";font-size:11px;font-weight:400;color:var(--muted)}
+details.gloss[open] summary::after{content:"收起"}
+details.gloss .gbody{padding:0 14px 12px;font-size:13.5px;color:var(--ink)}
+.gdef{margin-bottom:8px}.gdef b{color:var(--navy-2)}
+/* ===== 页脚 ===== */
+footer{background:var(--navy);color:#9fb4d0;padding:34px 0;margin-top:60px;font-size:13px}
+footer .wrap{display:block}
+footer b{color:#fff}
+.toc-inline{columns:2;column-gap:30px}
+@media(max-width:768px){
+  .grid2,.grid3{grid-template-columns:1fr}
+  .cover h1{font-size:29px}
+  h2.sec-title{font-size:24px}
+  .toc-inline{columns:1}
+  table{font-size:12.5px}
+  .chart{height:340px}
+  .chart.gantt{height:320px}
+}
+.tblwrap table{min-width:620px}
+</style>
+</head>
+<body>
+<!-- ===== 顶部导航 ===== -->
+<nav class="topbar">
+  <div class="topbar-inner">
+    <span class="brand">MARL<span class="dot">×</span>电力 2026</span>
+    <a class="navlink" href="#cover">封面</a>
+    <a class="navlink" href="#ch1">横向对比</a>
+    <a class="navlink" href="#ch2">方向①可行性</a>
+    <a class="navlink" href="#ch3">方向①协作</a>
+    <a class="navlink" href="#ch4">方向②可行性</a>
+    <a class="navlink" href="#ch5">方向②协作</a>
+    <a class="navlink" href="#ch6">知识地图</a>
+    <a class="navlink" href="#ch7">术语表</a>
+    <a class="navlink" href="#ch8">来源附录</a>
+  </div>
+</nav>
+
+<!-- ===== 0. 封面与执行摘要 ===== -->
+<header class="cover" id="cover">
+  <div class="wrap">
+    <div class="kicker">深度研究报告 · 选型与协作方案</div>
+    <h1>MARL × 电力系统 双方向可行性深研与协作方案 2026</h1>
+    <div class="sub">有源配网电压/无功控制（VVC/VVO）&nbsp;×&nbsp;局部能源市场 / P2P 竞价</div>
+    <div class="meta">
+      <span>检索 / 成文日期：<b>2026-09-19</b></span>
+      <span>工时口径：<b>按每周 8–10 小时估算</b></span>
+      <span>证据口径：<b>已查证 / 论文一方称</b> 双标注</span>
+    </div>
+  </div>
+</header>
+
+<section class="chapter" id="exec">
+  <div class="wrap">
+    <span class="sec-tag">Executive Summary</span>
+    <h2 class="sec-title">执行摘要</h2>
+    <p class="sec-sub">两个研究方向在同一技术栈（CTDE 类 MARL）下，但服务于不同问题域：方向①调物理（电压无功），方向②调交易（报价出清）。结论先行如下。</p>
+
+    <div class="grid2">
+      <div class="card" style="border-top:3px solid var(--blue)">
+        <h4><span class="pill b1">方向①</span>&nbsp;有源配网 VVC/VVO</h4>
+        <p><b>一句话结论：</b>首选，工程原型 + 学位论文。仿真就绪、算例数据不缺、政策强顺风；三篇 2026 新论文给出量化增益，但均为"论文一方称"。</p>
+        <p><b>推荐度：高。</b>七维总分 <b>33 / 35</b>。最适合电气专业本科生/研究生做学位论文、电力电子/智能车团队做工程原型。</p>
+      </div>
+      <div class="card" style="border-top:3px solid var(--green)">
+        <h4><span class="pill b2">方向②</span>&nbsp;局部能源市场 / P2P</h4>
+        <p><b>一句话结论：</b>中高推荐，学术/机制方向首选。仿真器、baseline 增益数字、国内政策窗口（VPP/现货/绿电直连）三件事证据齐全；但国内用户侧 P2P 直电交易未放开。</p>
+        <p><b>推荐度：中高。</b>七维总分 <b>29 / 35</b>。最适合学位论文、课题申报、会议/workshop 论文；不适合短期产品化。</p>
+      </div>
+    </div>
+
+    <div class="callout warn" style="margin-top:20px">
+      <b>重要认知纠正：</b>前序选型中被当作 VVC 候选环境的 <b>RL-ADN（arXiv 2408.03685）实为储能套利/调度（battery energy arbitrage）环境，不是 VVC 环境</b>。其亮点是 Laurent 潮流求解器比 pandapower 快 4.4–9.1 倍，可借鉴加速思路，但不应作为 VVC baseline 环境使用。VVC 起步应选 MAPDN（pandapower，33/141/322），冲论文/工业真实感换 PowerGym（OpenDSS，13/34/123/8500）。
+    </div>
+
+    <h3 class="block">核心数据对比表</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:22%"><col style="width:39%"><col style="width:39%"></colgroup>
+        <thead><tr><th>对比项</th><th>方向① VVC/VVO <span class="pill b1">首选</span></th><th>方向② P2P/市场 <span class="pill b2">中高</span></th></tr></thead>
+        <tbody>
+          <tr><td><b>七维评分总分</b></td><td>33 / 35</td><td>29 / 35</td></tr>
+          <tr><td><b>推荐度</b></td><td>高</td><td>中高</td></tr>
+          <tr><td><b>最适合目标</b></td><td>学位论文 / 工程原型 / 配网智能化课题</td><td>学位论文 / 课题申报 / 会议与 workshop 论文</td></tr>
+          <tr><td><b>Go 关键条件</b></td><td>≥1 人能写 OpenDSS/pandapower 潮流脚本 + 1 台可跑 PyTorch 数千 episode 的 GPU 机</td><td>≥1 人能啃"博弈论 + CTDE 类 MARL 实现"，且目标是论文/课题而非产品</td></tr>
+          <tr><td><b>No-Go 条件</b></td><td>无人懂电力稳态/潮流；仅 CPU 笔记本且要求 4 周出可发表结果</td><td>要求 3 个月出可商用交易系统；无电力市场概念且无人愿补</td></tr>
+          <tr><td><b>单人到原型工时</b></td><td>约 15 周（3.5 个月）</td><td>约 15–17 周（4 个月）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<!-- ===== 1. 两方向横向对比 ===== -->
+<section class="chapter" id="ch1">
+  <div class="wrap">
+    <span class="sec-tag">Chapter 01</span>
+    <h2 class="sec-title">两方向横向对比</h2>
+    <p class="sec-sub">同一套 CTDE 类 MARL 技术栈，按七个维度打分（每维 1–5 分）。方向①总分 33，方向②总分 29。</p>
+
+    <h3 class="block">七维评分雷达图</h3>
+    <div id="chart-radar" class="chart tall"></div>
+    <p class="caption">图 1-1　七维评分：M1 多主体必要性 / M2 仿真就绪度 / M3 奖励可定义 / M4 数据与算例 / M5 MARL 增益与空白 / M6 沙箱安全性 / M7 落地可行。方向①在奖励可定义、数据算例上占优；方向②在沙箱安全性（纯市场侧、零物理风险）上占优。</p>
+
+    <h3 class="block">关键指标对比表</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:18%"><col style="width:41%"><col style="width:41%"></colgroup>
+        <thead><tr><th>维度</th><th>方向① VVC/VVO</th><th>方向② P2P/市场</th></tr></thead>
+        <tbody>
+          <tr><td><b>技术成熟度</b></td><td>中。CTDE+MAPPO/MADDPG/Graph-critic 已被多篇 2026 新论文验证可跑通；安全 MARL 刚起步</td><td>中。CTDE MARL 框架成熟，但自利场景信用分配/多均衡仍是开放问题</td></tr>
+          <tr><td><b>仿真就绪度</b></td><td>中–高。PowerGym、MAPDN 可直接起步；RL-ADN 实为储能套利，非 VVC</td><td>中。ASSUME 活跃可用；MARLEM/SolarChain-Eval 极新但 star 少；PyMarket 停更</td></tr>
+          <tr><td><b>数据可得性</b></td><td>高。IEEE 13/33/123/8500 内置；NREL/OpenEI/SMART-DS 时序开源</td><td>中。国外数据齐全；国内现货出清价不公开，需用规则+负荷合成</td></tr>
+          <tr><td><b>增益证据强度</b></td><td>中–强。GRAS-AVC/AE-HMATD3/HMC 均给量化数字，均"论文一方称"</td><td>中高。论文报告 30%–90% 提升，均"论文一方称"，缺与 MILP 硬对比</td></tr>
+          <tr><td><b>学习门槛</b></td><td>中–高。需电力潮流 + RL + GNN 三线叠加，单人 12–16 周出原型</td><td>中高。需补博弈论+机制设计，物理深度要求更低</td></tr>
+          <tr><td><b>国内政策</b></td><td>强顺风。发改能源〔2024〕187 号、〔2025〕1710 号、〔2025〕1360 号</td><td>中。VPP/微网/现货窗口已开；开放用户侧 P2P 直电未放开</td></tr>
+          <tr><td><b>推荐度</b></td><td><span class="tag-ok">高</span></td><td>中高</td></tr>
+          <tr><td><b>最适合目标</b></td><td>学位论文 / 工程原型 / 配网智能化项目申报</td><td>学位论文 / 课题申报 / 会议与 workshop 论文</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="block">开源仿真环境 GitHub 星数对比</h3>
+    <div id="chart-stars" class="chart"></div>
+    <p class="caption">图 1-2　八个常用开源环境的 GitHub 星数。方向②五个仓库（MARLEM 9 / SolarChain-Eval 2 / ASSUME 113 / PyMarket 30 / Mesa 3850）为 2026-09-19 经 GitHub API 实际查询值；方向①三个仓库（PowerGym / MAPDN / RL-ADN）当日受 robots.txt 限制未程序化抓取实时星数，底稿未对具体星数做断言，图中以"未抓取"标注，请到 GitHub 页面实时确认。</p>
+
+    <div class="grid2">
+      <div class="callout info">
+        <b>什么人选方向①：</b>有电力系统/配网背景（或愿意补潮流），需要 GPU，目标是做学位论文、配网/新能源类课题、或在电力电子/智能车队伍里做一个可控物理对象的工程原型。能接受"RL 给增量 + 本地下垂/保护兜底"的非黑盒定位。
+      </div>
+      <div class="callout ok">
+        <b>什么人选方向②：</b>更偏机制设计、博弈论与经济学，对物理潮流深度要求低，目标是发会议/workshop 论文或申报课题；能把国内叙事调整为"VPP 聚合商内部多产消者协调报价 / 现货报量报价 / 绿电直连微网"。
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ===== 2. 方向① VVC/VVO 可行性 ===== -->
+<section class="chapter" id="ch2">
+  <div class="wrap">
+    <span class="sec-tag">Chapter 02 · <span class="pill b1">方向①</span></span>
+    <h2 class="sec-title">有源配网电压/无功控制（VVC/VVO）可行性深研</h2>
+    <p class="sec-sub">定位：首选 · 工程原型 + 学位论文。工时口径：按每周 8–10 小时估算。</p>
+
+    <h3 class="block">2.1 TL;DR 结论表</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:20%"><col style="width:80%"></colgroup>
+        <thead><tr><th>维度</th><th>结论</th></tr></thead>
+        <tbody>
+          <tr><td><b>技术成熟度</b></td><td><b>中</b>。CTDE + MAPPO/MADDPG/Graph-critic 已被多篇 2026 新论文验证可跑通；安全 MARL（CMDP/安全层）刚起步，工程兜底仍是主流</td></tr>
+          <tr><td><b>仿真就绪度</b></td><td><b>中–高</b>。PowerGym、MAPDN 两个仓库可直接起步；RL-ADN 实为储能套利，<b>不是 VVC 环境</b>（需纠正前序认知）</td></tr>
+          <tr><td><b>数据/算例</b></td><td><b>高</b>。IEEE 13/33/123/8500node 在 PowerGym/PowerModelsDistribution 内置；NREL/OpenEI/SMART-DS 时序数据开源</td></tr>
+          <tr><td><b>MARL 增益证据</b></td><td><b>中–强</b>。GRAS-AVC、AE-HMATD3、HMC 三篇 2026 新论文均给出量化数字，但均为"论文一方称"，无公开第三方复现</td></tr>
+          <tr><td><b>学习门槛</b></td><td><b>中–高</b>。需电力潮流 + RL + GNN 三条线叠加，单人 12–16 周可出原型</td></tr>
+          <tr><td><b>国内政策</b></td><td><b>强顺风</b>。发改能源〔2024〕187 号、〔2025〕1710 号、〔2025〕1360 号均直接点名"新型配电系统""分布式新能源高渗透"</td></tr>
+          <tr><td><b>总体推荐度</b></td><td><b>高</b>。最适合电气专业本科生/研究生做学位论文 + 电力电子/智能车团队做工程原型；不适合纯算法团队想纯刷 SOTA</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <b>Go 条件：</b>团队至少 1 人能独立写 OpenDSS/pandapower 潮流脚本，且有一台可跑 PyTorch + 数千 episode 训练的 GPU 机。<br>
+      <b>No-Go 条件：</b>团队无人懂电力系统稳态/潮流，或只有 CPU 笔记本、且要求 4 周内出可发表结果——这条方向会被环境安装和调参拖死。
+    </div>
+
+    <h3 class="block">2.2 技术与算法成熟度（算法谱系）</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:16%"><col style="width:24%"><col style="width:30%"><col style="width:15%"><col style="width:15%"></colgroup>
+        <thead><tr><th>范式</th><th>代表算法</th><th>在 VVC 中的典型用法</th><th>适用场景</th><th>主要局限</th></tr></thead>
+        <tbody>
+          <tr><td><b>CTDE 集中训练分散执行</b></td><td>MAPPO、MADDPG、MATD3、MASAC</td><td>每个 PV 逆变器/电容器/OLTC 一个 agent，训练时共享 global critic，执行时仅本地观测</td><td>辐射状配网、agent 数 10–100、通信可中断</td><td>非平稳性；agent 数增大后 critic 输入维度爆炸</td></tr>
+          <tr><td><b>图 actor–critic</b></td><td>Graph-MADDPG、GRAS-AVC 置换等变 actor + 可变 twin graph critic</td><td>actor 按节点参数共享，critic 按馈线拓扑聚合</td><td>跨馈线迁移、plug-and-play、agent 数变化</td><td>需 GNN 工程能力；图构造敏感</td></tr>
+          <tr><td><b>分层 MARL</b></td><td>AE-HMATD3（慢层 60min 投切/快层 15min 逆变器）、HMC（下垂层+MAPPO 层+一致性层）</td><td>上层管 OLTC/电容器（离散、慢），下层管 PV 逆变器（连续、快）</td><td>同时含离散开关设备与连续逆变器</td><td>时间尺度耦合调试复杂</td></tr>
+          <tr><td><b>安全 MARL / CMDP</b></td><td>S-MADDPG（独立 cost 网络+参数共享）、Safe-MADDPG（动作安全投影层）、Lagrangian-SAC</td><td>把电压越限写成 cost 约束，Lagrangian 乘子或 barrier function 投影</td><td>电压安全是硬约束、不能靠 reward 软惩罚</td><td>理论收敛性弱；工程上更常用"RL 出增量+本地下垂/保护兜底"</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><b>成熟度判断：</b>CTDE + MAPPO/MADDPG 已"过 baseline 阶段"，再做纯算法改进很难发顶会；增量创新空间在图结构、安全层、分层时间尺度。安全 MARL 2024–2026 才开始在配网电压控制出现，仍有论文空间，但工程上不要指望纯 CMDP 能 100% 不越限——学术界共识是"RL 给增量、本地下垂/保护兜底"。</p>
+
+    <h3 class="block">2.3 开源仿真就绪度（逐一查证）</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:15%"><col style="width:30%"><col style="width:18%"><col style="width:18%"><col style="width:19%"></colgroup>
+        <thead><tr><th>工具</th><th>仓库 / 依据</th><th>底层与依赖</th><th>安装门槛</th><th>能否跑通 / 定位</th></tr></thead>
+        <tbody>
+          <tr><td><b>PowerGym</b></td><td><a href="https://github.com/siemens/powergym">github.com/siemens/powergym</a>；arXiv 2109.03970，L4DC 2022</td><td>OpenDSS（dss_python/OpenDSSDirect）；Gym 接口；内置 IEEE 13/34/123/8500-node</td><td>中。Windows 上 OpenDSS COM/dss_python historically 有坑，建议 dss-extensions 免安装版；Python 3.8–3.10 最稳</td><td><b>能跑但有坑</b>。冲论文/工业真实感首选</td></tr>
+          <tr><td><b>RL-ADN</b></td><td><a href="https://arxiv.org/abs/2408.03685">arXiv 2408.03685</a>；PyPI <code>pip install RL-ADN</code></td><td>Laurent 潮流求解器，比 pandapower 快 4.4–9.1 倍</td><td>低（pip 安装）</td><td><b>不要当 VVC 环境</b>：实为储能套利/调度；加速思路可借鉴</td></tr>
+          <tr><td><b>PowerGridworld</b></td><td><a href="https://arxiv.org/abs/2111.05969">arXiv 2111.05969</a>；NREL 维护</td><td>pandapower 潮流；自带 MADDPG 与 RLlib PPO case study</td><td>中</td><td>适合做二次开发底座，不适合直接当 VVC benchmark；内置 case 偏 toy</td></tr>
+          <tr><td><b>MAPDN</b></td><td><a href="https://github.com/Future-Power-Networks/MAPDN">Future-Power-Networks/MAPDN</a>；arXiv 2110.14300，NeurIPS 2021</td><td>pandapower，Dec-POMDP；自带 MAPPO/MADDPG/MATD3/QMIX/COMIC（PyMARL）；33/141/322 三种规模</td><td>中。基于 PyMARL 老接口，需对 gymnasium 0.26+ 做薄适配；pandapower 单相</td><td><b>本方向最推荐的起步起点</b>。论文/代码/数据三件套齐全，可比性最强</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <b>底层选型：</b>做方法学论文、单相辐射网、快速迭代 → pandapower + MAPDN；做贴近工业、三相不平衡、含 OLTC/电容器/调压器 → OpenDSS + PowerGym。两条路线可共用同一套 gymnasium 封装层，后端可切换。
+      <br><b>一句话选型：</b>起步用 MAPDN（pandapower，33/141/322）；冲论文/工业真实感换 PowerGym（OpenDSS，13/34/123/8500）；不要用 RL-ADN 当 VVC 环境；PowerGridworld 留作自定义扩展底座。
+    </div>
+
+    <h3 class="block">2.4 数据与标准算例可得性</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:26%"><col style="width:44%"><col style="width:30%"></colgroup>
+        <thead><tr><th>资源</th><th>内容</th><th>备注</th></tr></thead>
+        <tbody>
+          <tr><td>IEEE 13/34/123/8500-node 三相不平衡馈线</td><td>OpenDSS .dss 源文件，PowerGym 仓库内置</td><td>三相、不平衡、含 OLTC/电容器/调压器，工业界标准</td></tr>
+          <tr><td>IEEE 33/69/118 节点辐射网</td><td>单相等值潮流标准算例，pandapower 内置 + MAPDN 生成脚本</td><td>单相，适合算法验证，不适合做三相不平衡结论</td></tr>
+          <tr><td>SMART-DS 合成配网（SFO/GSO/AUS）</td><td>真实统计校准的合成大规模配网 + 时序负荷，data.gov 数据集</td><td>OpenDSS 格式，可做大规模 plug-and-play 实验</td></tr>
+          <tr><td>NREL NSRDB 太阳辐照</td><td>逐分钟/逐小时辐照、温度</td><td>生成 PV 时序</td></tr>
+          <tr><td>OpenEI 公用事业级 PV 出力曲线（1998–2023）</td><td>逐时 PV 出力曲线，data.gov</td><td>可直接套到 IEEE 馈线</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><b>结论：</b>算例与数据不构成瓶颈。真正稀缺的是"国内某台区真实量测"——论文级用公开合成数据足够；要做工程落地需向供电局/导师课题组申请脱敏台区数据。</p>
+
+    <h3 class="block">2.5 MARL 相对 baseline 的增益证据</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:18%"><col style="width:42%"><col style="width:22%"><col style="width:18%"></colgroup>
+        <thead><tr><th>论文</th><th>核心数字</th><th>对比 / 代价</th><th>标注</th></tr></thead>
+        <tbody>
+          <tr><td><b>GRAS-AVC</b><br>MDPI Sensors 26(18):5752</td><td>越限 bus–time 比例：Droop 7.455% → GRAS actor 4.027%（−46.0%）→ 加 AC 潮流风险筛选 GRAS-AVC 2.723%（相对 droop −63.5%）；any-bus dangerous-step 率 51.608%→32.259%（−37.5%）</td><td>代价：无功使用 3.03 倍、平均线损 +32.1%</td><td><span class="tag-ok">数字已查证</span> / <span class="tag-paper">效果论文一方称</span></td></tr>
+          <tr><td><b>AE-HMATD3</b><br>IET Smart Grid, DOI 10.1049/stg2.70107</td><td>33 节点电压越限平方和 4.521e-3→5.696e-4（−87.4%），累计回报 +12.9%，在线推理 12.3ms/step；118 节点越限平方和 −95.6%、网损 −14.9%、累计回报 +17.6%</td><td>通信活跃对 6→约 2（−67%）；118 节点通信对 45→约 12（−73%）</td><td><span class="tag-ok">数字已查证</span> / <span class="tag-paper">效果论文一方称</span></td></tr>
+          <tr><td><b>HMC</b><br>IET GTD, DOI 10.1049/gtd2.70413</td><td>modified IEEE 33：VVI 无控制 24.7%、DCC 8.2%、MPC 3.1%、ADMM 1.6%、SADRL 4.8%、<b>HMC 1.4%</b>；MVD 0.049 p.u.</td><td>HMC vs DCC 改善 82.9%、vs MPC 54.8%、vs ADMM 12.5%</td><td><span class="tag-ok">数字已查证</span> / <span class="tag-paper">效果论文一方称</span></td></tr>
+          <tr><td><b>S-MADDPG</b><br>IEEE doc 11319404</td><td>CMDP + 独立 cost 网络 + 参数共享，抗状态扰动；摘要仅定性称"较 vanilla MADDPG 显著改善电压安全"</td><td>未在搜索片段给出越限率绝对数字</td><td><span class="tag-ok">论文存在已查证</span>；<span class="tag-paper">数字需下全文核实</span></td></tr>
+          <tr><td><b>Safe-MADDPG / 安全层</b><br>arXiv 2405.08443、2504.20529</td><td>barrier function 路线（L1 型电压 barrier l(v)=‖v−1.0‖₁）；动作施加前最小修正投影</td><td>国内同方向已有《基于多智能体安全深度强化学习的电压控制》</td><td><span class="tag-ok">学术脉络已查证</span>；<span class="tag-paper">增益数字需下原文</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <b>增益证据总评：</b>三篇 2026 新论文一致显示 MARL 相对本地下垂/集中 OPF/单 agent DRL 有 12%–83% 不等的 VVI/越限率改善，但：(1) 数字均来自论文自身，无第三方公开复现；(2) 改善幅度高度依赖算例与 baseline 选择；(3) GRAS-AVC 明确指出代价是无功使用 3 倍、线损 +32%——做论文时必须把这个 trade-off 写进 ablation。
+    </div>
+
+    <h3 class="block">2.6 学习门槛与团队配置</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:30%"><col style="width:55%"><col style="width:15%"></colgroup>
+        <thead><tr><th>知识模块</th><th>需要到什么程度</th><th>依据</th></tr></thead>
+        <tbody>
+          <tr><td>电力系统稳态/潮流</td><td>会手推前推回代/牛顿拉夫逊，理解辐射网电压灵敏度、OLTC/电容器/SVR 动作逻辑</td><td>VVC 本质是稳态调度</td></tr>
+          <tr><td>配网建模</td><td>会写 OpenDSS .dss 或 pandapower 脚本；理解三相不平衡、PV 逆变器 P/Q 控制</td><td>三相不平衡是论文区分度关键</td></tr>
+          <tr><td>RL 基础</td><td>MDP/贝尔曼/PPO/DDPG/SAC 原理，能跑通 cleanrl 的 CartPole/Pendulum</td><td>不要求手推反向传播</td></tr>
+          <tr><td>MARL</td><td>CTDE、Dec-POMDP、MAPPO/MADDPG 区别、参数共享、反事样本</td><td>读 MAPDN 论文+代码即可入门</td></tr>
+          <tr><td>图神经网络</td><td>GCN/GAT 前向传播、pytorch-geometric 基础</td><td>做 graph-critic 必备</td></tr>
+          <tr><td>安全 RL</td><td>CMDP、Lagrangian、barrier function、安全层投影</td><td>做安全方向必备</td></tr>
+          <tr><td>工程</td><td>PyTorch、gymnasium 接口、wandb 日志、Linux/GPU</td><td>必备</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4 class="sub">预估学习周期（按每周 8–10 小时估算）</h4>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:40%"><col style="width:30%"><col style="width:30%"></colgroup>
+        <thead><tr><th>背景</th><th>从零到跑通 MAPDN 官方 baseline</th><th>从零到改算法发论文</th></tr></thead>
+        <tbody>
+          <tr><td>电气本科 + 自学 RL</td><td>6–8 周</td><td>14–18 周</td></tr>
+          <tr><td>电气本科 + 已修过 RL 课</td><td>4–5 周</td><td>10–12 周</td></tr>
+          <tr><td>计算机本科 + 自学电力</td><td>8–10 周（潮流是最大坑）</td><td>16–20 周</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="block">2.7 时间成本估算（单人，按每周 8–10 小时）</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:34%"><col style="width:10%"><col style="width:12%"><col style="width:44%"></colgroup>
+        <thead><tr><th>阶段</th><th>周数</th><th>累计</th><th>关键任务</th></tr></thead>
+        <tbody>
+          <tr><td>环境搭建（Python+PyTorch+pandapower/OpenDSS+MAPDN）</td><td>2</td><td>2</td><td>跑通 MAPDN 33 节点示例，固定一个 seed 复现论文曲线</td></tr>
+          <tr><td>baseline 复现（MAPPO/MADDPG on 33bus）</td><td>3</td><td>5</td><td>复现论文 VVI/网损数量级一致，允许 ±20%</td></tr>
+          <tr><td>MARL 改进训练（图 critic/分层/注意力任选其一）</td><td>4</td><td>9</td><td>出新曲线，相对 baseline 有显著改善</td></tr>
+          <tr><td>消融实验（去图/去安全层/去分层）</td><td>2</td><td>11</td><td>至少 3 组消融，3 个 seed</td></tr>
+          <tr><td>跨算例泛化（33→141→322）</td><td>2</td><td>13</td><td>证明 scalability</td></tr>
+          <tr><td>论文/报告撰写</td><td>2</td><td>15</td><td>含图、表、附录</td></tr>
+          <tr><td><b>合计</b></td><td><b>15 周</b></td><td></td><td>约 3.5 个月。2–4 人分工并行可压缩到 12–14 周日历周，但人均工时基本不变</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="block">2.8 主要风险与失败模式</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:20%"><col style="width:42%"><col style="width:38%"></colgroup>
+        <thead><tr><th>风险</th><th>表现</th><th>缓解</th></tr></thead>
+        <tbody>
+          <tr><td>非平稳性</td><td>多 agent 同时学习，critic 看到的环境分布一直变，训练震荡</td><td>CTDE + 参数共享 + 延迟 actor 同步（MAPPO 做法）</td></tr>
+          <tr><td>reward hacking</td><td>agent 学会"不出力"或打擦边球，电压指标好看但无功/网损恶化</td><td>把网损/无功成本写进 reward 并在实验表里并列报告</td></tr>
+          <tr><td>仿真器安装坑</td><td>OpenDSS COM 在 Windows 注册失败；pandapower 版本与 MAPDN 不兼容</td><td>conda 锁版本；优先 dss-extensions；先跑官方 Docker 镜像</td></tr>
+          <tr><td>三相不平衡处理</td><td>pandapower 单相潮流，结论不能说"解决三相不平衡"</td><td>要做三相结论就切 OpenDSS；否则明确写"单相等值"</td></tr>
+          <tr><td>动作空间设计</td><td>连续（逆变器 Q）与离散（OLTC/Cap）混在一起难训</td><td>分层：慢层离散用 PPO-discrete/Gumbel-Softmax；快层连续用 SAC/MADDPG</td></tr>
+          <tr><td>安全约束违反</td><td>探索期把电压打到 1.15 p.u. 以上</td><td>安全层投影 + 本地下垂兜底 + 电压 barrier reward</td></tr>
+          <tr><td>sim-to-real gap</td><td>仿真训好的策略上真机就崩</td><td>论文定位"仿真验证"；工业落地需 PHIL 硬件在环</td></tr>
+          <tr><td>可复现性危机</td><td>5 个 seed 里 3 赢 2 输，论文只报赢的</td><td>报 5 个 seed 的 mean±std，并给 bootstrap 区间</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="block">2.9 国内落地与政策可行性</h3>
+    <p><b>应用场景：</b>分布式光伏高渗透台区（截至 2023 年底分布式新能源装机已超 2.5 亿千瓦，部分地区承载力接近极限）；V2G/储能/充电桩集群（HMC 已把 V2G 40% 家庭渗透作为标准测试场景）；配网自动化/DMS 的 VVO 标准功能。</p>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:42%"><col style="width:20%"><col style="width:38%"></colgroup>
+        <thead><tr><th>文件</th><th>文号</th><th>与本方向相关表述</th></tr></thead>
+        <tbody>
+          <tr><td>《关于新形势下配电网高质量发展的指导意见》</td><td>发改能源〔2024〕187 号</td><td>"评估配电网承载能力……建立可承载新能源规模发布和预警机制"；"推动配电网从无源单向辐射网络向有源双向交互系统转变"</td></tr>
+          <tr><td>《关于促进电网高质量发展的指导意见》</td><td>发改能源〔2025〕1710 号</td><td>"推进配电网柔性化、智能化、数字化转型……支持分布式独立储能"</td></tr>
+          <tr><td>《关于促进新能源消纳和调控的指导意见》</td><td>发改能源〔2025〕1360 号</td><td>"大力推动配电网建设改造和智能化升级，加快打造适应大规模分布式新能源接入的新型配电系统"</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <b>RL 工业落地的真实障碍：</b>(1) 安全责任不可让渡给 RL——"黑盒神经网络"直接上控制环目前不被接受，主流路线是"RL 给候选增量→安全层校验→本地硬保护兜底"；(2) 量测与通信条件不均，全观测假设不现实，Dec-POMDP 才是对的建模；(3) 国内公开配网时序数据远少于美国，工程原型需自采或申请脱敏数据。
+    </div>
+    <p><b>落地结论：</b>政策顺风、问题真实、学术活跃、数据可得。做学位论文/申报项目：go。直接做商业产品：no——先把仿真做扎实，再谈 PHIL 和现场试点。</p>
+
+    <h3 class="block">2.10 方向①第一部分总决策</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:22%"><col style="width:78%"></colgroup>
+        <tbody>
+          <tr><td><b>推荐度</b></td><td><b>高</b></td></tr>
+          <tr><td><b>最适合</b></td><td>(1) 电气专业本科生/研究生做学位论文；(2) 有电力系统背景的团队做工程原型；(3) 申报"新型电力系统/配网智能化"类项目</td></tr>
+          <tr><td><b>不适合</b></td><td>纯算法团队（无电力背景）；期望 4 周出顶会结果；要求纯 sim-to-real 直接上真机</td></tr>
+          <tr><td><b>Go 条件</b></td><td>至少 1 人会写潮流脚本 + 1 台 GPU 机器 + 选定 MAPDN 起步</td></tr>
+          <tr><td><b>No-Go 条件</b></td><td>团队无人懂电力；无 GPU；要求纯黑盒 RL 直接闭环控制</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<!-- ===== 3. 方向① 协作方案 ===== -->
+<section class="chapter" id="ch3">
+  <div class="wrap">
+    <span class="sec-tag">Chapter 03 · <span class="pill b1">方向①</span></span>
+    <h2 class="sec-title">方向① 多人协作方案</h2>
+    <p class="sec-sub">体现"潮流仿真 + 安全约束"特色：仿真工程师是关键路径，安全层是论文差异化卖点。工时口径：按每周 8–10 小时估算，总周期 12–16 周（排期按 18 周版本）。</p>
+
+    <h3 class="block">3.1 三种人员配置的角色划分</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:12%"><col style="width:24%"><col style="width:34%"><col style="width:30%"></colgroup>
+        <thead><tr><th>配置</th><th>角色与知识模块</th><th>核心产出</th><th>协作接口 / 适用</th></tr></thead>
+        <tbody>
+          <tr><td><b>2 人<br>紧凑版</b></td><td>A 算法+研究负责人（MARL/GNN/论文/安全验证）；B 仿真+实验（OpenDSS/pandapower/潮流/IEEE 算例/数据）</td><td>A：marl/ 代码包；B：env/ 环境包</td><td>沟通成本最低，但 B 易在环境安装卡死，建议 A 在阶段 1–2 帮装。适用：毕设、课设、两人参赛</td></tr>
+          <tr><td><b>3 人<br>推荐版</b></td><td>A 算法工程师（MARL/图 critic/训练 pipeline）；B 仿真/电力工程师（建模/gymnasium 封装/obs-action-reward/算例导入）；C 实验+研究负责人（实验设计/消融/多 seed 统计/论文/安全校验）</td><td>A：marl/；B：env/ + 规格书；C：消融表 + 论文</td><td>关键路径（仿真）独立成岗，C 把控论文质量；C 跨两端，要求既懂算法又懂电力。适用：3 人研究生小组、省级竞赛</td></tr>
+          <tr><td><b>4 人<br>完整研究版</b></td><td>A 算法（MARL/图网络/CTDE）；B 仿真/电力（环境/三相/OLTC 与电容器）；C 安全/鲁棒（CMDP/Lagrangian/安全层/扰动丢包测试）；D 研究负责人（方向/实验设计/论文/对外汇报）</td><td>A：marl/；B：env/；C：safe/；D：规格书+基线+模板+论文</td><td>安全独立成岗，差异化最容易做出来；需严格接口契约。适用：国创/省创、SCI 期刊、横向课题</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="block">3.2 18 周里程碑甘特图</h3>
+    <div id="chart-gantt1" class="chart gantt"></div>
+    <p class="caption">图 3-1　方向①六阶段横向时间条：共同地基(W1–3)→环境搭建(W4–6)→baseline 复现(W7–9)→MARL 训练(W10–13)→消融与安全(W14–16)→复现验收(W17–18)。关键路径：W4 环境封装→W8 baseline→W10 图 critic→W15 消融；任何一环延误超 1 周，砍消融而不是砍安全层。</p>
+
+    <h4 class="sub">阶段周计划与交付物</h4>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:22%"><col style="width:48%"><col style="width:30%"></colgroup>
+        <thead><tr><th>阶段（周）</th><th>关键任务</th><th>交付物 / 验收标准</th></tr></thead>
+        <tbody>
+          <tr><td>阶段1 共同地基<br>W1–W3</td><td>W1 全员 RL 基础（PPO/DDPG 跑 CartPole/Pendulum）+ 电力手推 IEEE33；W2 conda/PyTorch/pandapower/dss_python/MAPDN；W3 跑通 MAPDN 官方示例</td><td>environment.yml；IEEE33 手动 solve 与 MATLAB 对得上；W3 复现论文数量级</td></tr>
+          <tr><td>阶段2 环境搭建<br>W4–W6</td><td>W4 B 主导封装 gymnasium API、定义 obs/action/reward；W5 OpenDSS 后端（单→三相）、OLTC/Cap 建模；W6 注入 PV/负荷时序</td><td>环境规格书 v1.0；pandapower vs OpenDSS 潮流误差 &lt;0.1%；30 天连续 episode 不报错</td></tr>
+          <tr><td>阶段3 baseline 复现<br>W7–W9</td><td>W7 本地下垂 + 集中 OPF baseline；W8 MAPPO/MADDPG 官方配置（3 seed）；W9 单 agent PPO/SAC</td><td>baselines/；与 MAPDN 论文 ±20% 内</td></tr>
+          <tr><td>阶段4 MARL 训练<br>W10–W13</td><td>W10 A 主导图 critic（GAT 聚合邻居）；W11 分层慢层 OLTC/Cap + 快层 PV；W12 扩展 141/322；W13 5 seed 完整训练</td><td>graph_mappo.py；开关次数降 50%+；训练 &lt;24h/seed；主指标 p&lt;0.05 显著</td></tr>
+          <tr><td>阶段5 消融与安全<br>W14–W16</td><td>W14 C 主导安全层投影 + CMDP/Lagrangian；W15 去图/去安全层/去分层/去注意力 + 扰动鲁棒；W16 跨算例泛化</td><td>safe/；探索期越限降一个数量级；性能下降 &lt;30%</td></tr>
+          <tr><td>阶段6 复现验收<br>W17–W18</td><td>W17 结果整理、图表规范、论文初稿；W18 代码清理、README、repro 包</td><td>论文 v1；仓库 release v1.0，别人 clone 可复现主要数字</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="block">3.3 三份接口契约</h3>
+    <h4 class="sub">契约 A：环境规格书（v1.0）— Observation / Action / Reward</h4>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:34%"><col style="width:18%"><col style="width:48%"></colgroup>
+        <thead><tr><th>Obs 字段（每 agent 局部）</th><th>维度</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>本地母线电压幅值 V_i</td><td>1</td><td>p.u.，0.9–1.1</td></tr>
+          <tr><td>本地 PV 实时出力 P_pv</td><td>1</td><td>kW</td></tr>
+          <tr><td>本地负荷 P_load, Q_load</td><td>2</td><td>kW, kvar</td></tr>
+          <tr><td>上一时刻自身动作 a_{t-1}</td><td>action_dim</td><td>惯性</td></tr>
+          <tr><td>邻居电压（k 个电气邻居）</td><td>k≈4</td><td>图观测，k=3–5</td></tr>
+          <tr><td>时段编码（sin/cos of hour）</td><td>2</td><td>日周期</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Obs 维度合计约 7+k（k≈4）≈ 11 维/agent。Action 空间：PV 逆变器 Q 连续 Box(1) [−0.48,+0.48]·S_rated kvar；OLTC 分接头离散 Discrete(±32)（−16…+16 档，每档 ±0.625%）；电容器组离散 Discrete(0/1)。混合动作建议慢层用 PPO-discrete/Gumbel-Softmax，快层用 SAC/MADDPG。</p>
+    <p>Reward 函数（参考 MAPDN + HMC）：</p>
+    <pre style="background:#0f2138;color:#d7e3f4;padding:14px;border-radius:6px;overflow-x:auto;font-size:12.5px;line-height:1.6"><code style="background:none;color:inherit">r_t = -w_v * sum_i max(0,|V_i-1.0|-0.05)^2     # 电压越限惩罚
+      - w_l * P_loss_t                          # 网损
+      - w_switch * sum_t |a_t^disc - a_{t-1}^disc|  # 开关次数
+      - w_q * sum_i |Q_i|                       # 无功使用成本
+      - w_curt * P_curtail                      # 弃光惩罚
+# 初始权重：w_v=10, w_l=0.01, w_switch=0.1, w_q=0.001, w_curt=1.0</code></pre>
+    <p>Done：episode = 24h（96 步×15min）；任何母线电压 &lt;0.85 或 &gt;1.15 p.u. 立即终止（保护触发）。Step 频率 15min（慢层 1h，快层 15min）。</p>
+
+    <h4 class="sub">契约 B：Baseline 清单</h4>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:18%"><col style="width:30%"><col style="width:52%"></colgroup>
+        <thead><tr><th>类别</th><th>方法</th><th>实现要点 / 评估指标</th></tr></thead>
+        <tbody>
+          <tr><td>规则</td><td>本地 Q(U) 下垂</td><td>固定斜率 Q=k(V−1.0)</td></tr>
+          <tr><td>规则</td><td>OLTC + Cap 时序投切</td><td>经典配网 VVO 规则</td></tr>
+          <tr><td>集中优化</td><td>集中式 OPF（MATPOWER/pandapower OPF）</td><td>15min 窗口，性能上界</td></tr>
+          <tr><td>单 agent RL</td><td>单 PPO/SAC 控制所有 Q 点</td><td>集中式 RL</td></tr>
+          <tr><td>MARL</td><td>MAPPO（参数共享）</td><td>本文改进版对照组</td></tr>
+          <tr><td>MARL</td><td>MADDPG</td><td>CTDE</td></tr>
+          <tr><td>MARL</td><td>本文方法（Graph-MAPPO + 安全层）</td><td>主结果</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>统一评估指标：VVI（越限 bus–time 百分比）、最大电压偏差 MVD、网损 P_loss、日开关次数、弃光率、无功使用 Q_use。</p>
+
+    <h4 class="sub">契约 C：实验模板</h4>
+    <ul>
+      <li><b>随机 seed：</b>至少 5 个（0–4），报 mean±std，给 bootstrap 95% CI。</li>
+      <li><b>Episode 数：</b>基线 2000；收敛曲线画到收敛后再 200 episode。</li>
+      <li><b>评估频率：</b>每 50 episode 用固定验证集（3 天 unseen 负荷/PV）评估。</li>
+      <li><b>数据划分：</b>训练前 300 天、验证中间 30 天、测试独立 30 天。</li>
+      <li><b>日志：</b>wandb project=<code>vvc-marl</code>，group=方法名，config 全量记录。</li>
+      <li><b>可复现：</b>代码 git tag、environment.yml、随机种子固定。</li>
+    </ul>
+
+    <h3 class="block">3.4 周同步机制</h3>
+    <p><b>周会（每周固定 1 小时）：</b>上周进度 10min（每人 3min 对照看板勾选）→ 阻塞项 10min → 本周计划 10min → 技术讨论 20min（轮流主讲一个论文/一个 bug）→ 决策记录 10min（写入 notes/YYYY-MM-DD.md）。</p>
+    <p><b>进度看板：</b>GitHub Project / 飞书多维表，列 = Backlog/本周/进行中/评审中/已完成；每张卡片有负责人、截止日期、验收标准。<b>代码 review：</b>main 受保护走 PR，至少 1 人 approve；环境规格书/契约变更必须 contracts/CHANGELOG.md 记录。</p>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:22%"><col style="width:40%"><col style="width:38%"></colgroup>
+        <thead><tr><th>级别</th><th>定义</th><th>响应</th></tr></thead>
+        <tbody>
+          <tr><td>L1 技术 bug</td><td>单个函数跑不通</td><td>角色内部当天解决</td></tr>
+          <tr><td>L2 接口不一致</td><td>A 和 B 对 obs 维度理解不同</td><td>周会讨论，改契约，打新版本号</td></tr>
+          <tr><td>L3 方向性风险</td><td>主结果跑不出来、baseline 打不过</td><td>48h 内拉 D 决策，考虑砍 scope</td></tr>
+          <tr><td>L4 安全红线</td><td>仿真出现电压越限 &gt;1.15 p.u. 未保护</td><td>立即停训，C+B 复盘</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<!-- ===== 4. 方向② P2P/市场 可行性 ===== -->
+<section class="chapter" id="ch4">
+  <div class="wrap">
+    <span class="sec-tag">Chapter 04 · <span class="pill b2">方向②</span></span>
+    <h2 class="sec-title">局部能源市场 / P2P 竞价可行性深研</h2>
+    <p class="sec-sub">证据口径：【已查证】为 arXiv 原文/GitHub API/发改委能源局官网当日核对；【论文一方称】为作者自报未独立复现。工时口径：按每周 8–10 小时。</p>
+
+    <div class="callout ok">
+      <b>一句话结论：</b>推荐度<b>中高（学术/机制方向首选）</b>。该方向在"可跑通的开源仿真器 + 明确的 baseline 增益数字 + 国内政策窗口（虚拟电厂/现货/绿电直连）"三件事上证据齐全，最适合学位论文/申报课题/发表 workshop–会议论文；不适合直接做工程落地产品——国内用户侧 P2P 直电交易至今未放开，工程落地受政策硬约束。
+    </div>
+
+    <h3 class="block">4.1 技术与算法成熟度</h3>
+    <p><b>问题建模：</b>局部能源市场 P2P 竞价在文献中标准建模为 <b>Dec-POMDP（分散式部分可观测 MDP）</b>或 <b>POSG（部分可观测随机博弈）</b>。MARLEM 明确"modeled as a decentralized partially observable Markov decision process and implemented as a Gymnasium environment"【已查证】；2604.08973 将 P2P 交易建模为 DEC-POMDP 并在 CTDE 下求解【已查证】；2512.17444 将 MARL 形式化为 POSG【已查证】。</p>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:22%"><col style="width:24%"><col style="width:30%"><col style="width:24%"></colgroup>
+        <thead><tr><th>算法</th><th>代表论文/环境</th><th>适用场景</th><th>主要局限</th></tr></thead>
+        <tbody>
+          <tr><td><b>Independent RL（IQL/IPPO/MIPPO）</b></td><td>2604.08973 的 MIPPO baseline</td><td>agent 数少、非平稳性弱、快速搭 pipeline</td><td>非平稳性强时易陷局部最优；MIPPO"早期快但很快陷入 local optimum"</td></tr>
+          <tr><td><b>CTDE Actor-Critic：MADDPG/MATD3</b></td><td>2507.16479（HMADDPG）、DA-MADDPG</td><td>连续动作（连续报价价/量、储能充放）、自利 agent 同时优化个体奖励</td><td>连续动作训练不稳；decentralized execution 与"自利"目标存在张力</td></tr>
+          <tr><td><b>CTDE Actor-Critic：MAPPO/MATRPO</b></td><td>2604.08973（MMAPPO+LSTM）</td><td>连续/混合动作、样本效率要求高、需较稳收敛</td><td>多均衡下 PPO 平均化倾向可能掩盖策略振荡</td></tr>
+          <tr><td><b>分层 MARL（HMARL）</b></td><td>2507.16479 HMADDPG：LEM 一级 + LFM/Balancing 二级</td><td>跨市场套利、多时间尺度决策</td><td>子 agent 信用分配复杂；all-arb 下变成均衡寻求问题【论文一方称】</td></tr>
+          <tr><td><b>零智能/启发式（ZI、k=0 报价）</b></td><td>MARLEM 默认 baseline</td><td>下界、快速 sanity check</td><td>只能做对照，不能作方法贡献</td></tr>
+          <tr><td><b>机制设计/激励相容（MRDAC、VDA、Greedy）</b></td><td>2604.08973</td><td>设计出清规则，证明/验证 truthful bidding</td><td>理论证明难；工程上多"实验性验证 IC"</td></tr>
+          <tr><td><b>博弈论/纳什均衡/随机博弈</b></td><td>2303.01772 等</td><td>分析收敛性、市场力、多均衡</td><td>解析 NE 维数灾难，MARL 多用于"经验近似 NE"</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <b>自利场景两个特殊难点：</b>(1) <b>信用分配特殊性</b>——P2P 市场每个微网拿自己利润 R_i = P_i^G + P_i^p2p，没有共享奖励，无法直接用 CTDE"团队奖励+反事实"套路；MARLEM 把系统级 KPI 塞进 obs 和 reward 诱导"隐式合作"，本质是 reward shaping，必须单独论证是否破坏激励相容。(2) <b>策略性报价与博弈收敛</b>——当"所有聚合商都用套利策略（all-arb）"时，问题退化为多均衡博弈，平均收益提升但个体分化【论文一方称】。
+    </div>
+
+    <h3 class="block">4.2 开源仿真就绪度（GitHub API 2026-09-19 实测）</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:16%"><col style="width:10%"><col style="width:14%"><col style="width:14%"><col style="width:46%"></colgroup>
+        <thead><tr><th>工具</th><th>Star</th><th>最近 push</th><th>活跃度</th><th>即插即用判断</th></tr></thead>
+        <tbody>
+          <tr><td><b>MARLEM</b><br><a href="https://github.com/salazarna/marlem">salazarna/marlem</a></td><td>9</td><td>2026-03-11</td><td>论文挂出后约 3 周停更</td><td>Gymnasium 兼容、plug-and-play 三阶段撮合（P2P 双边→P2P→DSO 兜底）；7-agent mesh 合成拓扑，未接 IEEE 标准节点。MARL 训练在论文里是"next work"，报告数字全来自 ZI baseline，需自补。可跑通但需谨慎</td></tr>
+          <tr><td><b>SolarChain-Eval</b><br><a href="https://github.com/yxu-dev/SolarChain-Eval">yxu-dev/SolarChain-Eval</a></td><td>2</td><td>2026-08-26</td><td>非常新、活跃</td><td>物理约束 benchmark（非完整出清仿真器）；5 个中国城市（北上蓉深杭）50 节点 720 小时 36000 条记录；去物理惩罚后 PPO 流动性注入比 0.48→0.80 实证 reward hacking。不适合主仿真器，适合安全/鲁棒性 extension</td></tr>
+          <tr><td><b>ASSUME</b><br><a href="https://github.com/assume-framework/assume">assume-framework/assume</a></td><td>113</td><td>2026-09-18</td><td>非常活跃</td><td>v0.1.0 起 PyPI 发布，官方 RL notebook 04a/04b、11_redispatch、10_DSU 在线；市场机制可插拔。<b>最稳妥的工程底座</b>；偏批发市场/单元算子，做产消者 P2P 需自加 agent 类型与撮合</td></tr>
+          <tr><td><b>PyMarket</b><br><a href="https://github.com/kiedanski/pymarket">kiedanski/pymarket</a></td><td>30</td><td>2022-12-26</td><td>停更约 3 年 9 个月</td><td>已基本停更，不建议作主出清模块依赖；价值是拍卖机制参考实现（double auction、congestion pricing），可把代码抄进自己环境</td></tr>
+          <tr><td><b>Mesa</b><br><a href="https://github.com/projectmesa/mesa">projectmesa/mesa</a></td><td>3850</td><td>2026-09-17</td><td>活跃（v3.5.0）</td><td>通用 ABM 框架，不带电力市场概念；完全可用但要自己写出清、结算、agent schedule；仅在大规模 ABM 社会学仿真时再上</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <b>选型：</b>主仿真器首选 <b>ASSUME</b>（成熟、活跃、有 RL tutorial、机制可插拔）；学术 novelty 首选 <b>MARLEM</b> 二次开发（接受 star 少、停更风险、MARL 训练自补）；安全/鲁棒 extension 用 <b>SolarChain-Eval</b>（中文城市数据 + reward hacking 消融）；不建议依赖 PyMarket（停更）。
+    </div>
+
+    <h3 class="block">4.3 数据与标准算例可得性</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:26%"><col style="width:14%"><col style="width:60%"></colgroup>
+        <thead><tr><th>数据类型</th><th>可得性</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>微网/产消者负荷+PV</td><td>中</td><td>公开居民负荷数据集少；2604.08973 用四户澳大利亚住宅归一化曲线；SolarChain-Eval 中国城市数据是少见开源样本</td></tr>
+          <tr><td>现货出清价</td><td>低</td><td>省级现货结算规则公开，但逐节点出清价不对外；只能用规则+负荷曲线合成</td></tr>
+          <tr><td>分时电价/代理购电价</td><td>高</td><td>各省发改委网站按月公布</td></tr>
+          <tr><td>储能技术参数</td><td>高</td><td>国标/行业标准；论文常用效率 95%、SoC 10–90%</td></tr>
+          <tr><td>市场出清算例</td><td>低–中</td><td>IEEE 33/69 可用于网络约束，但 P2P 撮合规则要按国内规则自实现</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="block">4.4 MARL 相对 baseline 的增益证据</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:22%"><col style="width:50%"><col style="width:28%"></colgroup>
+        <thead><tr><th>论文</th><th>核心数字</th><th>标注</th></tr></thead>
+        <tbody>
+          <tr><td><b>2604.08973</b><br>MMAPPO 自利微网 P2P</td><td>MRDAC vs VDA vs Greedy 总利润 −123.81/−185.53/−221.02 $/日；应急购电 30.33/34.00/34.37 kWh；总弃电反送 FIT 18.95/32.24/43.74 kWh；P2P 交易量 10.58/9.96/9.55 kWh。论文称 MRDAC 总利润比 VDA 高 50%、比 Greedy 高 78%；约 1000 episode 收敛。注意所有微网均净购电（利润为负），"增益"是相对亏损减小</td><td><span class="tag-ok">方法/表格已查证</span> / <span class="tag-paper">提升幅度论文一方称</span></td></tr>
+          <tr><td><b>2507.16479</b><br>HMADDPG 分层套利</td><td>all-arb 相对独立 MADDPG 测试周平均总利润提升 40.6%（约 €2053.3/周）；单套利聚合商 one-arb 平均 gap €690/周（95.5%）。警示：市场力滥用——某时刻灵活性价格顶到 €766.3/MWh（baseline 峰值 €369.0，+107.7%）</td><td><span class="tag-paper">论文一方称</span></td></tr>
+          <tr><td><b>2602.16062</b><br>APPO-DTDE 姊妹篇</td><td>协调得分 91.7% 相对集中式 CTCE；完全分布式 DTDE 把电网平衡方差降低 31%，但 P2P 交易比从 0.6 降到更低</td><td><span class="tag-paper">论文一方称</span></td></tr>
+          <tr><td><b>2405.12716</b><br>MAPDES 奶牛场 P2P</td><td>基于 PettingZoo，报告 43% 成本节约</td><td><span class="tag-paper">论文一方称</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <b>整体判读：</b>数字普遍显著（30%–90% 量级），但全部"论文一方称"，且对比 baseline 多为独立 PPO/贪心/零智能，很少与真正的工业优化器（MILP 集中调度、MIP 报价）正面比较。2507.16479 作者自己在结论里承认"requires benchmarking against existing rule-based or optimization-based strategies"——这是复现时必须补的 gap。
+    </div>
+
+    <h3 class="block">4.5 学习门槛、时间成本与风险</h3>
+    <div class="grid2">
+      <div class="card">
+        <h4>学习门槛（与方向①对比）</h4>
+        <p>方向②偏"机制设计+博弈"，知识栈更软、更交叉，微观经济学和拍卖理论占比更高，但物理深度要求更低。已有 RL 基础 4–6 周补齐"电力市场+博弈论+CTDE MARL"三角；无 RL 基础 10–14 周。</p>
+      </div>
+      <div class="card">
+        <h4>时间成本（单人，按每周 8–10 小时）</h4>
+        <p>环境搭建 2–3 周 → baseline 复现 3–4 周 → MARL 训练 4–5 周 → 机制分析 2–3 周 → 撰写 1–2 周，<b>总计约 15–17 周（约 4 个月）</b>；只要原型不写论文 10–12 周可出。</p>
+      </div>
+    </div>
+    <h4 class="sub">主要风险与失败模式</h4>
+    <ul>
+      <li><b>非平稳性/不收敛：</b>自利 agent 互相博弈，MAPPO 相对稳，MADDPG 易振荡；MARLEM 把系统 KPI 塞进 reward 缓解但引入新 reward hacking。【已查证】</li>
+      <li><b>Reward hacking 实证：</b>SolarChain-Eval 去掉物理惩罚后 PPO 流动性注入比 0.48→0.80，主动为虚假发电背书。【论文一方称】</li>
+      <li><b>市场力滥用：</b>HMADDPG 实证聚合商"持留容量+顶灵活性价格"套利，单时刻价格翻倍。【论文一方称】</li>
+      <li><b>仿真器坑：</b>MARLEM 仅 9 star 且 2026-03 停更；ASSUME 配置文件繁琐；PyMarket 停更近 4 年。</li>
+      <li><b>出清复杂度：</b>加 AC 潮流约束后每步出清变 SOCP/NLP，训练速度掉一个数量级；建议先 DC 潮流或纯商业出清。</li>
+      <li><b>多均衡：</b>all-arb 下平均收益提升但个体分化，不同 seed 收敛到不同均衡，必须多 seed 报告分布。</li>
+      <li><b>sim-to-real（市场规则差异）：</b>国内现货/中长期/辅助服务/偏差考核与欧美 LEM 差别大；国外"双拍卖+FIT"假设在国内不直接成立。</li>
+    </ul>
+
+    <h3 class="block">4.6 国内政策可行性（重点）</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:24%"><col style="width:22%"><col style="width:54%"></colgroup>
+        <thead><tr><th>政策通道</th><th>文号 / 时间</th><th>要点</th></tr></thead>
+        <tbody>
+          <tr><td><b>电力现货市场</b></td><td>发改办体改〔2025〕394 号（2025-04）</td><td>要求湖北 2025-06 底、浙江 2025 底前转正式运行；截至 2025 年底山西、广东、山东、甘肃、蒙西、湖北、浙江七省（区）正式运行，21 省新能源"报量报价"，甘肃、山东为用户侧报量报价。MARL 报价策略有了可对照政策原型【已查证】</td></tr>
+          <tr><td><b>虚拟电厂（VPP）</b></td><td>发改能源〔2025〕357 号（2025-03-25）</td><td>国家层面首个 VPP 专项文件；到 2027 年全国调节能力 2000 万千瓦以上、2030 年 5000 万千瓦以上；支持民营资本，明确 VPP 作为聚合商参与市场【已查证】</td></tr>
+          <tr><td><b>绿电直连</b></td><td>发改能源〔2025〕650 号；发改能源〔2026〕688 号（多用户绿电直连）</td><td>目前最接近"点对点/多点对多点"的政策通道，但定位是"绿电直连"（有物理专线或产权分界），非真正开放 P2P 网络；就近消纳项目要求自发自用占比 2025 起不低于 30%、2030 起新增不低于 35%【已查证】</td></tr>
+          <tr><td><b>微电网/新型经营主体</b></td><td>发改能源〔2025〕1360 号；国能发法改〔2024〕93 号；〔2025〕1144 号；〔2025〕1710 号</td><td>支持源网荷储一体化、智能微电网就近消纳新业态；分布式电源"可直接或通过 VPP 聚合参与市场交易"；智能微电网可灵活并网与离网运行【已查证】</td></tr>
+          <tr><td><b>隔墙售电/P2P 直购</b></td><td>发改能源〔2017〕1901 号；能源局 2025-07 对人大 8487 号建议答复</td><td>2017 年启动"隔墙售电"试点，进展缓慢；官方答复措辞为"试点+持续创新"，<b>并未放开用户侧自由 P2P</b>【已查证】</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout ok">
+      <b>国内落地结论：</b>学术研究完全可行，工程落地受"聚合商/VPP 模式"通道支撑，<b>但开放 P2P 直电交易尚未放开</b>。可行叙事 = "VPP 聚合商内部多产消者协调报价 / 现货报量报价（对照甘肃、山东规则）/ 绿电直连微网内撮合"。<b>不能写</b>"我们实现了国内用户侧 P2P 自由交易系统"——政策上只到"绿电直连+隔墙售电试点+VPP 聚合"，没有开放 P2P 撮合牌照。
+    </div>
+
+    <h3 class="block">4.7 方向②总评与 go/no-go</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:22%"><col style="width:78%"></colgroup>
+        <tbody>
+          <tr><td><b>最终推荐度</b></td><td><b>中高</b></td></tr>
+          <tr><td><b>最适合</b></td><td>学位论文（硕士/博士开题）、国家自然科学基金/重点研发课题申报、电力领域会议论文；次适合工程原型演示（VPP 聚合商内部多产消者协调）</td></tr>
+          <tr><td><b>不适合</b></td><td>短期产品化、对 C 端用户开放的 P2P 交易 App</td></tr>
+          <tr><td><b>Go 条件</b></td><td>≥1 人能啃 CTDE MARL 实现 + 基本博弈论；目标论文/课题、时间 ≥12 周；愿把国内叙事调整为 VPP 聚合商/现货报量报价/绿电直连微网</td></tr>
+          <tr><td><b>No-Go 条件</b></td><td>要求 3 个月内出可商用 P2P 交易产品；团队完全没有电力市场概念且无人愿补；要求严格按"开放用户侧 P2P 直电交易"做工程合规</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<!-- ===== 5. 方向② 协作方案 ===== -->
+<section class="chapter" id="ch5">
+  <div class="wrap">
+    <span class="sec-tag">Chapter 05 · <span class="pill b2">方向②</span></span>
+    <h2 class="sec-title">方向② 多人协作方案</h2>
+    <p class="sec-sub">核心闭环：算法策略 π_i(obs)→报价动作 → 市场出清 clearing→成交结算 → 物理约束校验得个体 reward r_i → batch 训练更新。工时口径：按每周 8–10 小时，18 周版本。</p>
+
+    <h3 class="block">5.1 三种人员配置的角色划分</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:12%"><col style="width:30%"><col style="width:30%"><col style="width:28%"></colgroup>
+        <thead><tr><th>配置</th><th>角色合并 / 知识模块</th><th>核心产出</th><th>协作接口 / 适用</th></tr></thead>
+        <tbody>
+          <tr><td><b>2 人</b></td><td>A=算法+实验（MADDPG/MAPPO、LSTM 时序、多 seed 训练、场景生成、数据管线）；B=市场机制+研究负责人（出清/拍卖、博弈论/IC、政策、论文）</td><td>A：可训练 MARL pipeline + 训练曲线；B：clearing API + 政策映射 + 论文</td><td>节奏快但每人都跨领域。适用：个人毕赛/小课程项目</td></tr>
+          <tr><td><b>3 人</b></td><td>A 算法；B 市场机制（双拍卖/VDA/MRDAC、纳什/市场力、IC 实验）；C 实验+研究负责人（场景生成、5 条 baseline、消融、论文）</td><td>A：MARL pipeline；B：出清函数 + IC 报告；C：baseline 数值表 + 图表集</td><td>分工最平衡。适用：标准硕士课题</td></tr>
+          <tr><td><b>4 人</b></td><td>A 算法 / B 市场 / C 实验 / D 研究负责人+政策（文献综述、政策跟踪、论文、风险升级）</td><td>A：训练曲线；B：clearing API；C：消融结果；D：综述+课题申报书</td><td>D 不写代码但负责论文和政策叙事。适用：大创/竞赛/纵向课题</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="block">5.2 18 周里程碑甘特图</h3>
+    <div id="chart-gantt2" class="chart gantt"></div>
+    <p class="caption">图 5-1　方向②六阶段：共同地基(W1–3)→环境搭建(W4–6)→baseline 复现(W7–9)→MARL 训练(W10–13)→消融与机制分析(W14–16)→复现验收(W17–18)。若压缩到 12 周：阶段1 压到 2 周、阶段3 压到 2 周、阶段5 压到 1 周，砍分层竞价 extension。</p>
+
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:24%"><col style="width:46%"><col style="width:30%"></colgroup>
+        <thead><tr><th>阶段（周）</th><th>交付物</th><th>验收标准</th></tr></thead>
+        <tbody>
+          <tr><td>阶段1 共同地基<br>W1–W3</td><td>RL 基础笔记、电力市场笔记、博弈论 cheat sheet、工具链装好</td><td>每人跑通 ASSUME 官方 RL tutorial；能讲清 DEC-POMDP 五元组</td></tr>
+          <tr><td>阶段2 环境搭建<br>W4–W6</td><td>自定义 Gymnasium 环境（obs/action/reward 定义完毕）、出清模块单测通过</td><td>固定报价册 clearing 输出与手算一致；7 agent 24h episode 跑 1000 次无崩</td></tr>
+          <tr><td>阶段3 baseline 复现<br>W7–W9</td><td>5 条 baseline（固定价、自给自足、集中 MILP、启发式报价、单 agent DDPG）出数</td><td>每条 3 seed 跑完 960 测试日，出个体利润/社会福利/峰谷差表</td></tr>
+          <tr><td>阶段4 MARL 训练<br>W10–W13</td><td>MADDPG + MAPPO 训练完成，分层竞价 extension 完成</td><td>3 seed 收敛；MARL 相对最强 baseline 统计显著（p&lt;0.05）；记录是否出现 reward hacking</td></tr>
+          <tr><td>阶段5 消融与机制分析<br>W14–W16</td><td>IC 验证、社会福利分析、敏感性分析、消融实验</td><td>≥4 组消融（有无系统 KPI、agent 数、储能配比、新能源渗透率）；给出 reward hacking 案例</td></tr>
+          <tr><td>阶段6 复现验收<br>W17–W18</td><td>论文/报告初稿、代码仓库 README、可复现脚本</td><td>新人按 README 30 分钟内复现主表；图表规范统一</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="block">5.3 三份接口契约</h3>
+    <h4 class="sub">契约 A：环境规格书（Obs / Action / Reward）</h4>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:34%"><col style="width:16%"><col style="width:50%"></colgroup>
+        <thead><tr><th>Obs 字段（每 agent 私有 + 共享市场信号）</th><th>维度</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>本地负荷预测 / PV 预测</td><td>7+7</td><td>δ₁=1, δ₂=6 小时窗（与 2604.08973 一致）</td></tr>
+          <tr><td>储能 SOC</td><td>1</td><td>当前 SoC 百分比</td></tr>
+          <tr><td>分时电价（主网购/售）</td><td>2×7</td><td>未来 7 小时</td></tr>
+          <tr><td>历史出清价</td><td>24</td><td>过去 24h P2P 出清价</td></tr>
+          <tr><td>当前持仓/缺口</td><td>2</td><td>预测过剩/缺口 kW</td></tr>
+          <tr><td>市场供需嵌入 m_t</td><td>1</td><td>市场层面供需紧度（共享）</td></tr>
+          <tr><td>系统 KPI（可选）</td><td>2</td><td>拥堵度 C_t、平衡影响 B_t（MARLEM 做法）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Action：报价 (p_i,q_i) 价连续 [p_min,p_max]、量连续 [0,q_max]；储能充放功率 u_i∈[−P_dis_max,P_chg_max]；与主网交易量 e_i。Reward：</p>
+    <pre style="background:#0f2138;color:#d7e3f4;padding:14px;border-radius:6px;overflow-x:auto;font-size:12.5px;line-height:1.6"><code style="background:none;color:inherit">r_i(t) = P_i^G(t)                 # 主网利润=反送FIT×反送量 − 应急价×应急购量
+       + P_i^p2p(t)               # P2P净利润=Σ卖 p·q − Σ买 p·q
+       - λ_soc*|SoC-SoC_target|    # 储能损耗/寿命惩罚
+       - λ_dev*max(0,|实际-申报|-ε) # 偏差考核
+       + λ_sys*(系统KPI项,可选)     # 隐式合作，默认关闭作消融变量
+# 权重初值：λ_soc=0.01, λ_dev=0.1, λ_sys=0</code></pre>
+    <p>Done：每 episode=24h；不做失败终止，除非 SoC 越界（硬约束）。出清频率每小时一次（day-ahead）；intra-day 扩展到 15 分钟。</p>
+
+    <h4 class="sub">契约 B：Baseline 清单</h4>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:22%"><col style="width:40%"><col style="width:38%"></colgroup>
+        <thead><tr><th>Baseline</th><th>策略</th><th>评估指标</th></tr></thead>
+        <tbody>
+          <tr><td>固定电价</td><td>按电网代购电价买卖，不参与 P2P</td><td>个体利润、社会福利</td></tr>
+          <tr><td>自给自足</td><td>只靠储能+PV，余量反送、缺额网购</td><td>可再生消纳率、峰谷差</td></tr>
+          <tr><td>集中调度（MILP）</td><td>全局社会福利最大化上界（Gurobi/HiGHS）</td><td>社会福利上界、个体分配</td></tr>
+          <tr><td>启发式报价</td><td>cost-plus 加成 10%–30%</td><td>个体利润、市场集中度 HHI</td></tr>
+          <tr><td>单 agent DDPG</td><td>单产消者面对固定市场</td><td>个体利润</td></tr>
+          <tr><td>独立 PPO（IPPO/MIPPO）</td><td>每 agent 独立 PPO，无 CTDE</td><td>与 MARL 对比</td></tr>
+          <tr><td>所提 MARL</td><td>MAPPO/MADDPG +（可选）分层，3 seed</td><td>全部指标</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>评估指标：个体利润分布、社会福利（W=Σ产消者剩余+DSO 剩余）、峰谷差、可再生消纳率、市场集中度 HHI、出清价波动率。</p>
+
+    <h4 class="sub">契约 C：实验模板</h4>
+    <ul>
+      <li><b>训练配置：</b>至少 3 个随机 seed；每 seed 至少 3000 episode（2604.08973 约 1000 收敛、2507.16479 约 5000）；每 100 episode 评估 50 episode。</li>
+      <li><b>日志列：</b><code>episode, seed, agent_id, reward, profit, soc, cleared_price, p2p_volume, congestion</code>；W&B 或 tensorboard。</li>
+      <li><b>博弈收敛判据：</b>(a) 评估期 100 episode 内 reward 滑动窗口标准差 &lt;5%；(b) 不同 seed 收敛策略下出清价均值差 &lt;10%；(c) best-response 检验对手策略不再显著改变最优响应。</li>
+    </ul>
+
+    <h3 class="block">5.4 周同步机制</h3>
+    <p><b>周会（30–45 分钟）：</b>每人 5 分钟讲上周完成/本周计划/阻塞；阻塞当场分配 owner 和截止；PI 同步政策/文献 changelog。<b>看板：</b>Trello/飞书多维表 Backlog/Doing/Review/Done。<b>代码 review：</b>main 走 PR 至少 1 人 approve；市场出清模块必须有单元测试（报价册→结果对拍）。</p>
+    <div class="callout">
+      <b>问题升级：</b>训练不收敛 → 算法工程师 3 天内复现，不行找 PI；reward hacking 复现 → 暂停训练，先修 reward 再继续；政策叙事变化（如新版现货规则）→ PI 1 周内更新政策映射。
+    </div>
+  </div>
+</section>
+<!-- ===== 6. 公共知识地图 ===== -->
+<section class="chapter" id="ch6">
+  <div class="wrap">
+    <span class="sec-tag">Chapter 06</span>
+    <h2 class="sec-title">公共知识地图</h2>
+    <p class="sec-sub">面向电气工程背景、转入 MARL 的同学。标注：全员共学 / 方向①专精 / 方向②专精 / 两者都需但深度不同。时间口径：每周 8–10 小时。</p>
+
+    <h3 class="block">6.1 学习路径图与阶段排布</h3>
+    <div id="chart-knowledge" class="chart tall"></div>
+    <p class="caption">图 6-1　K1–K8 知识模块依赖关系：主线 K2→K3→K4 约占总学时 60%；K1 编程第 1 周起贯穿全程；K6 框架在 K3 后期引入；K5 电力概念在 K3 学完 MDP 后插入；K7 实验方法在 K4 中期落地；K8 研究方法在 K4 后期进入。</p>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:18%"><col style="width:20%"><col style="width:62%"></colgroup>
+        <thead><tr><th>阶段</th><th>周次</th><th>主任务</th></tr></thead>
+        <tbody>
+          <tr><td>入门</td><td>第 1–3 周</td><td>K1 编程 + K2 数学/ML 基础</td></tr>
+          <tr><td>单智能体</td><td>第 4–8 周</td><td>K3 单智能体 RL（DQN/PPO/SAC）</td></tr>
+          <tr><td>领域接入</td><td>第 9–11 周</td><td>K5 电力/市场概念 + 跑通 PowerGym/PyMarket</td></tr>
+          <tr><td>MARL 本体</td><td>第 12–18 周</td><td>K4 MARL 算法（CTDE、值分解、MAPPO/MADDPG）</td></tr>
+          <tr><td>实验与研究</td><td>第 19–24 周</td><td>K7 实验方法 + K8 研究方法，完成第一篇复现/小论文</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="block">6.2 K1–K8 知识点清单</h3>
+
+    <h4 class="sub">K1 编程工程（约 2–3 周 · 全员共学）</h4>
+    <div class="tblwrap"><table>
+      <colgroup><col style="width:46%"><col style="width:34%"><col style="width:20%"></colgroup>
+      <thead><tr><th>知识点</th><th>学到什么程度</th><th>标注</th></tr></thead>
+      <tbody>
+        <tr><td>Python 3（OOP、类型提示、conda）</td><td>能看懂并修改 EPyMARL 这类中大型代码库</td><td>全员共学</td></tr>
+        <tr><td>NumPy/pandas、Matplotlib/Seaborn</td><td>向量运算、读 CSV、画训练曲线/电压分布/出清价曲线</td><td>全员共学</td></tr>
+        <tr><td>PyTorch（张量/autograd/nn.Module）</td><td>从零写一个 MLP 策略网络，理解 forward/backward</td><td>全员共学</td></tr>
+        <tr><td>Git、Gymnasium API、Shell/CUDA</td><td>fork 仓库跑示例并提交修改；把任意仿真器包成标准 RL 环境；GPU 跑训练</td><td>全员共学</td></tr>
+      </tbody>
+    </table></div>
+    <p class="caption">资源：PyTorch 60 分钟教程、NumPy 官方 quickstart、Gymnasium 文档、Matplotlib 教程。</p>
+
+    <h4 class="sub">K2 数学与 ML 基础（约 3–4 周 · 全员共学）</h4>
+    <div class="tblwrap"><table>
+      <colgroup><col style="width:46%"><col style="width:34%"><col style="width:20%"></colgroup>
+      <thead><tr><th>知识点</th><th>学到什么程度</th><th>标注</th></tr></thead>
+      <tbody>
+        <tr><td>概率论/线代/微积分与梯度下降</td><td>写出 P(s'|s,a)；看懂值网络前向；手推一次反向传播</td><td>全员共学</td></tr>
+        <tr><td>MLP/CNN/RNN、过拟合与正则化</td><td>解释为何用 MLP 做策略网络、RNN 处理部分可观测</td><td>全员共学</td></tr>
+        <tr><td>凸优化/拉格朗日乘子</td><td>看懂 Lagrangian 项为什么这么加</td><td>两者都需（方向①安全控制深、方向②市场均衡浅）</td></tr>
+      </tbody>
+    </table></div>
+    <p class="caption">资源：李宏毅《机器学习》、3Blue1Brown 线代/微积分本质、李沐《动手学深度学习》。</p>
+
+    <h4 class="sub">K3 单智能体强化学习（约 4–5 周 · 全员共学）</h4>
+    <div class="tblwrap"><table>
+      <colgroup><col style="width:46%"><col style="width:34%"><col style="width:20%"></colgroup>
+      <thead><tr><th>知识点</th><th>学到什么程度</th><th>标注</th></tr></thead>
+      <tbody>
+        <tr><td>MDP 五元组、贝尔曼方程、蒙特卡洛/TD</td><td>独立写出电压控制/储能报价的状态动作奖励；手推 V(s)、Q(s,a)</td><td>全员共学</td></tr>
+        <tr><td>DQN（回放+目标网络）、Policy Gradient、Actor-Critic</td><td>读懂 CleanRL 单文件 DQN 并解释两个 trick</td><td>全员共学</td></tr>
+        <tr><td>PPO（clip/advantage/GAE）、DDPG/TD3/SAC</td><td>独立调 PPO 超参；在连续动作任务上跑通 SAC</td><td>全员共学</td></tr>
+        <tr><td>reward shaping/稀疏奖励/curriculum、折扣 γ、entropy</td><td>为电网任务设计合理奖励；解释 γ=0.99 vs 0.9 区别</td><td>两者都需</td></tr>
+      </tbody>
+    </table></div>
+    <p class="caption">资源：Sutton &amp; Barto《RL: An Introduction》、王健宗《动手学强化学习》、David Silver UCL 课程、Stanford CS234、CleanRL、Stable-Baselines3。</p>
+
+    <h4 class="sub">K4 MARL 算法本体（约 5–6 周 · 全员共学，进阶分方向）</h4>
+    <div class="tblwrap"><table>
+      <colgroup><col style="width:46%"><col style="width:34%"><col style="width:20%"></colgroup>
+      <thead><tr><th>知识点</th><th>学到什么程度</th><th>标注</th></tr></thead>
+      <tbody>
+        <tr><td>随机博弈/Dec-POMDP、非平稳性、信用分配、CTDE</td><td>把多逆变器/多产消者建模成 Dec-POMDP；画 CTDE 训练/执行图</td><td>全员共学</td></tr>
+        <tr><td>合作/竞争/混合分类、参数共享</td><td>判断 VVC=合作、P2P=混合；解释同构 agent 为何可共享</td><td>全员共学</td></tr>
+        <tr><td>IPPO/MAPPO、MADDPG/MATD3</td><td>跑通 MAPPO 并与 IPPO 对比；在连续动作环境跑通 MADDPG</td><td>全员共学 / 两者都需</td></tr>
+        <tr><td>QMIX/VDN、HAPPO、图 MARL/GNN、注意力</td><td>解释联合 Q 分解；理解异构 agent 不共享；看懂电网拓扑建图</td><td>方向①专精</td></tr>
+        <tr><td>分层 MARL、纳什均衡/激励相容/多均衡</td><td>设计"上层定策略下层定动作"；解释 P2P 为何无唯一均衡</td><td>方向②专精</td></tr>
+        <tr><td>CMDP/Lagrangian/安全层/屏障函数、sim-to-real</td><td>给 VVC 奖励加约束惩罚；说出仿真到真实部署的 3 个鸿沟</td><td>方向①专精</td></tr>
+      </tbody>
+    </table></div>
+    <p class="caption">资源：Albrecht 等《MARL: Foundations and Modern Approaches》(MIT Press 2024 免费 PDF)、EPyMARL、MARLlib、CleanMARL、MAPPO on-policy 基准、PettingZoo、综述 arXiv:2404.15583。</p>
+
+    <h4 class="sub">K5 公共电力概念（约 2–3 周）</h4>
+    <div class="tblwrap"><table>
+      <colgroup><col style="width:46%"><col style="width:34%"><col style="width:20%"></colgroup>
+      <thead><tr><th>知识点</th><th>学到什么程度</th><th>标注</th></tr></thead>
+      <tbody>
+        <tr><td>潮流计算、P/Q/V/δ</td><td>在 pandapower/OpenDSS 跑一次潮流看懂母线电压；解释为何 VVC 调 Q 不调 P</td><td>全员共学</td></tr>
+        <tr><td>电压越限与网损、VVC/VVO/OLTC/电容器/SVC/SVG/droop、IEEE 算例、DPV/台区/馈线/母线、OPF/MPC</td><td>写出奖励函数电压/网损项；列举可被 RL 控制的设备清单</td><td>方向①专精</td></tr>
+        <tr><td>微电网/VPP/产消者/聚合商/PCC、电力市场基本概念（现货/中长期/TOU/RTP/出清/LMP）、需求响应/辅助服务/容量市场、SOC/BESS</td><td>画"谁在交易、谁在聚合"图；说出 agent 可参与的市场产品</td><td>方向②专精 / 两者都需</td></tr>
+      </tbody>
+    </table></div>
+    <p class="caption">资源：pandapower 文档、OpenDSS、陈珩《电力系统稳态分析》、PowerGym/MAPDN 论文。</p>
+
+    <h4 class="sub">K6 训练框架（约 1–2 周，贯穿实操）/ K7 实验方法（约 2–3 周）/ K8 研究方法（约 2–3 周）</h4>
+    <div class="tblwrap"><table>
+      <colgroup><col style="width:14%"><col style="width:66%"><col style="width:20%"></colgroup>
+      <thead><tr><th>模块</th><th>核心知识点</th><th>标注</th></tr></thead>
+      <tbody>
+        <tr><td><b>K6 框架</b></td><td>Gymnasium/PettingZoo 包装、EPyMARL/MARLlib 配置、CleanRL 单文件、SB3、向量化环境、超参管理</td><td>全员共学</td></tr>
+        <tr><td><b>K7 实验</b></td><td>seed everything、多次运行 mean±std/CI、基线选择、评估协议、超参敏感性、W&B/TensorBoard</td><td>全员共学</td></tr>
+        <tr><td><b>K8 研究</b></td><td>文献检索、论文精读 IMRaD、复现一篇论文、创新点定位、写作投稿、sim-to-real 安全合规</td><td>全员共学 / 方向①专精安全合规</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3 class="block">6.3 模块汇总表</h3>
+    <div class="tblwrap">
+      <table>
+        <colgroup><col style="width:34%"><col style="width:33%"><col style="width:33%"></colgroup>
+        <thead><tr><th>模块</th><th>学习周期（周）</th><th>主要标注</th></tr></thead>
+        <tbody>
+          <tr><td>K1 编程工程</td><td>2–3</td><td>全员共学</td></tr>
+          <tr><td>K2 数学与 ML 基础</td><td>3–4</td><td>全员共学</td></tr>
+          <tr><td>K3 单智能体 RL</td><td>4–5</td><td>全员共学</td></tr>
+          <tr><td>K4 MARL 算法本体</td><td>5–6</td><td>全员共学，进阶专题分方向</td></tr>
+          <tr><td>K5 公共电力概念</td><td>2–3</td><td>方向①深、方向②偏市场</td></tr>
+          <tr><td>K6 训练框架</td><td>1–2</td><td>贯穿全程</td></tr>
+          <tr><td>K7 实验方法</td><td>2–3</td><td>全员共学</td></tr>
+          <tr><td>K8 研究方法</td><td>2–3</td><td>后期进入</td></tr>
+          <tr><td><b>合计</b></td><td><b>约 21–29 周（5–7 个月）</b></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="block">6.4 掌握度自检清单（节选）</h3>
+    <div class="grid2">
+      <div class="card">
+        <h4>RL / MARL 自检</h4>
+        <ul>
+          <li>写出 MDP 五元组，并给"储能一天调度"定义状态/动作/奖励</li>
+          <li>DQN 为何需要经验回放和目标网络，去掉一个会怎样</li>
+          <li>PPO 的 clip 比率设成 1.0 或 0.0 会发生什么</li>
+          <li>画一张 CTDE 示意图，标清训练/执行各能看到什么</li>
+          <li>为什么 IPPO 合作任务常不输 MAPPO？MAPPO 多做了什么</li>
+          <li>QMN 单调性约束是什么？为何不能代表所有合作博弈</li>
+          <li>为什么 P2P 是混合博弈而 VVC 是完全合作</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>电力 / 研究自检</h4>
+        <ul>
+          <li>PowerGym 里 agent 的动作/观测/奖励各是什么</li>
+          <li>为什么配网电压问题主要靠无功调节而非有功</li>
+          <li>写储能 SOC 转移方程和充放电效率约束</li>
+          <li>为什么 RL 实验至少跑 5 个随机种子</li>
+          <li>训练曲线 shaded area 用标准差还是置信区间</li>
+          <li>IEEE33 有效、搬到 141 失效的可能原因</li>
+          <li>用 4 句话讲清一篇 MARL×电网论文的贡献</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ===== 7. Glossary ===== -->
+<section class="chapter" id="ch7">
+  <div class="wrap">
+    <span class="sec-tag">Chapter 07</span>
+    <h2 class="sec-title">专业名词解释表（Glossary）</h2>
+    <p class="sec-sub">每条 = 一句话定义 + 通俗类比 + 在本项目中的具体含义。按 5 类组织，可搜索、可折叠。面向"懂电力、初懂 RL"的读者。</p>
+    <input class="gloss-search" id="glossSearch" type="text" placeholder="输入关键词过滤术语（如：CTDE / 出清 / SOC）…">
+    <div class="gloss-tabs" id="glossTabs">
+      <button class="gloss-tab active" data-panel="A">A. RL 基础（22）</button>
+      <button class="gloss-tab" data-panel="B">B. MARL（26）</button>
+      <button class="gloss-tab" data-panel="C">C. 电力系统（42）</button>
+      <button class="gloss-tab" data-panel="D">D. 电力市场（22）</button>
+      <button class="gloss-tab" data-panel="E">E. 工具框架（23）</button>
+    </div>
+
+    <div class="gloss-panel active" id="panel-A"></div>
+    <div class="gloss-panel" id="panel-B"></div>
+    <div class="gloss-panel" id="panel-C"></div>
+    <div class="gloss-panel" id="panel-D"></div>
+    <div class="gloss-panel" id="panel-E"></div>
+  </div>
+</section>
+<!-- ===== 8. 来源附录 ===== -->
+<section class="chapter" id="ch8">
+  <div class="wrap">
+    <span class="sec-tag">Chapter 08</span>
+    <h2 class="sec-title">来源附录</h2>
+    <p class="sec-sub">所有引用的论文、GitHub 仓库、政策文件 URL 汇总。检索日期 2026-09-19。</p>
+    <div class="callout info">
+      <b>标注说明：</b><span class="tag-ok">已查证</span> = 通过 arXiv 原文、GitHub API、国家发改委/国家能源局官网直接核对；<span class="tag-paper">论文一方称</span> = 数字仅来自论文作者自报，尚未独立复现，引用前请自行下载原文复核。方向①三个仓库（PowerGym/MAPDN/RL-ADN）当日受 robots.txt 限制未程序化抓取实时 star，本报告不对其星数做断言。
+    </div>
+    <h3 class="block">论文（arXiv / 期刊）</h3>
+    <div class="tblwrap"><table>
+      <colgroup><col style="width:34%"><col style="width:66%"></colgroup>
+      <thead><tr><th>名称</th><th>URL</th></tr></thead>
+      <tbody>
+        <tr><td>PowerGym（L4DC 2022）</td><td><a href="https://arxiv.org/abs/2109.03970">arxiv.org/abs/2109.03970</a></td></tr>
+        <tr><td>RL-ADN（储能套利，非 VVC）</td><td><a href="https://arxiv.org/abs/2408.03685">arxiv.org/abs/2408.03685</a></td></tr>
+        <tr><td>PowerGridworld</td><td><a href="https://arxiv.org/abs/2111.05969">arxiv.org/abs/2111.05969</a></td></tr>
+        <tr><td>MAPDN（NeurIPS 2021）</td><td><a href="https://arxiv.org/abs/2110.14300">arxiv.org/abs/2110.14300</a></td></tr>
+        <tr><td>TPA-for-AVC（KDD 2024）</td><td><a href="https://arxiv.org/abs/2406.17818">arxiv.org/abs/2406.17818</a></td></tr>
+        <tr><td>Safety-constrained MARL for AVC</td><td><a href="https://arxiv.org/abs/2405.08443">arxiv.org/abs/2405.08443</a></td></tr>
+        <tr><td>Safe bottom-up DER</td><td><a href="https://arxiv.org/abs/2504.20529">arxiv.org/abs/2504.20529</a></td></tr>
+        <tr><td>GRAS-AVC</td><td><a href="https://www.mdpi.com/1424-8220/26/18/5752">mdpi.com/1424-8220/26/18/5752</a></td></tr>
+        <tr><td>AE-HMATD3（IET Smart Grid）</td><td><a href="https://ietresearch.onlinelibrary.wiley.com/doi/full/10.1049/stg2.70107">DOI 10.1049/stg2.70107</a></td></tr>
+        <tr><td>HMC（IET GTD）</td><td><a href="https://ietresearch.onlinelibrary.wiley.com/doi/full/10.1049/gtd2.70413">DOI 10.1049/gtd2.70413</a></td></tr>
+        <tr><td>S-MADDPG</td><td><a href="https://xplorestaging.ieee.org/document/11319404/">IEEE doc 11319404</a></td></tr>
+        <tr><td>MARLEM</td><td><a href="https://arxiv.org/abs/2602.16063">arxiv.org/abs/2602.16063</a></td></tr>
+        <tr><td>SolarChain-Eval</td><td><a href="https://arxiv.org/abs/2607.08681">arxiv.org/abs/2607.08681</a></td></tr>
+        <tr><td>MMAPPO 自利微网 P2P</td><td><a href="https://arxiv.org/html/2604.08973">arxiv.org/html/2604.08973</a></td></tr>
+        <tr><td>HMADDPG 分层套利</td><td><a href="https://arxiv.org/html/2507.16479v1">arxiv.org/html/2507.16479v1</a></td></tr>
+        <tr><td>APPO-DTDE 姊妹篇</td><td><a href="https://arxiv.org/html/2602.16062">arxiv.org/html/2602.16062</a></td></tr>
+        <tr><td>MAPDES 奶牛场 P2P</td><td><a href="https://arxiv.org/html/2405.12716v1">arxiv.org/html/2405.12716v1</a></td></tr>
+        <tr><td>MARL for Energy Networks 综述</td><td><a href="https://arxiv.org/html/2404.15583">arxiv.org/html/2404.15583</a></td></tr>
+        <tr><td>MARL 近似 NE 局限</td><td><a href="https://arxiv.org/html/2303.01772v2">arxiv.org/html/2303.01772v2</a></td></tr>
+        <tr><td>同组 joint design</td><td><a href="https://arxiv.org/html/2604.02728v1">arxiv.org/html/2604.02728v1</a></td></tr>
+      </tbody>
+    </table></div>
+    <h3 class="block">开源仓库（GitHub）</h3>
+    <div class="tblwrap"><table>
+      <colgroup><col style="width:34%"><col style="width:66%"></colgroup>
+      <thead><tr><th>仓库</th><th>URL（星数/活跃度见正文）</th></tr></thead>
+      <tbody>
+        <tr><td>PowerGym</td><td><a href="https://github.com/siemens/powergym">github.com/siemens/powergym</a></td></tr>
+        <tr><td>MAPDN</td><td><a href="https://github.com/Future-Power-Networks/MAPDN">github.com/Future-Power-Networks/MAPDN</a></td></tr>
+        <tr><td>RL-ADN</td><td><a href="https://pypi.org/project/RL-ADN/">pypi.org/project/RL-ADN/</a></td></tr>
+        <tr><td>MARLEM</td><td><a href="https://github.com/salazarna/marlem">github.com/salazarna/marlem</a>（9 stars）</td></tr>
+        <tr><td>SolarChain-Eval</td><td><a href="https://github.com/yxu-dev/SolarChain-Eval">github.com/yxu-dev/SolarChain-Eval</a>（2 stars）</td></tr>
+        <tr><td>ASSUME</td><td><a href="https://github.com/assume-framework/assume">github.com/assume-framework/assume</a>（113 stars）</td></tr>
+        <tr><td>PyMarket</td><td><a href="https://github.com/kiedanski/pymarket">github.com/kiedanski/pymarket</a>（30 stars，停更）</td></tr>
+        <tr><td>Mesa</td><td><a href="https://github.com/projectmesa/mesa">github.com/projectmesa/mesa</a>（3850 stars）</td></tr>
+      </tbody>
+    </table></div>
+    <h3 class="block">国内政策（发改委 / 能源局）</h3>
+    <div class="tblwrap"><table>
+      <colgroup><col style="width:38%"><col style="width:62%"></colgroup>
+      <thead><tr><th>文件 / 文号</th><th>URL</th></tr></thead>
+      <tbody>
+        <tr><td>发改能源〔2024〕187 号 配电网高质量发展</td><td><a href="https://www.gov.cn/zhengce/zhengceku/202403/content_6935790.htm">gov.cn/zhengce/zhengceku/202403/content_6935790.htm</a></td></tr>
+        <tr><td>发改能源〔2025〕1710 号 电网高质量发展</td><td><a href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202512/t20251231_1402949.html">ndrc.gov.cn …t20251231_1402949.html</a></td></tr>
+        <tr><td>发改能源〔2025〕1360 号 新能源消纳与调控</td><td><a href="http://zfxxgk.ndrc.gov.cn/wap/iteminfo.jsp?id=20561">zfxxgk.ndrc.gov.cn …id=20561</a></td></tr>
+        <tr><td>发改办体改〔2025〕394 号 全面加快现货市场</td><td><a href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202504/t20250429_1397488_ext.html">ndrc.gov.cn …t20250429_1397488_ext.html</a></td></tr>
+        <tr><td>发改能源〔2025〕357 号 加快推进虚拟电厂</td><td><a href="https://www.gov.cn/zhengce/zhengceku/202504/content_7018244.htm">gov.cn/zhengce/zhengceku/202504/content_7018244.htm</a></td></tr>
+        <tr><td>发改价格〔2025〕136 号 新能源上网电价市场化</td><td><a href="http://www.nea.gov.cn/20250723/34dc566611e047038a13e5ee5669ecff/c.html">nea.gov.cn …136 号</a></td></tr>
+        <tr><td>发改能源〔2025〕650 号 绿电直连</td><td><a href="http://www.nea.gov.cn/20250818/de262aeb51ca469991ab5d413fef5f5a/c.html">nea.gov.cn …650 号</a></td></tr>
+        <tr><td>发改能源〔2026〕688 号 多用户绿电直连</td><td><a href="http://www.nea.gov.cn/20260721/9e8404689d3b4cacaff55b52ac870170/c.html">nea.gov.cn …688 号</a></td></tr>
+        <tr><td>国能发法改〔2024〕93 号 新型经营主体</td><td><a href="http://www.nea.gov.cn/20250721/59f0c18f566d449f929d223106e036ca/c.html">nea.gov.cn …93 号</a></td></tr>
+        <tr><td>发改能源〔2025〕1144 号 新型储能规模化建设</td><td><a href="http://www.nea.gov.cn/20260708/2d8bf6f108b44c89ae6a60c5c5f6e10c/c.html">nea.gov.cn …1144 号</a></td></tr>
+        <tr><td>2025 年度中国电力市场发展报告</td><td><a href="http://www.nea.gov.cn/20260609/2d1bf220b5a642e2b1199a015bd6cf13/202606092d1bf220b5a642e2b1199a015bd6cf13_073fd3822bbbd048df9c5e8a6d3befc423.pdf">nea.gov.cn 市场发展报告 PDF</a></td></tr>
+        <tr><td>能源局对人大 8487 号建议答复（隔墙售电）</td><td><a href="http://www.nea.gov.cn/20250721/a0ced30ee030462eb3eab45b1f900280/c.html">nea.gov.cn …8487 号答复</a></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <b>MARL × 电力系统 双方向可行性深研与协作方案 2026</b> · 本报告基于三份研究底稿整合，成文于 2026-09-19。<br>
+    所有"已查证"均附来源 URL；标注"论文一方称"的数字建议正式写作前下载原文 PDF 二次核对。工时估算统一按每周 8–10 小时。
+  </div>
+</footer>
+<script>
+const GL={A:[
+["MDP（马尔可夫决策过程）","在状态下做动作、按概率转移、拿奖励的数学框架","像下棋：当前局面=状态，落子=动作，赢棋=奖励","把电网运行建模成：电压/PQ/SOC=状态，调逆变器/OLTC/报价=动作，网损+电费=奖励"],
+["状态/动作/奖励/转移概率","MDP 四要素","仪表盘=状态，旋钮=动作，希望变大的数=奖励","方向①：母线电压/SOC→无功/OLTC档位→-网损-越限；方向②：PV预测/电价→报价量价→利润"],
+["折扣因子 γ","未来奖励折算到现在的权重（0<γ<1）","γ=0.99 明年一块≈今年九毛九","24h 储能调度常用 γ=0.99；单步报价可用较大 γ"],
+["贝尔曼方程","当前价值=即时奖励+未来价值的折扣和","银行复利：今天余额=今天利息+昨天余额折扣","推导 V(s)、Q(s,a) 的核心递推，所有 RL 算法都在解它"],
+["值函数 V(s)","状态 s 下按某策略走下去的期望累计奖励","站在棋盘某格估计最终能赢多少","估计当前电网状态好不好，用于 critic 网络"],
+["动作值函数 Q(s,a)","状态 s 下先做动作 a 再按策略走的期望累计奖励","估计'这步下这里'最后赢多少","方向②：当前市场状态下报这个价能赚多少"],
+["策略 π","状态到动作的映射（概率分布）","你的下棋风格","RL 学的就是 π；电网里就是'看到这种电压分布就调这几个设备'"],
+["on-policy / off-policy","用当前策略数据学当前策略 / 可旧策略数据学新策略","边打边总结 / 拿旧棋谱复盘","DQN off-policy（能回放）；PPO on-policy（采一批就扔）；电网仿真慢，off-policy 更省"],
+["探索与利用（ε-greedy）","偶尔随机试新动作，否则选当前最优","常吃那家 vs 偶尔试新店","电网探索可能越限，ε 通常很小或用 entropy bonus 代替"],
+["经验回放 Replay Buffer","把历史 (s,a,r,s') 存起来随机采样训练","错题本抄下来反复做","DQN 核心 trick；电网数据宝贵，回放提高样本效率"],
+["目标网络 Target Network","复制旧网络专门算 TD 目标，定期更新","用去年标准答案批改今年作业","让训练稳定；PPO 用 clip 代替它"],
+["DQN","用神经网络逼近 Q(s,a) 的 off-policy 值算法","一个大脑同时评估所有动作好坏","离散动作（OLTC 档位）可用；连续动作换 DDPG/SAC"],
+["Policy Gradient","直接优化策略参数，让高回报动作概率变大","直接调整下棋风格，赢的多下","PPO/SAC 的基础"],
+["Actor-Critic","同时学 actor（出动作）和 critic（打分）","演员+评委","MAPPO/MADDPG 基本结构"],
+["PPO（clip 比率）","限制策略更新幅度的 on-policy 算法，clip 常 0.2","每次下棋风格只许小改","电网 MARL 默认基线；clip=0.2 是经验值"],
+["SAC（最大熵）","奖励之外额外最大化策略熵，鼓励探索","除了赢还要求多尝试不同下法","连续动作储能调度常用，比 PPO 更稳"],
+["reward shaping","人工改奖励函数，让稀疏奖励变稠密","赢了才给钱改成每步给小奖励","把'-越限时长'改成'-max(0,V-Vlim)²'二次惩罚"],
+["稀疏奖励","只有任务结束才给的奖励","只有毕业那天才给毕业证","一天结束才给一次奖励学习很慢，需要 shaping"],
+["curriculum learning","从简单任务开始学逐步加难","先练 5 节点再练 33 节点","先 IEEE13 训好再迁移到 123"],
+["discounting","即折扣因子 γ 的作用机制","见上","决定 agent 短视还是长远"],
+["entropy bonus","损失里加策略熵防止过早收敛","下棋别只会一招","电网探索不足时常用，权重通常 0.01"]
+],B:[
+["随机博弈 / Markov Game","多 agent 同时在一个环境各自选动作、按联合动作转移","多人下棋局面是共同结果","多个 inverter/储能/产消者同时决策"],
+["Dec-POMDP","去中心化部分可观测 MDP：各 agent 只看局部观测、联合最大化团队奖励","一群盲人摸象各摸一块","VVC 每台逆变器只看本节点电压，协同把全网电压调好"],
+["非平稳性 Non-stationarity","你在学别人也在学，环境对你不固定","你研究对手对手也在研究你","独立学习时别人当环境一直在变，训练难收敛"],
+["信用分配 Credit Assignment","团队赢了功劳怎么分到每个人头上","篮球队赢了谁的功劳","全网电压正常了哪台 inverter 调对了？QMIX/COMA 在解"],
+["CTDE 集中训练分散执行","训练时用全局信息，部署时只看局部观测","彩排导演看全场，演出演员听耳返","训练 critic 看全网，执行每台 inverter 只看本地电压"],
+["完全合作/竞争/混合","共享奖励 / 你赢我输 / 各有各奖励","足球队 / 考试排名 / P2P 讨价还价","VVC=完全合作；P2P=混合"],
+["参数共享 Parameter Sharing","同构 agent 共用同一套网络参数","士兵都用同一本训练手册","同型号逆变器共享策略降样本量；inverter+储能异构不能共享"],
+["IPPO 独立 PPO","每个 agent 独立跑 PPO 互不知对方在学","各练各的","最简单 MARL 基线，电网里常意外地有效"],
+["MAPPO 多智能体 PPO","IPPO 基础上加集中式 critic（CTDE）","训练时旁边有教练看全场","当前合作 MARL 默认 SOTA 基线"],
+["MADDPG","连续动作版 CTDE：actor 局部 critic 集中","连续控制任务的 MAPPO","方向①连续无功调节常用"],
+["QMIX","混合网络把各 agent 的 Q_i 单调合成联合 Q_tot","每人打分裁判加权求和","合作离散动作代表；连续动作不如 MAPPO"],
+["VDN","QMIX 特例：Q_tot = Σ Q_i","简单加和","比 QMIX 简单表达能力弱"],
+["值分解 Value Decomposition","把联合 Q 分解成每个 agent 贡献的 Q_i","团队总分拆个人分","QMIX/VDN/QTRAN 都在做"],
+["HAPPO 异构 APPO","支持异构 agent 的 CTDE 算法","足球队有前锋后卫门将各学各的","电网 inverter/BESS/OLTC 异构时用"],
+["图 MARL / GNN","把 agent 间关系建成图用 GNN 传消息","电网拓扑当图相邻节点传信息","方向①常用：配电网建图 GNN 做通信骨干"],
+["注意力 Attention","agent 可决定关注哪些邻居","开会选择性听关键发言人","比固定 GNN 灵活，适合拓扑变化"],
+["分层 MARL","高层定目标低层执行","教练定战术队员执行","方向②常用：上层定今天充放，下层定报多少价"],
+["CMDP 约束 MDP","带约束条件的 MDP","不仅要赢还要守规则","电网安全约束天然适合 CMDP"],
+["Lagrangian 方法","把约束变成惩罚项加到奖励里","违规罚款","奖励加 λ·max(0,V-Vlim)²，λ 对偶更新"],
+["安全层 Safety Layer","RL 策略外包一层把危险动作替换成安全动作","汽车 ABS 帮你点刹","RL 输出后检查是否越限，越限就截断"],
+["屏障函数 Barrier Function","证明系统不进入不安全区域的数学工具","一道篱笆证明车不冲出赛道","安全 RL 理论工具，保证电压不越限"],
+["纳什均衡 Nash Equilibrium","无人能单方面改变策略提高收益","大家都不学谁先学谁吃亏","P2P 双方报价达到谁也不想再改的点"],
+["激励相容 Incentive Compatibility","机制设计成说实话对你最有利","报税设计成如实申报最划算","电力市场出清机制核心性质"],
+["策略性报价 Strategic Bidding","agent 不完全报真实成本而按市场情况报价","按对手出价调整自己报价","方向②核心：产消者学习怎么报价最大化利润"],
+["多均衡问题","博弈可能有多个纳什均衡不知收敛到哪个","堵车谁先走有好几种结果","P2P 可能收敛到低效均衡，需机制设计"],
+["sim-to-real gap","仿真训的策略搬真实系统性能下降","模拟器开得好到真车就撞","方向①部署真实配电网前必须做的鲁棒性验证"]
+],C:[
+["潮流 Power Flow","给定拓扑和负荷计算各节点电压、线路功率分布","算水管网每个点水压","RL 环境核心物理引擎，每个动作后跑一次潮流"],
+["有功功率 P","实际做功的功率，单位 W","电灯真正发光的功率","方向②报价主要对象；方向①光伏出力"],
+["无功功率 Q","建电磁场但不做功，单位 var","水管里来回晃不往前流的水","VVC 主要控制对象，决定电压"],
+["电压幅值与相角","电压大小和相位差","水压和水流方向","方向①观测核心；配网中相角常被忽略"],
+["电压越限 Voltage Violation","节点电压超出额定 ±5%（或国标）","水压太高爆管太低带不动","奖励函数主要惩罚项"],
+["VVC 电压无功控制","调无功设备把电压维持在合格范围","自动调水压阀","方向①最经典 RL 任务，PowerGym 做这个"],
+["VVO 电压无功优化","在 VVC 基础上同时优化网损","调水压同时还想省电","比 VVO 多了经济目标"],
+["OLTC 有载调压变压器","带负荷就能调分接头的变压器","带载换挡的变速箱","离散动作设备，常用 DQN/QMIX 控制"],
+["并联电容器 Shunt Capacitor","并联母线提供无功补偿的开关设备","装一个水龙头放水（无功）","离散动作，投切次数计入磨损惩罚"],
+["SVC 静止无功补偿器","连续调节无功输出的电力电子装置","无级调水流的阀门","连续动作，用 SAC/MADDPG"],
+["SVG/STATCOM","更先进连续无功补偿器，响应更快","比 SVC 反应更快的电子阀","同 SVC，方向①高级设备"],
+["逆变器 Inverter","把光伏直流电变交流电的设备","电池直流转家用交流","现代配网 VVC 主力可调设备，可四象限控制"],
+["droop 下垂控制","逆变器按频率/电压自动增减出力的本地控制","水压低阀门自动开大","微电网孤岛底层控制；RL 在上层优化"],
+["P-Q / V-f 控制","固定有功无功 / 固定电压频率","定功率模式 vs 定电压模式","并网用 P-Q；孤岛主逆变器用 V-f"],
+["有功削减 Active Curtailment","把光伏/风机出力人为压下来","水龙头关小一点","解决高电压的粗暴手段，奖励要惩罚"],
+["弃光 PV Curtailment","光伏大发因消纳不了而弃掉","电用不完只能扔","两方向都关心；市场里可价格引导"],
+["网损 Network Loss","线路上损耗的功率","水管漏水","VVO 优化目标之一，奖励写 -loss"],
+["切换磨损 Switching Wear","OLTC/电容器频繁动作的寿命损耗","开关按多了会坏","奖励加 -λ·(动作次数) 避免抖动"],
+["三相不平衡 Three-Phase Unbalance","三相负荷不对称导致电压电流不平衡","三根管水流不一样大","真实配网问题；OpenDSS 可模拟，pandapower 正序模型不支持"],
+["IEEE 13/33/118/123 节点","标准测试电网节点数从小到大","从模拟厨房到整栋楼","13 入门、33 常用、118 输电、123 大规模；论文常用 33 和 141"],
+["分布式光伏 DPV","装在用户侧的小型光伏","每家屋顶太阳能板","现代配网电压问题主要来源"],
+["台区 Transformer District","一台配电变压器供电的范围","小区变压器带的那一片楼","中国配网常用单位；P2P 常发生在一个台区内"],
+["馈线 Feeder","从变电站出来的一条配电线路","小区供水一根主管","方向① agent 常按馈线划分"],
+["母线 Bus","电气节点所有设备挂在上面","管路接头处","潮流计算基本节点单位"],
+["节点 Node","同母线，潮流计算最小单位","同上","同上"],
+["OPF 最优潮流","满足电网约束下最小化运行成本的优化","数学上求最优水压方案","RL 传统基线；RL 想绕过它的在线求解慢"],
+["MPC 模型预测控制","滚动优化每步预测未来 N 步选第一步执行","看前面 5 秒路况打方向","RL 主要传统基线；MPC 需模型，RL 不需要"],
+["SCADA","数据采集与监视控制系统","电网仪表盘+遥控器","真实电网数据/控制通道；RL 部署要对接"],
+["配网自动化 DA","配电网远程监控与自愈","水管漏了自动关阀","现代配网已有 DA，RL 在其上做智能决策"],
+["微电网 Microgrid","可孤岛运行的小型电网","小区自己的供水小系统","方向①典型场景；常含光伏+储能+负荷"],
+["虚拟电厂 VPP","把分布式电源/储能聚合当一个电厂调","各家太阳能板凑成一个电厂","两方向交叉：既做物理控制又做市场报价"],
+["产消者 Prosumer","既用电又发电的用户","自己种菜自己吃还卖一点","方向②基本 agent 单位"],
+["聚合商 Aggregator","代表一群产消者参与市场的中介","菜贩子把散户菜收来卖给超市","方向②关键角色；常是 RL agent 宿主"],
+["SOC 荷电状态","电池剩余电量百分比","手机电量","储能 agent 核心状态变量，带上下限"],
+["储能系统 BESS","电池储能系统","家里大充电宝","方向①调度对象、方向②报价对象"],
+["PCC 公共连接点","微网/储能与大电网并网点","小区水管接市政管网那个接头","并网点功率约束；P2P 常受 PCC 容量限制"]
+],D:[
+["P2P 交易","产消者之间直接买卖电量不经大电网集中调度","邻居直接转卖多余的菜","方向②核心场景；多产消者作 agent 协商出清"],
+["电力现货市场","实时/日前买卖电量价格随供需波动","菜市场当天菜价","方向②主要训练环境"],
+["中长期市场","提前签好的长期购电合同","长期订阅牛奶","与现货互补；RL 常只模拟现货部分"],
+["分时电价 TOU","按时段定电价峰谷不同","影院白天便宜晚上贵","最简单价格信号；RL 据此调度储能充放"],
+["实时电价 RTP","价格随实时供需分钟级变动","Uber 动态定价","更激进需求响应信号；用户会主动调负荷"],
+["出清 Market Clearing","撮合买卖双方确定成交价和量","拍卖官敲锤定价","方向②环境核心 step：收集报价后跑出清"],
+["报价/报量 Bidding","卖方报多少钱卖多少买方报多少钱买多少","拍卖里举牌","agent 动作空间通常是 (量,价) 二元组"],
+["统一出清价 Marginal Price","所有成交者按同一价格结算","拍卖赢家付同一个价","市场出清机制；LMP 是其节点推广"],
+["节点电价 LMP","考虑阻塞和网损后的分节点电价","不同小区水价不同","方向②关键结果变量；引导分布式资源选址"],
+["社会福利 Social Welfare","生产者剩余+消费者剩余之和","全社会从这笔交易获得总收益","市场机制好坏衡量标准"],
+["消费者剩余","买方心理价与实际成交价之差","愿花 50 结果 30 买赚 20","用户侧收益指标"],
+["生产者剩余","卖方成交价与成本之差","成本 10 卖 30 赚 20","发电侧收益指标"],
+["市场力 Market Power","大玩家操纵报价影响价格的能力","最大菜贩能抬价","RL agent 可能学会行使市场力，要监测"],
+["市场集中度 HHI","各企业份额平方和衡量垄断程度","前几名菜贩占多少份额","HHI 高=竞争不充分；判断市场设计"],
+["需求响应 DR","用户按电价/激励主动调整用电","电价高就不开空调","方向②应用：RL 帮用户决定什么时候用什么电器"],
+["绿电交易","专门交易可再生能源电量（常带绿证）","买有机食品","政策驱动市场；RL 可在其中做报价策略"],
+["隔墙售电","厂区分布式发电直接卖给厂区用户","邻居把太阳能电直接卖给你","中国增量配网政策下新市场形态"],
+["增量配电网","允许社会资本投资运营的配电网","新建小区自己的水管网","隔墙售电物理载体；P2P 常发生其中"],
+["DOE 动态运行包络","按实时状态允许逆变器并网功率动态上下限","按当前水压告诉你最多开几个龙头","方向①②交叉：把物理约束传给市场 agent"],
+["偏差考核","实际发用电与申报不符时罚款","报供 100 斤只供 80 斤要赔","市场 agent 风险项；奖励要扣偏差成本"],
+["辅助服务市场","为维持频率/电压稳定提供备用调压的市场","消防队常备费用","方向②扩展：储能可调频卖辅助服务"],
+["容量市场","为保证未来供电充裕付费给机组留容量","养着消防队待命的钱","长期市场机制；RL 研究较少"]
+],E:[
+["OpenDSS","EPRI 开源配电网频域仿真器","配网仿真界 MATLAB","方向①事实标准；PowerGym/MAPDN 后端"],
+["pandapower","基于 pandas 的 Python 电网分析库","用 Python 调潮流","入门首选；比 OpenDSS 易上手适合教学"],
+["PowerGym","面向 VVC 的 RL 环境基于 OpenDSS","把 OpenDSS 包装成 Gym","方向①入门第一个环境；Siemens 出品"],
+["RL-ADN","面向主动配电网储能调度的高性能 RL 环境","专为 BESS 调度优化","方向①储能调度任务用（注意：非 VVC）"],
+["PowerGridworld","多智能体电网仿真框架支持即插即用建模","乐高式搭电网 multi-agent 环境","方向①原型开发用"],
+["MAPDN","配网主动电压控制 MARL 基准（33/141/322）","MARL×电网的 ImageNet","方向①必跑基准；对比 IPPO/MAPPO/MADDPG"],
+["MARLEM","本地能源市场的 MARL 仿真框架","专为 P2P 市场做的 MARL 环境","方向②入门环境"],
+["SolarChain-Eval","物理约束下去中心化能源市场 agent 评测基准","给市场 agent 的高考卷","方向②评测用；含中国城市数据"],
+["ASSUME","德国亚琛工大的多智能体能源市场仿真平台","工业级能源市场沙盘","方向②做严肃市场模拟用（最稳妥底座）"],
+["PyMarket","Python 市场出清机制仿真库","模拟拍卖/出清小工具","方向②自写出清逻辑时参考（已停更）"],
+["Mesa","Python 智能体建模（ABM）框架","用 Python 模拟一群小人行为","方向②快速原型；ABM 非 RL 专用"],
+["Gymnasium/Gym","单智能体 RL 标准环境接口","RL 界 USB 标准","所有单智能体环境都要实现 reset/step"],
+["PettingZoo","多智能体版 Gymnasium","USB-C for multi-agent","多智能体环境标准接口"],
+["CleanRL","单文件教学向 RL 算法实现","RL 算法干净源码版","学算法首选；每个算法一个文件"],
+["EPyMARL","合作 MARL 扩展基准代码库","MARL 界的 PyTorch","方向①必用；含 IPPO/MAPPO/QMIX/MADDPG"],
+["CleanMARL","单文件教学向 MARL 实现","CleanRL 的 MARL 版","入门 MARL 代码首选"],
+["MARLlib","OpenDILab 大规模 MARL 库","MARL 界的 PyTorch Hub","工业级；适合大规模实验"],
+["PyTorch","主流深度学习框架","RL 圈发动机","所有 MARL 代码底层"],
+["Stable-Baselines3","工业级单智能体 RL 库","开箱即用 RL 工具箱","快速出单智能体基线对比"],
+["NumPy","Python 数值计算基础库","Python 界计算器","所有数据处理底座"],
+["Matplotlib","Python 绘图库","RL 圈画笔","画训练曲线、电压分布图"],
+["Weights & Biases","在线实验追踪可视化平台","RL 实验的 GitHub","多人协作/远程训练必备"],
+["TensorBoard","TensorFlow 自带可视化工具","本地版 W&B","本地实验可视化；轻量替代"]
+]};
+function renderGloss(k){var b=document.getElementById('panel-'+k);b.innerHTML=GL[k].map(function(x){return '<details class="gitem"><summary>'+x[0]+'</summary><div class="gbody"><div class="gdef"><b>定义：</b>'+x[1]+'</div><div class="gdef"><b>类比：</b>'+x[2]+'</div><div class="gdef"><b>本项目：</b>'+x[3]+'</div></div></details>';}).join('');}
+['A','B','C','D','E'].forEach(renderGloss);
+document.querySelectorAll('.gloss-tab').forEach(function(btn){btn.addEventListener('click',function(){document.querySelectorAll('.gloss-tab').forEach(function(b){b.classList.remove('active');});document.querySelectorAll('.gloss-panel').forEach(function(p){p.classList.remove('active');});btn.classList.add('active');document.getElementById('panel-'+btn.dataset.panel).classList.add('active');});});
+document.getElementById('glossSearch').addEventListener('input',function(e){var q=e.target.value.trim().toLowerCase();document.querySelectorAll('.gitem').forEach(function(it){it.style.display=(!q||it.textContent.toLowerCase().includes(q))?'':'none';});});
+var C1='#2b6cb0',C2='#2f855a',GOLD='#d69e2e',NAVY='#1a365d';
+var charts=[];
+function mk(id,opt){var c=echarts.init(document.getElementById(id));c.setOption(opt);charts.push(c);return c;}
+var __rt;
+window.addEventListener('resize',function(){clearTimeout(__rt);__rt=setTimeout(function(){charts.forEach(function(c){c.resize();});if(window.__knowC&&window.knowledgeOption){var el=window.__knowC.getDom();window.__knowC.setOption(window.knowledgeOption(el.clientWidth-20,el.clientHeight-20));}},160);});
+if(typeof echarts==='undefined'){
+document.querySelectorAll('.chart').forEach(function(el){el.innerHTML='<div class="chart-err">图表库 ECharts 加载失败（本地 echarts.min.js 缺失且 CDN 不可达）。<br>请检查网络后刷新页面；图表对应数据在正文表格中均有完整呈现。</div>';});
+}else{
+mk('chart-radar',{color:[C1,C2],tooltip:{},legend:{bottom:0,data:['方向① VVC/VVO（33）','方向② P2P/市场（29）']},radar:{center:['50%','51%'],radius:'58%',name:{textStyle:{fontSize:12,color:'#33415c'}},indicator:[{name:'M1 多主体必要性',max:5},{name:'M2 仿真就绪度',max:5},{name:'M3 奖励可定义',max:5},{name:'M4 数据与算例',max:5},{name:'M5 MARL增益与空白',max:5},{name:'M6 沙箱安全性',max:5},{name:'M7 落地可行',max:5}],splitArea:{areaStyle:{color:['#f7f9fc','#eef2f7']}}},series:[{type:'radar',data:[{value:[5,5,4,5,5,5,4],name:'方向① VVC/VVO（33）',areaStyle:{opacity:.18}},{value:[5,5,4,3,4,5,3],name:'方向② P2P/市场（29）',areaStyle:{opacity:.18}}]}]});
+mk('chart-stars',{color:[C1],tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:function(p){var d=p[0];return d.name+'<br>'+(d.value==null?'2026-09-19 未程序化抓取（底稿未断言星数）':d.value+' stars');}},grid:{left:60,right:24,top:30,bottom:70},xAxis:{type:'category',data:['PowerGym','MAPDN','RL-ADN','MARLEM','SolarChain-Eval','ASSUME','PyMarket','Mesa'],axisLabel:{interval:0,rotate:28}},yAxis:{type:'log',name:'GitHub stars（对数轴）',min:1},series:[{type:'bar',barWidth:'55%',data:[{value:null,itemStyle:{color:'#c3ccd8'}},{value:null,itemStyle:{color:'#c3ccd8'}},{value:null,itemStyle:{color:'#c3ccd8'}},{value:9,itemStyle:{color:C2}},{value:2,itemStyle:{color:C2}},{value:113,itemStyle:{color:C2}},{value:30,itemStyle:{color:C2}},{value:3850,itemStyle:{color:GOLD}}],label:{show:true,position:'top',formatter:function(p){return p.value==null?'未抓取':p.value;}}}]});
+function gantt(el,data,color){mk(el,{tooltip:{formatter:function(p){var d=p.data;if(!d.name){return '';}return d.name+'<br>第'+(d.start+1)+'–'+(d.start+d.len)+' 周（共 '+d.len+' 周）';}},grid:{left:132,right:48,top:26,bottom:44},xAxis:{type:'value',max:18,name:'周',interval:3,splitLine:{lineStyle:{color:'#eef2f7'}}},yAxis:{type:'category',data:data.map(function(d){return d.name;}).reverse(),axisLabel:{fontSize:12.5}},series:[{type:'bar',stack:'g',itemStyle:{color:'transparent'},emphasis:{disabled:true},data:data.map(function(d){return d.start;}).reverse(),silent:true,z:0},{type:'bar',stack:'g',barWidth:24,data:data.map(function(d){return {value:d.len,name:d.name,start:d.start,len:d.len,itemStyle:{color:color,borderRadius:3}};}).reverse(),label:{show:true,position:'inside',color:'#fff',fontSize:11.5,formatter:function(p){return p.value+' 周';}}}]});}
+gantt('chart-gantt1',[{name:'①共同地基',start:0,len:3},{name:'②环境搭建',start:3,len:3},{name:'③baseline复现',start:6,len:3},{name:'④MARL训练',start:9,len:4},{name:'⑤消融与安全',start:13,len:3},{name:'⑥复现验收',start:16,len:2}],C1);
+gantt('chart-gantt2',[{name:'①共同地基',start:0,len:3},{name:'②环境搭建',start:3,len:3},{name:'③baseline复现',start:6,len:3},{name:'④MARL训练',start:9,len:4},{name:'⑤消融与机制分析',start:13,len:3},{name:'⑥复现验收',start:16,len:2}],C2);
+window.knowledgeOption=function(w,h){
+ var narrow=w<560,k=narrow?0.82:1,fs=narrow?11:12.5;
+ var cats=[{name:'地基层（全员共学）',itemStyle:{color:'#5b6b7f'}},{name:'RL / MARL 核心',itemStyle:{color:C1}},{name:'电力·市场领域（分方向专精）',itemStyle:{color:C2}},{name:'实验与研究',itemStyle:{color:GOLD}}];
+ function N(name,cat,size,xf,yf){return {name:name,category:cat,symbolSize:Math.round(size*k),x:Math.round(w*xf),y:Math.round(h*yf)};}
+ var nodes=[
+  N('K1 编程工程',0,46,0.15,0.13),N('K2 数学/ML',0,50,0.38,0.13),N('K6 训练框架',0,44,0.63,0.13),
+  N('K3 单智能体RL',1,56,0.38,0.36),
+  N('K4 MARL本体',1,64,0.28,0.57),N('K5 电力/市场概念',2,54,0.58,0.57),
+  N('K7 实验方法',3,48,0.20,0.74),N('K8 研究方法',3,46,0.43,0.74)
+ ];
+ var links=[
+  {source:'K1 编程工程',target:'K2 数学/ML'},{source:'K2 数学/ML',target:'K3 单智能体RL'},{source:'K6 训练框架',target:'K3 单智能体RL'},
+  {source:'K3 单智能体RL',target:'K4 MARL本体'},{source:'K3 单智能体RL',target:'K5 电力/市场概念'},{source:'K5 电力/市场概念',target:'K4 MARL本体'},
+  {source:'K4 MARL本体',target:'K7 实验方法'},{source:'K7 实验方法',target:'K8 研究方法'}
+ ];
+ return {tooltip:{},legend:{bottom:6,itemWidth:12,itemHeight:12,textStyle:{fontSize:fs},data:cats.map(function(c){return c.name;})},
+ series:[{type:'graph',layout:'none',roam:true,draggable:true,categories:cats,data:nodes,links:links,
+ edgeSymbol:['none','arrow'],edgeSymbolSize:8,
+ label:{show:true,position:'bottom',distance:7,fontSize:fs,fontWeight:600,color:'#1a365d'},
+ itemStyle:{borderColor:'#fff',borderWidth:2},lineStyle:{color:'#9fb4d0',width:1.6,curveness:0.08},
+ emphasis:{focus:'adjacency',lineStyle:{width:2.6}}}]};
+};
+(function(){var el=document.getElementById('chart-knowledge');window.__knowC=mk('chart-knowledge',window.knowledgeOption(el.clientWidth-20,el.clientHeight-20));})();
+}
+</script>
+</body>
+</html>

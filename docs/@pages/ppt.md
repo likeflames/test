@@ -35,6 +35,15 @@ sidebar: false
   </div>
 </div>
 
+<div class="ppt-card" onclick="location.href='/ppt/marl-power-research-2026.html'" style="margin-top:12px">
+  <div class="ppt-card-icon">⚙️</div>
+  <div class="ppt-card-body">
+    <h3>MARL × 电力系统：双方向可行性深研与协作方案</h3>
+    <p>有源配网控制与局部能源市场的可行性对比、学习路径和 18 周协作排期。</p>
+    <span class="ppt-card-link">打开 →</span>
+  </div>
+</div>
+
 <div class="ppt-card" onclick="location.href='/ppt/advanced.html'" style="margin-top:12px">
   <div class="ppt-card-icon">🚀</div>
   <div class="ppt-card-body">
