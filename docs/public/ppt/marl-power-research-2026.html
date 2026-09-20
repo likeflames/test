@@ -77,9 +77,9 @@ table th{background:var(--navy);color:#fff;font-weight:500;text-align:left;paddi
 table td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top;word-break:break-word}
 table tr:nth-child(even) td{background:#f6f9fc}
 table tr:last-child td{border-bottom:none}
-.caption{font-size:12.5px;color:var(--muted);margin:10px 0 18px}
+.caption{font-size:12.5px;color:var(--muted);margin:-10px 0 18px}
 /* ===== 图表 ===== */
-.chart{width:100%;height:420px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px;box-sizing:border-box}
+.chart{width:100%;height:420px;min-width:0;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px;box-sizing:border-box}
 .chart.tall{height:480px}
 .chart.gantt{height:370px}
 .chart-err{display:flex;align-items:center;justify-content:center;height:100%;min-height:120px;text-align:center;color:#8a98a5;font-size:13.5px;padding:24px;line-height:1.8}
@@ -109,7 +109,14 @@ footer b{color:#fff}
   .toc-inline{columns:1}
   table{font-size:12.5px}
   .chart{height:340px}
+  .chart.tall{height:400px}
   .chart.gantt{height:320px}
+}
+@media(max-width:480px){
+  .wrap{padding:0 16px}
+  .chart{height:330px;padding:6px}
+  .chart.tall{height:390px}
+  .chart.gantt{height:340px}
 }
 .tblwrap table{min-width:620px}
 </style>
@@ -1155,16 +1162,21 @@ function renderGloss(k){var b=document.getElementById('panel-'+k);b.innerHTML=GL
 document.querySelectorAll('.gloss-tab').forEach(function(btn){btn.addEventListener('click',function(){document.querySelectorAll('.gloss-tab').forEach(function(b){b.classList.remove('active');});document.querySelectorAll('.gloss-panel').forEach(function(p){p.classList.remove('active');});btn.classList.add('active');document.getElementById('panel-'+btn.dataset.panel).classList.add('active');});});
 document.getElementById('glossSearch').addEventListener('input',function(e){var q=e.target.value.trim().toLowerCase();document.querySelectorAll('.gitem').forEach(function(it){it.style.display=(!q||it.textContent.toLowerCase().includes(q))?'':'none';});});
 var C1='#2b6cb0',C2='#2f855a',GOLD='#d69e2e',NAVY='#1a365d';
-var charts=[];
+var charts=[],responsiveCharts=[];
 function mk(id,opt){var c=echarts.init(document.getElementById(id));c.setOption(opt);charts.push(c);return c;}
+function box(id){var el=document.getElementById(id);return {w:Math.max(1,el.clientWidth-20),h:Math.max(1,el.clientHeight-20)};}
+function responsive(c,build){responsiveCharts.push(function(){var b=box(c.getDom().id);c.setOption(build(b.w,b.h),true);});}
 var __rt;
-window.addEventListener('resize',function(){clearTimeout(__rt);__rt=setTimeout(function(){charts.forEach(function(c){c.resize();});if(window.__knowC&&window.knowledgeOption){var el=window.__knowC.getDom();window.__knowC.setOption(window.knowledgeOption(el.clientWidth-20,el.clientHeight-20));}},160);});
+window.addEventListener('resize',function(){clearTimeout(__rt);__rt=setTimeout(function(){charts.forEach(function(c){c.resize();});responsiveCharts.forEach(function(render){render();});},160);});
 if(typeof echarts==='undefined'){
 document.querySelectorAll('.chart').forEach(function(el){el.innerHTML='<div class="chart-err">图表库 ECharts 加载失败（本地 echarts.min.js 缺失且 CDN 不可达）。<br>请检查网络后刷新页面；图表对应数据在正文表格中均有完整呈现。</div>';});
 }else{
-mk('chart-radar',{color:[C1,C2],tooltip:{},legend:{bottom:0,data:['方向① VVC/VVO（33）','方向② P2P/市场（29）']},radar:{center:['50%','51%'],radius:'58%',name:{textStyle:{fontSize:12,color:'#33415c'}},indicator:[{name:'M1 多主体必要性',max:5},{name:'M2 仿真就绪度',max:5},{name:'M3 奖励可定义',max:5},{name:'M4 数据与算例',max:5},{name:'M5 MARL增益与空白',max:5},{name:'M6 沙箱安全性',max:5},{name:'M7 落地可行',max:5}],splitArea:{areaStyle:{color:['#f7f9fc','#eef2f7']}}},series:[{type:'radar',data:[{value:[5,5,4,5,5,5,4],name:'方向① VVC/VVO（33）',areaStyle:{opacity:.18}},{value:[5,5,4,3,4,5,3],name:'方向② P2P/市场（29）',areaStyle:{opacity:.18}}]}]});
-mk('chart-stars',{color:[C1],tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:function(p){var d=p[0];return d.name+'<br>'+(d.value==null?'2026-09-19 未程序化抓取（底稿未断言星数）':d.value+' stars');}},grid:{left:60,right:24,top:30,bottom:70},xAxis:{type:'category',data:['PowerGym','MAPDN','RL-ADN','MARLEM','SolarChain-Eval','ASSUME','PyMarket','Mesa'],axisLabel:{interval:0,rotate:28}},yAxis:{type:'log',name:'GitHub stars（对数轴）',min:1},series:[{type:'bar',barWidth:'55%',data:[{value:null,itemStyle:{color:'#c3ccd8'}},{value:null,itemStyle:{color:'#c3ccd8'}},{value:null,itemStyle:{color:'#c3ccd8'}},{value:9,itemStyle:{color:C2}},{value:2,itemStyle:{color:C2}},{value:113,itemStyle:{color:C2}},{value:30,itemStyle:{color:C2}},{value:3850,itemStyle:{color:GOLD}}],label:{show:true,position:'top',formatter:function(p){return p.value==null?'未抓取':p.value;}}}]});
-function gantt(el,data,color){mk(el,{tooltip:{formatter:function(p){var d=p.data;if(!d.name){return '';}return d.name+'<br>第'+(d.start+1)+'–'+(d.start+d.len)+' 周（共 '+d.len+' 周）';}},grid:{left:132,right:48,top:26,bottom:44},xAxis:{type:'value',max:18,name:'周',interval:3,splitLine:{lineStyle:{color:'#eef2f7'}}},yAxis:{type:'category',data:data.map(function(d){return d.name;}).reverse(),axisLabel:{fontSize:12.5}},series:[{type:'bar',stack:'g',itemStyle:{color:'transparent'},emphasis:{disabled:true},data:data.map(function(d){return d.start;}).reverse(),silent:true,z:0},{type:'bar',stack:'g',barWidth:24,data:data.map(function(d){return {value:d.len,name:d.name,start:d.start,len:d.len,itemStyle:{color:color,borderRadius:3}};}).reverse(),label:{show:true,position:'inside',color:'#fff',fontSize:11.5,formatter:function(p){return p.value+' 周';}}}]});}
+function radarOption(w,h){var compact=w<560;return {color:[C1,C2],tooltip:{},legend:{type:'scroll',bottom:0,textStyle:{fontSize:compact?11:12},data:['方向① VVC/VVO（33）','方向② P2P/市场（29）']},radar:{center:['50%',compact?'43%':'45%'],radius:Math.max(72,Math.min(w,h)*(compact?.37:.42)),name:{textStyle:{fontSize:compact?10.5:12,color:'#33415c'}},indicator:[{name:'M1 多主体必要性',max:5},{name:'M2 仿真就绪度',max:5},{name:'M3 奖励可定义',max:5},{name:'M4 数据与算例',max:5},{name:'M5 MARL增益与空白',max:5},{name:'M6 沙箱安全性',max:5},{name:'M7 落地可行',max:5}],splitArea:{areaStyle:{color:['#f7f9fc','#eef2f7']}}},series:[{type:'radar',data:[{value:[5,5,4,5,5,5,4],name:'方向① VVC/VVO（33）',areaStyle:{opacity:.18}},{value:[5,5,4,3,4,5,3],name:'方向② P2P/市场（29）',areaStyle:{opacity:.18}}]}]};}
+var radarBox=box('chart-radar'),radarChart=mk('chart-radar',radarOption(radarBox.w,radarBox.h));responsive(radarChart,radarOption);
+function starsOption(w){var compact=w<560;var names=['PowerGym','MAPDN','RL-ADN','MARLEM','SolarChain-Eval','ASSUME','PyMarket','Mesa'];return {color:[C1],tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:function(p){var d=p[0];return d.name+'<br>'+(d.value==null||d.value==='-'?'未抓取：不参与星数比较':d.value+' stars');}},grid:{left:compact?48:60,right:18,top:30,bottom:compact?98:78},xAxis:{type:'category',data:names,axisLabel:{interval:0,rotate:compact?40:28,fontSize:compact?10.5:12,formatter:function(v,i){return i<3?'{muted|'+v+'}\n{muted|未抓取}':v;},rich:{muted:{color:'#8a98a5',fontSize:10,lineHeight:15}}}},yAxis:{type:'log',name:'GitHub stars（对数轴）',nameTextStyle:{fontSize:compact?10:12},min:1},series:[{type:'bar',barWidth:'55%',data:['-','-','-',{value:9,itemStyle:{color:C2}},{value:2,itemStyle:{color:C2}},{value:113,itemStyle:{color:C2}},{value:30,itemStyle:{color:C2}},{value:3850,itemStyle:{color:GOLD}}],label:{show:true,position:'top',fontSize:compact?10:11,formatter:function(p){return p.value==null||p.value==='-'?'':p.value;}}}]};}
+var starsBox=box('chart-stars'),starsChart=mk('chart-stars',starsOption(starsBox.w));responsive(starsChart,function(w){return starsOption(w);});
+function ganttOption(data,color,w){var compact=w<560;return {tooltip:{formatter:function(p){var d=p.data;if(!d.name){return '';}return d.name+'<br>第'+(d.start+1)+'–'+(d.start+d.len)+' 周（共 '+d.len+' 周）';}},grid:{left:compact?112:132,right:compact?18:48,top:26,bottom:44},xAxis:{type:'value',max:18,name:'周',interval:3,splitLine:{lineStyle:{color:'#eef2f7'}},axisLabel:{fontSize:compact?10:12}},yAxis:{type:'category',data:data.map(function(d){return d.name;}).reverse(),axisLabel:{fontSize:compact?10.5:12.5}},series:[{type:'bar',stack:'g',itemStyle:{color:'transparent'},emphasis:{disabled:true},data:data.map(function(d){return d.start;}).reverse(),silent:true,z:0},{type:'bar',stack:'g',barWidth:compact?20:24,data:data.map(function(d){return {value:d.len,name:d.name,start:d.start,len:d.len,itemStyle:{color:color,borderRadius:3}};}).reverse(),label:{show:true,position:'inside',color:'#fff',fontSize:compact?10:11.5,formatter:function(p){return p.value+' 周';}}}]};}
+function gantt(el,data,color){var b=box(el),c=mk(el,ganttOption(data,color,b.w));responsive(c,function(w){return ganttOption(data,color,w);});}
 gantt('chart-gantt1',[{name:'①共同地基',start:0,len:3},{name:'②环境搭建',start:3,len:3},{name:'③baseline复现',start:6,len:3},{name:'④MARL训练',start:9,len:4},{name:'⑤消融与安全',start:13,len:3},{name:'⑥复现验收',start:16,len:2}],C1);
 gantt('chart-gantt2',[{name:'①共同地基',start:0,len:3},{name:'②环境搭建',start:3,len:3},{name:'③baseline复现',start:6,len:3},{name:'④MARL训练',start:9,len:4},{name:'⑤消融与机制分析',start:13,len:3},{name:'⑥复现验收',start:16,len:2}],C2);
 window.knowledgeOption=function(w,h){
@@ -1182,14 +1194,14 @@ window.knowledgeOption=function(w,h){
   {source:'K3 单智能体RL',target:'K4 MARL本体'},{source:'K3 单智能体RL',target:'K5 电力/市场概念'},{source:'K5 电力/市场概念',target:'K4 MARL本体'},
   {source:'K4 MARL本体',target:'K7 实验方法'},{source:'K7 实验方法',target:'K8 研究方法'}
  ];
- return {tooltip:{},legend:{bottom:6,itemWidth:12,itemHeight:12,textStyle:{fontSize:fs},data:cats.map(function(c){return c.name;})},
- series:[{type:'graph',layout:'none',roam:true,draggable:true,categories:cats,data:nodes,links:links,
+  return {tooltip:{},legend:{type:'scroll',bottom:4,itemWidth:12,itemHeight:12,textStyle:{fontSize:fs},data:cats.map(function(c){return c.name;})},
+  series:[{type:'graph',layout:'none',roam:'scale',draggable:false,categories:cats,data:nodes,links:links,
  edgeSymbol:['none','arrow'],edgeSymbolSize:8,
  label:{show:true,position:'bottom',distance:7,fontSize:fs,fontWeight:600,color:'#1a365d'},
  itemStyle:{borderColor:'#fff',borderWidth:2},lineStyle:{color:'#9fb4d0',width:1.6,curveness:0.08},
  emphasis:{focus:'adjacency',lineStyle:{width:2.6}}}]};
 };
-(function(){var el=document.getElementById('chart-knowledge');window.__knowC=mk('chart-knowledge',window.knowledgeOption(el.clientWidth-20,el.clientHeight-20));})();
+(function(){var b=box('chart-knowledge');window.__knowC=mk('chart-knowledge',window.knowledgeOption(b.w,b.h));responsive(window.__knowC,window.knowledgeOption);})();
 }
 </script>
 </body>
