@@ -36,6 +36,19 @@ sidebar: false
   </div>
 </a>
 
+<a class="note-card" href="https://app.notion.com/p/3e2bc0c0dcb981a5b33ec3b30a296cbf" target="_blank" rel="noopener noreferrer">
+  <div class="note-card-icon">⚡</div>
+  <div class="note-card-body">
+    <div class="note-card-meta">
+      <span class="note-card-tag">研究笔记</span>
+      <span class="note-card-external">Notion ↗</span>
+    </div>
+    <h3>虚拟电厂聚合入市 × MARL：中国市场应用前景深度调研</h3>
+    <p>聚焦 VPP 聚合入市这一中国最具落地性的方向，系统分析 MARL 与 VPP 调度/竞价结合的市场空间、技术架构、客户主体与商业模式。涵盖政策时间线、市场规模、VPP 运营商业务与报价方法痛点、三梯队客户画像、产品定位与四步落地路径。</p>
+    <span class="note-card-cta">打开笔记 →</span>
+  </div>
+</a>
+
 <style>
 .note-card {
   display: flex;
