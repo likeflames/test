@@ -97,6 +97,7 @@ export default defineConfig({
       { text: "分类与标签", link: "/categories" },
       { text: "文章清单", link: "/articleOverview" },
       { text: "PPT", link: "/ppt" },
+      { text: "笔记", link: "/notes" },
     ],
     socialLinks: [
       {
