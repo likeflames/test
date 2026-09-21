@@ -2,5 +2,19 @@
   "framework": "vitepress",
   "buildCommand": "rm -rf docs/.vitepress/cache docs/.vitepress/dist && TZ=Asia/Shanghai NODE_OPTIONS=\"--max-old-space-size=4096\" pnpm docs:build",
   "outputDirectory": "docs/.vitepress/dist",
-  "installCommand": "pnpm install"
+  "installCommand": "pnpm install",
+  "rewrites": [
+    { "source": "/archives", "destination": "/@pages/archivesPage.html" },
+    { "source": "/archives.html", "destination": "/@pages/archivesPage.html" },
+    { "source": "/categories", "destination": "/@pages/categoriesPage.html" },
+    { "source": "/categories.html", "destination": "/@pages/categoriesPage.html" },
+    { "source": "/articleOverview", "destination": "/@pages/articleOverviewPage.html" },
+    { "source": "/articleOverview.html", "destination": "/@pages/articleOverviewPage.html" },
+    { "source": "/ppt", "destination": "/@pages/ppt.html" },
+    { "source": "/ppt.html", "destination": "/@pages/ppt.html" },
+    { "source": "/notes", "destination": "/@pages/notes.html" },
+    { "source": "/notes.html", "destination": "/@pages/notes.html" },
+    { "source": "/login", "destination": "/@pages/loginPage.html" },
+    { "source": "/login.html", "destination": "/@pages/loginPage.html" }
+  ]
 }
