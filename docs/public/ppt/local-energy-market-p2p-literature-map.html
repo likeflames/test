@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>局部能源市场与P2P能源交易 · 文献阅读地图</title>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --card: #ffffff;
+    --text: #1c1917;
+    --muted: #78716c;
+    --border: #e7e5e4;
+    --accent: #0f766e;
+    --accent-light: #f0fdfa;
+    --tag-review: #dbeafe;
+    --tag-review-text: #1e40af;
+    --tag-mech: #fef3c7;
+    --tag-mech-text: #92400e;
+    --tag-frontier: #fce7f3;
+    --tag-frontier-text: #9d174d;
+    --tag-empirical: #dcfce7;
+    --tag-empirical-text: #166534;
+    --tag-tech: #f3e8ff;
+    --tag-tech-text: #6b21a8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0 16px 60px;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+  header {
+    text-align: center;
+    padding: 48px 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 36px;
+  }
+  header h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; }
+  header .subtitle { color: var(--muted); font-size: 0.95rem; }
+  header .meta { margin-top: 12px; font-size: 0.85rem; color: var(--muted); }
+  .route {
+    background: var(--accent-light);
+    border: 1px solid #99f6e4;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 40px;
+  }
+  .route h2 { font-size: 1.1rem; color: var(--accent); margin-bottom: 12px; }
+  .route ol { padding-left: 20px; }
+  .route li { margin-bottom: 6px; font-size: 0.95rem; }
+  .route li strong { color: var(--accent); }
+  section { margin-bottom: 44px; }
+  section h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  section h2 .count {
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: var(--accent);
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 20px;
+  }
+  .paper {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+    transition: box-shadow 0.2s;
+  }
+  .paper:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .paper-title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 4px;
+    line-height: 1.5;
+  }
+  .paper-meta {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .paper-meta .venue { font-style: italic; }
+  .paper-desc { font-size: 0.92rem; color: #44403c; margin-bottom: 8px; }
+  .paper-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+  .tag {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .tag-review { background: var(--tag-review); color: var(--tag-review-text); }
+  .tag-mech { background: var(--tag-mech); color: var(--tag-mech-text); }
+  .tag-frontier { background: var(--tag-frontier); color: var(--tag-frontier-text); }
+  .tag-empirical { background: var(--tag-empirical); color: var(--tag-empirical-text); }
+  .tag-tech { background: var(--tag-tech); color: var(--tag-tech-text); }
+  .paper-link {
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .paper-link:hover { text-decoration: underline; }
+  .notes {
+    background: #f5f5f4;
+    border-radius: 10px;
+    padding: 20px 24px;
+    font-size: 0.9rem;
+    color: #57534e;
+  }
+  .notes h3 { font-size: 1rem; margin-bottom: 10px; color: var(--text); }
+  .notes ol { padding-left: 20px; }
+  .notes li { margin-bottom: 6px; }
+  footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  @media (max-width: 640px) {
+    header h1 { font-size: 1.4rem; }
+    .paper { padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>局部能源市场与 P2P 能源交易 · 文献阅读地图</h1>
+  <div class="subtitle">Local Energy Market (LEM) &amp; Peer-to-Peer (P2P) Energy Trading</div>
+  <div class="meta">整理日期：2026-09-21 · 共 30 篇 · 代表性 + 最新（2024–2026）</div>
+</header>
+
+<div class="route">
+  <h2>阅读路线建议</h2>
+  <ol>
+    <li><strong>入门建图</strong>：先读「一、代表性综述」中的 2–3 篇（Zhou et al. 2020 → Sousa et al. 2023 → Tushar et al. 2020），搞清 LEM 是什么、P2P 三种组织模式、与批发市场的关系。</li>
+    <li><strong>深入机制</strong>：再读「二、经典机制设计与方法」——双向拍卖、统一价/Pay-as-Bid、Nash 议价、ADMM 分布式出清如何解决撮合—定价—结算—收益分配。</li>
+    <li><strong>看落地</strong>：「四、试点与实证研究」帮你判断真实世界做到哪一步（Brooklyn、Quartierstrom、英国试验等）。</li>
+    <li><strong>追前沿</strong>：「三、最新进展（2024–2026）」覆盖 AI/强化学习竞价、区块链链下计算、公平分配、EV/氢能耦合、CVaR 风险管理。</li>
+  </ol>
+</div>
+
+<section>
+  <h2>一、代表性综述 <span class="count">14 篇</span></h2>
+
+  <div class="paper">
+    <div class="paper-title">State-of-the-Art Analysis and Perspectives for Peer-to-Peer Energy Trading</div>
+    <div class="paper-meta">Zhou, Y., Wu, J., Long, C., Ming, W. (2020) · <span class="venue">Engineering</span> 6(7): 739–753</div>
+    <div class="paper-tags"><span class="tag tag-review">综述</span><span class="tag tag-review">高被引</span></div>
+    <div class="paper-desc">P2P 能源交易全球全景综述：市场设计、交易平台、物理与 ICT 基础设施、社会科学视角、政策五维梳理。</div>
+    <a class="paper-link" href="http://www.engineering.org.cn/engi/EN/PDF/10.1016/j.eng.2020.06.002" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Peer-to-peer and community-based markets: A comprehensive review</div>
+    <div class="paper-meta">Sousa, T., Soares, T., Pinson, P., Moret, F., Baroche, T., Sorin, E. (2023) · <span class="venue">Renewable and Sustainable Energy Reviews</span></div>
+    <div class="paper-tags"><span class="tag tag-review">综述</span></div>
+    <div class="paper-desc">P2P 与社区市场的动机、挑战、市场设计与发展路径，含测试算例，本方向引用最广的综述之一。</div>
+    <a class="paper-link" href="https://arxiv.org/pdf/1810.09859" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Peer-to-Peer Trading in Electricity Networks: An Overview</div>
+    <div class="paper-meta">Tushar, W., Saha, T.K., Yuen, C., Smith, D., Poor, H.V. (2020) · <span class="venue">IEEE Network</span></div>
+    <div class="paper-tags"><span class="tag tag-review">综述</span></div>
+    <div class="paper-desc">以「虚拟层（市场）+ 物理层（电网）」框架梳理 P2P 交易的技术挑战与对策。</div>
+    <a class="paper-link" href="https://arxiv.org/pdf/2001.06882" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Peer-to-Peer Energy Systems for Connected Communities: A Review of Recent Advances and Emerging Challenges</div>
+    <div class="paper-meta">Tushar, W., Yuen, C., Saha, T.K., Morstyn, T., et al. (2021) · <span class="venue">Applied Energy</span></div>
+    <div class="paper-tags"><span class="tag tag-review">综述</span></div>
+    <div class="paper-desc">互联社区 P2P 系统进展、领域分类与全球试点回顾，指出规模化落地挑战。</div>
+    <a class="paper-link" href="https://arxiv.org/pdf/2011.11118" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Market Mechanisms for Local Electricity Markets: A Review of Models, Solution Concepts and Algorithmic Techniques</div>
+    <div class="paper-meta">Tsaousoglou, G., Giraldo, J.S., Paterakis, N.G. (2022) · <span class="venue">Renewable and Sustainable Energy Reviews</span> 156: 111890</div>
+    <div class="paper-tags"><span class="tag tag-review">综述</span><span class="tag tag-mech">机制</span></div>
+    <div class="paper-desc">LEM 市场机制系统化综述：市场范围、建模假设、市场目标、市场机制四要素，并对文献分类。</div>
+    <a class="paper-link" href="https://pure.tue.nl/ws/portalfiles/portal/191769077/1_s2.0_S1364032121011576_main.pdf" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Peer-to-peer, community self-consumption, and transactive energy: A systematic literature review of local energy market models</div>
+    <div class="paper-meta">Capper, T., Gorbatcheva, A., Mustafa, M.A., et al. (2022) · <span class="venue">Renewable and Sustainable Energy Reviews</span></div>
+    <div class="paper-tags"><span class="tag tag-review">综述</span></div>
+    <div class="paper-desc">基于 139 篇期刊文献的系统综述，识别 P2P / 社区自消费 / 交易能源三种市场的六种设计原型与五个证据空白。</div>
+    <a class="paper-link" href="https://https-discovery-ucl-ac-uk-443.webvpn.ynu.edu.cn/id/eprint/10155511/1/Gorbatcheva_1-s2.0-S1364032122003112-main.pdf" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Defining characteristics of peer-to-peer energy trading, transactive energy, and community self-consumption: A review of literature and expert perspectives</div>
+    <div class="paper-meta">Gorbatcheva, A., Watson, N., Schneiders, A., Shipworth, D., Fell, M.J. (2024) · <span class="venue">Renewable and Sustainable Energy Reviews</span></div>
+    <div class="paper-tags"><span class="tag tag-review">综述</span><span class="tag tag-frontier">最新</span></div>
+    <div class="paper-desc">133 篇文献 + 13 国专家访谈，界定 P2P / 交易能源 / 社区自消费三类模式的异同。</div>
+    <a class="paper-link" href="https://ideas.repec.org/a/eee/rensus/v202y2024ics1364032124003988.html" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Market framework for local energy trading: A review of potential designs and market clearing approaches</div>
+    <div class="paper-meta">Khorasany, M., Mishra, Y., Ledwich, G. (2018) · <span class="venue">IET Generation, Transmission &amp; Distribution</span> 12(22): 5899–5908</div>
+    <div class="paper-tags"><span class="tag tag-review">综述</span></div>
+    <div class="paper-desc">本地能源交易市场框架综述：市场参与者、出清目标与清算方式的分类。</div>
+    <a class="paper-link" href="https://digital-library.theiet.org/content/journals/10.1049/iet-gtd.2018.5309" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Impact of local energy markets integration in power systems layer: A comprehensive review</div>
+    <div class="paper-meta">Dudjak, V., Neves, D., Alskaif, T., et al. (2021) · <span class="venue">Applied Energy</span></div>
+    <div class="paper-tags"><span class="tag tag-review">综述</span></div>
+    <div class="paper-desc">LEM 并网影响综述：网络约束内化方法、网损与网络费分摊，指出「金融交易 ≠ 物理潮流」问题。</div>
+    <a class="paper-link" href="https://pdfs.semanticscholar.org/a128/13ee49eebdab3dd2a5ac1488e497dfd69be1.pdf" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Developments and Challenges in Local Electricity Markets: A Comprehensive Review</div>
+    <div class="paper-meta">Bjarghov, S., Löschenbrand, M., Ibn Saif, A.U.N., et al. (2021) · <span class="venue">IEEE Access</span></div>
+    <div class="paper-tags"><span class="tag tag-review">综述</span></div>
+    <div class="paper-desc">LEM 理论模型与欧洲项目实践对照，梳理分布式发电、需求响应、市场去中心化与法律社会议题。</div>
+    <a class="paper-link" href="https://ntnuopen.ntnu.no/ntnu-xmlui/bitstream/handle/11250/2780629/Bjarghov+et+al+-+Developments+and+Challenges+in+Local+Electricity+Markets.pdf" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Reviewing the peer-to-peer transactive energy market: Trading environment, optimization methodology, and relevant resources</div>
+    <div class="paper-meta">Xia, Y., Xu, Q., Li, S., Tang, R., Du, P. (2023) · <span class="venue">Journal of Cleaner Production</span></div>
+    <div class="paper-tags"><span class="tag tag-review">综述</span></div>
+    <div class="paper-desc">回顾 180 篇论文，分类合作/非合作博弈模型与集中/分布式优化算法，含区块链与深度强化学习方向。</div>
+    <a class="paper-link" href="https://www.sciencedirect.com/science/article/abs/pii/S0959652622050156" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Reviewing global peer-to-peer distributed renewable energy trading projects</div>
+    <div class="paper-meta">Gunarathna, C.L., Yang, R.J., Jayasuriya, S., Wang, K. (2022) · <span class="venue">Energy Research &amp; Social Science</span></div>
+    <div class="paper-tags"><span class="tag tag-review">综述</span><span class="tag tag-empirical">实证</span></div>
+    <div class="paper-desc">系统回顾全球 50 个 P2P 分布式可再生能源交易项目的商业模式与落地障碍。</div>
+    <a class="paper-link" href="https://www.sciencedirect.com/science/article/abs/pii/S2214629622001591" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">The Emergence of Consumer-centric Electricity Markets</div>
+    <div class="paper-meta">Pinson, P., Baroche, T., Moret, F., Sousa, T., Sorin, E., You, S. (2017)</div>
+    <div class="paper-tags"><span class="tag tag-review">综述</span><span class="tag tag-mech">奠基</span></div>
+    <div class="paper-desc">以用户为中心的电力市场概念奠基文，提出去中心化市场是未来电力市场的重要组成。</div>
+    <a class="paper-link" href="http://pierrepinson.com/wp-content/uploads/2020/12/pinsonetal17consumercentric.pdf" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Peer-to-peer energy sharing and trading of renewable energy in smart communities — trading pricing models, decision-making and agent-based collaboration</div>
+    <div class="paper-meta">Zhou, Y., Lund, P.D. (2023) · <span class="venue">Renewable Energy</span></div>
+    <div class="paper-tags"><span class="tag tag-review">综述</span></div>
+    <div class="paper-desc">覆盖内部交易定价、公平分配、多方协同与 P2P 平台建模工具，强调区块链与智能合约提升自动化。</div>
+    <a class="paper-link" href="https://www.sciencedirect.com/science/article/abs/pii/S096014812300277X" target="_blank">原文链接 →</a>
+  </div>
+</section>
+
+<section>
+  <h2>二、经典机制设计与方法 <span class="count">8 篇</span></h2>
+
+  <div class="paper">
+    <div class="paper-title">Designing microgrid energy markets: A case study: The Brooklyn Microgrid</div>
+    <div class="paper-meta">Mengelkamp, E., Gärttner, J., Rock, K., Kessler, S., Orsini, L., Weinhardt, C. (2018) · <span class="venue">Applied Energy</span>（被引 640+）</div>
+    <div class="paper-tags"><span class="tag tag-mech">机制</span><span class="tag tag-mech">奠基</span></div>
+    <div class="paper-desc">提出微网能源市场 7 项设计组件并以 Brooklyn 微网评估，LEM 最经典定义来源之一。</div>
+    <a class="paper-link" href="https://www.semanticscholar.org/paper/Designing-microgrid-energy-markets-A-case-study:-Mengelkamp-G%C3%A4rttner/392fe6f21d9b735c719a742ed987702b893824dd" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Exogenous Cost Allocation in Peer-to-Peer Electricity Markets</div>
+    <div class="paper-meta">Baroche, T., Pinson, P., Le Goff Latimier, R., Ben Ahmed, H. (2019) · <span class="venue">IEEE Transactions on Power Systems</span></div>
+    <div class="paper-tags"><span class="tag tag-mech">机制</span></div>
+    <div class="paper-desc">P2P 市场外生网络费用分摊的三种方案（统一、电气距离、分区），影响交易与电网使用。</div>
+    <a class="paper-link" href="https://hal.science/hal-01964190/file/Exogenous_P2P_Baroche.pdf" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Peer-to-Peer Electricity Market Analysis: From Variational to Generalized Nash Equilibrium</div>
+    <div class="paper-meta">Le Cadre, H., Jacquot, P., Wan, C., Alasseur, C. (2019) · <span class="venue">European Journal of Operational Research</span></div>
+    <div class="paper-tags"><span class="tag tag-mech">机制</span></div>
+    <div class="paper-desc">证明 P2P 市场变分均衡与社会福利最优解集合一致，分析偏好对线路拥塞与弃电的影响。</div>
+    <a class="paper-link" href="https://arxiv.org/pdf/1812.02301" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">A comparison study on trading behavior and profit distribution in local energy transaction games</div>
+    <div class="paper-meta">Chen, Y., Park, B., Kou, X., et al. (2021) · <span class="venue">Applied Energy</span></div>
+    <div class="paper-tags"><span class="tag tag-mech">机制</span></div>
+    <div class="paper-desc">对比合作博弈（Shapley/议价）与非合作博弈（Stackelberg）的交易行为与收益分配，发现统一价格结构兼顾社会福利与公平。</div>
+    <a class="paper-link" href="https://sci.bban.top/pdf/10.1016/j.apenergy.2020.115941.pdf" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Incentivizing distributed energy trading among prosumers: A general Nash bargaining approach</div>
+    <div class="paper-meta">Li, G., Li, Q., Song, W., Wang, L. (2021) · <span class="venue">International Journal of Electrical Power &amp; Energy Systems</span></div>
+    <div class="paper-tags"><span class="tag tag-mech">机制</span></div>
+    <div class="paper-desc">一般化纳什议价激励产消者按贡献参与交易，以上海实际数据验证公平分配。</div>
+    <a class="paper-link" href="https://www.sciencedirect.com/science/article/pii/S0142061521003392" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Mechanism design for decentralized peer-to-peer energy trading considering heterogeneous preferences</div>
+    <div class="paper-meta">Talari, S., Khorasany, M., Razzaghi, R., Ketter, W., Shokri Gazafroudi, A. (2022) · <span class="venue">Sustainable Cities and Society</span></div>
+    <div class="paper-tags"><span class="tag tag-mech">机制</span></div>
+    <div class="paper-desc">完全去中心化机制设计，纳入绿能意愿、交易方信誉与网络位置偏好，满足预算平衡、个体理性与贝叶斯-纳什激励相容。</div>
+    <a class="paper-link" href="https://www.sciencedirect.com/science/article/abs/pii/S2210670722004954" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Peer-to-Peer Energy Trading under Network Constraints Based on Generalized Fast Dual Ascent</div>
+    <div class="paper-meta">Feng, C., Liang, B., Li, Z., Liu, W., Wen, F. (2022) · <span class="venue">IEEE Transactions on Smart Grid</span></div>
+    <div class="paper-tags"><span class="tag tag-mech">机制</span></div>
+    <div class="paper-desc">事件驱动本地 P2P 市场 + 电压/网损灵敏度内化网络约束 + 广义快速对偶上升分布式出清。</div>
+    <a class="paper-link" href="https://www.osti.gov/pages/servlets/purl/1865323" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Distributed Peer-to-Peer Electricity Trading Considering Network Loss in a Distribution System</div>
+    <div class="paper-meta">Zhang, J., Hu, C., Zheng, C., et al. (2020) · <span class="venue">Energies</span></div>
+    <div class="paper-tags"><span class="tag tag-mech">机制</span></div>
+    <div class="paper-desc">纳什议价 + ADMM 求解聚合商与微网运营商间计及网损的分布式 P2P 交易。</div>
+    <a class="paper-link" href="https://pdfs.semanticscholar.org/a9de/e6b7d1a5cef27e1c32ee17b78e0d16885279.pdf" target="_blank">原文链接 →</a>
+  </div>
+</section>
+
+<section>
+  <h2>三、最新进展（2024–2026） <span class="count">9 篇</span></h2>
+
+  <div class="paper">
+    <div class="paper-title">Distributionally Fair Peer-to-Peer Electricity Trading</div>
+    <div class="paper-meta">Ruiz Irusta, E., Morales, J.M. (2025) · arXiv:2501.09713</div>
+    <div class="paper-tags"><span class="tag tag-frontier">前沿</span><span class="tag tag-frontier">2025</span></div>
+    <div class="paper-desc">按能源贫困程度分组，以 Wasserstein 距离最小化交易分布差异，最多消除 70.1% 的不公平。</div>
+    <a class="paper-link" href="https://arxiv.org/pdf/2501.09713" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Demand Response-based Multi-Layer Peer-to-Peer Energy Trading Strategy for Renewable-powered Microgrids with Electric Vehicles</div>
+    <div class="paper-meta">Sepehrzad, R., Langeroudi, A.S.G., Al-Durra, A., Anvari-Moghaddam, A., Sadabadi, M.S. (2025) · <span class="venue">Energy</span></div>
+    <div class="paper-tags"><span class="tag tag-frontier">前沿</span><span class="tag tag-frontier">2025</span></div>
+    <div class="paper-desc">两阶段日前 P2P 定价与功率交换，MMR 定价 + EV 随机场景，运行成本降 21.7%。</div>
+    <a class="paper-link" href="https://vbn.aau.dk/ws/portalfiles/portal/768290509/Revised_Manuscript.pdf" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Peer-to-Peer Energy Trading in a Local Energy Market Using Quantum Reinforcement Learning</div>
+    <div class="paper-meta">Moniruzzaman, M., Sultana, A., Kaddoum, G. (2025) · IEEE SNPD 2025</div>
+    <div class="paper-tags"><span class="tag tag-frontier">前沿</span><span class="tag tag-frontier">2025</span><span class="tag tag-tech">AI</span></div>
+    <div class="paper-desc">量子强化学习（QRL）优化本地 P2P 交易成本，收敛快于经典 RL 与线性优化。</div>
+    <a class="paper-link" href="https://www.semanticscholar.org/paper/Peer-to-Peer-Energy-Trading-in-a-Local-Energy-Using-Moniruzzaman-Sultana/63ff37eac240ab2dfd93a38891b755b8df830260" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">A CVaR-Based Peer-to-Peer Energy Trading Model for Local Energy Communities with Electric Vehicles and Hydrogen Systems</div>
+    <div class="paper-meta">Mokaramian, E., Siano, P., et al. (2025) · IEEE EEEIC / I&amp;CPS Europe 2025</div>
+    <div class="paper-tags"><span class="tag tag-frontier">前沿</span><span class="tag tag-frontier">2025</span></div>
+    <div class="paper-desc">CVaR 风险管理 + P2P，EV 与氢系统耦合，进一步降低电网依赖与碳排放。</div>
+    <a class="paper-link" href="https://www.semanticscholar.org/paper/A-CVaR-Based-Peer-to-Peer-Energy-Trading-Model-for-Mokaramian-Siano/883fdf9e8437ce9475a7f6713cc93b0a3176e85c" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Enhancing Digital Autonomy in Peer-to-Peer Energy Trading: A Blockchain and Predictive Analytics Approach</div>
+    <div class="paper-meta">Shorya, R., Jagwani, P. (2025) · <span class="venue">Procedia Computer Science</span></div>
+    <div class="paper-tags"><span class="tag tag-frontier">前沿</span><span class="tag tag-frontier">2025</span><span class="tag tag-tech">区块链</span></div>
+    <div class="paper-desc">区块链 + LSTM/GRU 负荷与发电预测，用户自主设定交易偏好，保障数字自治。</div>
+    <a class="paper-link" href="https://dl.acm.org/doi/abs/10.1016/j.procs.2025.02.082" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">MuLCOff: A Multi-Layer Consensus and Off-Chain Computation for Efficient and Privacy-Aware Blockchain-Based Peer-to-Peer Energy Trading</div>
+    <div class="paper-meta">Abdella, J.A., Tari, Z., Sohrabi, N., Mahmud, R. (2024) · <span class="venue">IEEE Network</span></div>
+    <div class="paper-tags"><span class="tag tag-tech">技术</span><span class="tag tag-tech">区块链</span><span class="tag tag-frontier">2024</span></div>
+    <div class="paper-desc">多层共识 + 链下计算，吞吐提升 87%，延迟降低 75–124 倍，隐私感知的区块链 P2P 交易。</div>
+    <a class="paper-link" href="https://ieeexplore.ieee.org/document/10410034" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">A blockchain-based optimal peer-to-peer energy trading framework for decentralized energy management within a virtual power plant</div>
+    <div class="paper-meta">Alam, K.S., Kaif, A.M.A.D., Das, S.K. (2024) · <span class="venue">Applied Energy</span></div>
+    <div class="paper-tags"><span class="tag tag-tech">技术</span><span class="tag tag-tech">区块链</span><span class="tag tag-frontier">2024</span></div>
+    <div class="paper-desc">VPP 内多层区块链 P2P 交易框架：MILP 优化 + 分布式平台实现，协调储能充放电。</div>
+    <a class="paper-link" href="https://scispace.com/pdf/a-blockchainbased-optimal-peertopeer-energy-trading-2by9g9hoxz.pdf" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">BPET: A Unified Blockchain-Based Framework for Peer-to-Peer Energy Trading</div>
+    <div class="paper-meta">Fan, C., Khazaei, H., Musilek, P. (2024) · <span class="venue">Future Internet</span> 16(5): 162</div>
+    <div class="paper-tags"><span class="tag tag-tech">技术</span><span class="tag tag-tech">区块链</span><span class="tag tag-frontier">2024</span></div>
+    <div class="paper-desc">市场无关的模块化区块链 P2P 交易框架，支持插件式市场规则，阿尔伯塔真实数据验证。</div>
+    <a class="paper-link" href="https://www.mdpi.com/1999-5903/16/5/162/pdf?version=1715081136" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Design of a Prosumer-Centric Local Energy Market: An Approach Based on Prospect Theory</div>
+    <div class="paper-meta">Andriopoulos, N., Plakas, K., Birbas, A., Papalexopoulos, A. (2024) · <span class="venue">IEEE Access</span></div>
+    <div class="paper-tags"><span class="tag tag-frontier">前沿</span><span class="tag tag-frontier">2024</span></div>
+    <div class="paper-desc">行为经济学前景理论驱动 LEM 设计，合作博弈 + Shapley 值变体分配，真实低压网验证。</div>
+    <a class="paper-link" href="https://ieeexplore.ieee.org/document/10445259" target="_blank">原文链接 →</a>
+  </div>
+</section>
+
+<section>
+  <h2>四、试点与实证研究 <span class="count">4 篇</span></h2>
+
+  <div class="paper">
+    <div class="paper-title">Peer-to-Peer Energy Trading in the Real World: Market Design and Evaluation of the User Value Proposition</div>
+    <div class="paper-meta">Wörner, A., Ableitner, L., Meeuw, A., Wortmann, F., Tiefenbeck, V. (2019) · ICIS 2019</div>
+    <div class="paper-tags"><span class="tag tag-empirical">实证</span></div>
+    <div class="paper-desc">瑞士首个真实世界 P2P 电力市场（Quartierstrom）的田野实验，评估用户价值主张与偏好。</div>
+    <a class="paper-link" href="https://core.ac.uk/download/301383768.pdf" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Modelling the formation of peer-to-peer trading coalitions and prosumer participation incentives in transactive energy communities</div>
+    <div class="paper-meta">Zhang, Y., Robu, V., Cremers, S., et al. (2022) · <span class="venue">Applied Energy</span></div>
+    <div class="paper-tags"><span class="tag tag-empirical">实证</span></div>
+    <div class="paper-desc">基于英国 Low Carbon London 与 Thames Valley Vision 两大试验数据，量化 P2P 联盟收益递减规律与参与激励。</div>
+    <a class="paper-link" href="https://core.ac.uk/download/597000914.pdf" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Local energy markets — an IT-architecture design</div>
+    <div class="paper-meta">Richter, B., Golla, A., Welle, K., Staudt, P., Weinhardt, C. (2021) · <span class="venue">Energy Informatics</span></div>
+    <div class="paper-tags"><span class="tag tag-empirical">实证</span><span class="tag tag-tech">技术</span></div>
+    <div class="paper-desc">LEM 的 IT 架构蓝图与真实落地实现，可作平台搭建参考。</div>
+    <a class="paper-link" href="https://link.springer.com/content/pdf/10.1186/s42162-021-00164-6.pdf" target="_blank">原文链接 →</a>
+  </div>
+
+  <div class="paper">
+    <div class="paper-title">Pricing and Simulating Energy Transactions in Energy Communities</div>
+    <div class="paper-meta">Mello, J., De Lorenzo, C., Campos, F.A., Villar, J. (2023) · <span class="venue">Energies</span> 16(4): 1949</div>
+    <div class="paper-tags"><span class="tag tag-review">综述</span><span class="tag tag-empirical">实证</span></div>
+    <div class="paper-desc">本地电力市场定价机制（MMR、SDR、统一价等）与模拟方法实用指南。</div>
+    <a class="paper-link" href="https://www.mdpi.com/1996-1073/16/4/1949/pdf?version=1677137645" target="_blank">原文链接 →</a>
+  </div>
+</section>
+
+<section>
+  <div class="notes">
+    <h3>使用说明</h3>
+    <ol>
+      <li>每条论文的「原文链接」来自学术检索返回的可访问地址；如失效，请按标题在 Google Scholar / IEEE Xplore / ScienceDirect 检索。</li>
+      <li>期刊卷期、被引数以出版方页面为准；标注「被引 640+」等仅作参考量级。</li>
+      <li>标签含义：<span class="tag tag-review">综述</span> 领域全景梳理 · <span class="tag tag-mech">机制</span> 市场出清与定价方法 · <span class="tag tag-frontier">前沿</span> 2024–2026 最新进展 · <span class="tag tag-empirical">实证</span> 真实试点与数据 · <span class="tag tag-tech">技术</span> 区块链/AI/平台实现。</li>
+      <li>本页为入门导航清单，不构成投资或法律建议。</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  局部能源市场与 P2P 能源交易 · 文献阅读地图 · 2026-09-21
+</footer>
+
+</div>
+</body>
+</html>
