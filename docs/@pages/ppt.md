@@ -44,6 +44,15 @@ sidebar: false
   </div>
 </div>
 
+<div class="ppt-card" onclick="location.href='/ppt/local-energy-market-p2p-literature-map.html'" style="margin-top:12px">
+  <div class="ppt-card-icon">🔋</div>
+  <div class="ppt-card-body">
+    <h3>局部能源市场与 P2P 能源交易 · 文献阅读地图</h3>
+    <p>30 篇代表性 + 最新论文（2024–2026），含阅读路线、机制设计、前沿进展与试点实证。</p>
+    <span class="ppt-card-link">打开 →</span>
+  </div>
+</div>
+
 <div class="ppt-card" onclick="location.href='/ppt/advanced.html'" style="margin-top:12px">
   <div class="ppt-card-icon">🚀</div>
   <div class="ppt-card-body">
