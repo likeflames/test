@@ -23,6 +23,19 @@ sidebar: false
   </div>
 </a>
 
+<a class="note-card" href="https://perpetual-canid-a04.notion.site/3e2bc0c0dcb981dcbbacf664c48a8380" target="_blank" rel="noopener noreferrer">
+  <div class="note-card-icon">🏆</div>
+  <div class="note-card-body">
+    <div class="note-card-meta">
+      <span class="note-card-tag">研究笔记</span>
+      <span class="note-card-external">Notion ↗</span>
+    </div>
+    <h3>全国大学生节能减排竞赛：历届特等奖获奖作品与获奖规律研究</h3>
+    <p>梳理 2008–2026 年历届全国特等奖代表作品，从选题方向、学校格局、作品形式与评审维度归纳获奖规律，附备赛启示与信息来源。</p>
+    <span class="note-card-cta">打开笔记 →</span>
+  </div>
+</a>
+
 <style>
 .note-card {
   display: flex;
