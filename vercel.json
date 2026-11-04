@@ -15,6 +15,10 @@
     { "source": "/notes", "destination": "/@pages/notes.html" },
     { "source": "/notes.html", "destination": "/@pages/notes.html" },
     { "source": "/login", "destination": "/@pages/loginPage.html" },
-    { "source": "/login.html", "destination": "/@pages/loginPage.html" }
+    { "source": "/login.html", "destination": "/@pages/loginPage.html" },
+    {
+      "source": "/api/sources/:provider/callback",
+      "destination": "/api/sources/:provider/callback.html"
+    }
   ]
 }
