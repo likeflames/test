@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy Policy — AI Running Coach</title>
+<style>
+:root{--fg:#1d1d1f;--fg2:#6e6e73;--bg:#fff;--line:#e5e5ea;--accent:#0071e3}
+@media (prefers-color-scheme:dark){:root{--fg:#f5f5f7;--fg2:#a1a1a6;--bg:#000;--line:#2c2c2e}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.7 -apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;
+max-width:720px;margin:0 auto;padding:56px 24px 96px;-webkit-font-smoothing:antialiased}
+h1{font-size:32px;font-weight:700;letter-spacing:-.5px;margin-bottom:8px}
+.updated{color:var(--fg2);font-size:14px;margin-bottom:40px}
+h2{font-size:19px;font-weight:600;margin:36px 0 12px;letter-spacing:-.2px}
+p,li{color:var(--fg);margin-bottom:10px}
+ul{padding-left:22px;margin-bottom:14px}
+li{margin-bottom:6px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.note{color:var(--fg2);font-size:14px;border-left:3px solid var(--line);padding-left:14px;margin:16px 0}
+strong{font-weight:600}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+footer{color:var(--fg2);font-size:13px;margin-top:48px}
+</style>
+</head>
+<body>
+
+<h1>Privacy Policy</h1>
+<p class="updated">AI Running Coach · Last updated: November 4, 2026</p>
+
+<h2>1. Who operates this application</h2>
+<p>AI Running Coach is a <strong>personal, non-commercial project</strong> operated by an individual developer. It is not a company, not a commercial service, and is not offered for sale.</p>
+<p>Contact for all privacy matters: <a href="mailto:iamwujianhua@163.com">iamwujianhua@163.com</a></p>
+
+<h2>2. What data is collected</h2>
+<p>Data is accessed <strong>only after you explicitly authorize it through OAuth</strong>, and only for the scopes you approve:</p>
+<ul>
+<li><strong>Oura Ring</strong> — sleep score, sleep duration, readiness score, night HRV, lowest and average heart rate, body temperature deviation, workouts</li>
+<li><strong>Garmin</strong> — recovery metrics (Body Battery, stress, resting heart rate), activities, GPS tracks</li>
+<li><strong>Strava</strong> — activities, distance, pace, heart rate, cadence, elevation</li>
+<li><strong>Your own inputs</strong> — training check-ins, shoes, notes</li>
+</ul>
+<p class="note">No account password is stored for OAuth sources. Access and refresh tokens are encrypted at rest using Fernet symmetric encryption.</p>
+
+<h2>3. How the data is used</h2>
+<p>Data is used for exactly one purpose: <strong>generating personalized training and recovery recommendations that are displayed to you</strong>.</p>
+<p>This includes computing training load (CTL / ATL / TSB), acute-to-chronic workload ratio, weekly summaries, and pacing guidance.</p>
+
+<h2>4. Where data is stored</h2>
+<p>All data is stored in a <strong>self-hosted SQLite database on a private server controlled by the operator</strong>. There is no cloud data warehouse, no analytics platform, and no advertising SDK.</p>
+<p>The server is protected by an access token; all API requests require it.</p>
+
+<h2>5. Sharing with third parties</h2>
+<p>To generate coaching text, <strong>a summary of your recent training and recovery data is sent to a large language model provider</strong>. The provider is chosen by you in the app settings and may be DeepSeek, OpenAI, or Doubao (Volcengine).</p>
+<p>What is sent: recent recovery values, recent activity summaries, and your question. What is <strong>not</strong> sent: your name, email, OAuth tokens, GPS coordinates, or raw time-series samples.</p>
+<p>We do <strong>not</strong> sell, rent, license, or share your data for advertising or marketing purposes. We do not disclose data to any other third party.</p>
+
+<h2>6. How long data is kept</h2>
+<p>Data is retained for as long as the data source remains connected, so that long-term trends can be computed. You may delete it at any time — see below.</p>
+
+<h2>7. Your rights and controls</h2>
+<ul>
+<li><strong>Disconnect</strong> — in the app, open <em>Data Sources</em> and tap <em>Disconnect</em> on any source. This revokes further collection immediately.</li>
+<li><strong>Delete</strong> — email the address above to have all stored data erased. Requests are honored within 30 days.</li>
+<li><strong>Revoke at the provider</strong> — you can also revoke this app's access from your Oura account settings at any time.</li>
+<li><strong>Export</strong> — you may request a copy of your stored data by email.</li>
+</ul>
+
+<h2>8. Security</h2>
+<p>OAuth tokens and API keys are encrypted at rest. The server requires a shared access token for all API calls. Transport uses HTTPS for OAuth callbacks and TLS where supported.</p>
+<p class="note">This is a single-user personal project, not an audited enterprise system. No security guarantee is made beyond reasonable care.</p>
+
+<h2>9. Children</h2>
+<p>This application is not directed at anyone under 16 and does not knowingly collect data from children.</p>
+
+<h2>10. Changes to this policy</h2>
+<p>This policy may be updated as the application changes. The date at the top reflects the most recent revision.</p>
+
+<hr>
+<footer>
+AI Running Coach · Personal project · <a href="/terms.html">Terms of Service</a>
+</footer>
+
+</body>
+</html>
